@@ -21,55 +21,50 @@ class FileAttachmentWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: SizedBox(
         width: SizesResources.mainWidth(context),
-        child: Container(
-          decoration: DecorationResources.tileDecoration(
-            theme: Theme.of(context),
-          ),
-          child: DottedBorder(
-            color: Theme.of(context).colorScheme.outline,
-            strokeWidth: 3,
-            borderType: BorderType.RRect,
-            radius: const Radius.circular(10),
-            dashPattern: const [8, 8],
-            child: SizedBox(
-              width: double.infinity,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(height: SpacesResources.s20),
-                  Text(
-                    filePath?.split("/").last ?? "لم يتم اختيار ملف",
+        child: DottedBorder(
+          color: Theme.of(context).colorScheme.outline,
+          strokeWidth: 3,
+          borderType: BorderType.RRect,
+          radius: const Radius.circular(10),
+          dashPattern: const [8, 8],
+          child: SizedBox(
+            width: double.infinity,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: SpacesResources.s20),
+                Text(
+                  filePath?.split("/").last ?? "لم يتم اختيار ملف",
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                //
+                const SizedBox(height: SpacesResources.s2),
+                //
+                TextButton(
+                  onPressed: () async {
+                    final result = await FilePicker.platform.pickFiles(
+                      allowMultiple: false,
+                      type: FileType.custom,
+                      allowedExtensions: ['pdf'],
+                    );
+                    if (result != null) {
+                      afterPick(file: result.files.first);
+                    }
+                  },
+                  child: Text(
+                    filePath != null ? 'ملف جديد' : "اختيار ملف",
                     style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  //
-                  const SizedBox(height: SpacesResources.s2),
-                  //
-                  TextButton(
-                    onPressed: () async {
-                      final result = await FilePicker.platform.pickFiles(
-                        allowMultiple: false,
-                        type: FileType.custom,
-                        allowedExtensions: ['pdf'],
-                      );
-                      if (result != null) {
-                        afterPick(file: result.files.first);
-                      }
-                    },
-                    child: Text(
-                      filePath != null ? 'ملف جديد' : "اختيار ملف",
-                      style: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                      ),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
-                  const SizedBox(height: SpacesResources.s8),
-                ],
-              ),
+                ),
+                const SizedBox(height: SpacesResources.s8),
+              ],
             ),
           ),
         ),

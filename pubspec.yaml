@@ -3,7 +3,7 @@ description: "A new Flutter project."
 publish_to: 'none' 
 
 
-version: 1.0.0+1007
+version: 1.0.0+1010
 
 environment:
   sdk: '>=3.3.4 <4.0.0'
@@ -34,6 +34,7 @@ dependencies:
   syncfusion_flutter_pdfviewer: ^27.1.53
   connectivity_plus: ^6.0.5
   rxdart: ^0.28.0
+  webview_flutter: ^4.10.0
   flutter_local_notifications: ^17.2.2
   timezone: ^0.9.4
   permission_handler: ^11.3.1
@@ -44,6 +45,7 @@ dependencies:
   hive_flutter: ^1.1.0
   skeletonizer: ^1.4.2
   logger: ^2.4.0
+  flutter_staggered_animations: ^1.1.1
 
 
 dev_dependencies:
@@ -110,6 +112,7 @@ flutter:
           weight: 200
         - asset: assets/fonts/NotoSansArabic/NotoSansArabic-Thin.ttf
           weight: 100
+          
     - family: Vazirmatn
       fonts:
         - asset: assets/fonts/Vazirmatn/Vazirmatn-Black.ttf

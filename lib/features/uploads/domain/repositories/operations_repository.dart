@@ -12,14 +12,18 @@ abstract class OperationsRepository {
   Future<Either<Failure, List<UploadOperation>>> getAllOperations();
 
   /// add operation
-  Future<Either<Failure, Unit>> addOperation({required UploadOperation operation});
+  Future<Either<Failure, List<UploadOperation>>> addOperation({required UploadOperation operation});
+
+  /// add operations
+  Future<Either<Failure, List<UploadOperation>>> addOperations({required List<UploadOperation> operations});
 
   /// update operation
-  Future<Either<Failure, Unit>> updateOperation({required UploadOperation operation});
+  Future<Either<Failure, List<UploadOperation>>> updateOperation({required UploadOperation operation});
 
   /// update all operations state
-  Future<Either<Failure, Unit>> updateAllOperationsState({required OperationState state});
+  Future<Either<Failure, List<UploadOperation>>> updateAllOperationsState({required OperationState state});
 
   /// delete operation
-  Future<Either<Failure, Unit>> deleteOperations({required int operationId});
+  Future<Either<Failure, List<UploadOperation>>> deleteOperations({required int operationId});
+  Future<Either<Failure, List<UploadOperation>>> deleteAllOperations();
 }

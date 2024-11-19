@@ -4,6 +4,7 @@ import 'package:bac_files_admin/core/resources/styles/padding_resources.dart';
 import 'package:bac_files_admin/core/resources/themes/extensions/surface_container_colors.dart';
 import 'package:flutter/material.dart';
 
+import '../styles/font_styles_manager.dart';
 import '../styles/sizes_resources.dart';
 import 'extensions/success_colors.dart';
 
@@ -11,14 +12,16 @@ class AppLightTheme {
   ///
   static ThemeData theme() {
     return ThemeData(
-      fontFamily: "Vazirmatn",
+      fontFamily: AppFontStyles.fontFamily,
       colorScheme: const ColorScheme(
         brightness: Brightness.light,
         primary: ColorsResourcesLight.primary,
+        primaryContainer: ColorsResourcesLight.primaryContainer,
         onPrimary: ColorsResourcesLight.onPrimary,
         secondary: ColorsResourcesLight.primary,
         onSecondary: ColorsResourcesLight.primary,
         error: ColorsResourcesLight.error,
+        errorContainer: ColorsResourcesLight.errorContainer,
         onError: ColorsResourcesLight.onError,
         //
         surface: ColorsResourcesLight.surface,
@@ -49,6 +52,12 @@ class AppLightTheme {
           color: ColorsResourcesLight.onSurfaceVariant,
           opticalSize: 1,
         ),
+      ),
+
+      ///
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: ColorsResourcesLight.primary,
+        foregroundColor: Colors.white,
       ),
 
       ///
@@ -100,10 +109,11 @@ class AppLightTheme {
           disabledBackgroundColor: ColorsResourcesLight.onSurfaceVariant,
           shadowColor: Colors.transparent,
           backgroundColor: ColorsResourcesLight.primary,
-          foregroundColor: ColorsResourcesLight.onPrimary,
+          foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadiusResource.buttonBorderRadius,
           ),
+          textStyle: FontStylesResources.buttonStyle,
         ),
       ),
 

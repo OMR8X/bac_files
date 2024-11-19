@@ -2,9 +2,10 @@ import 'package:bac_files_admin/core/services/api/responses/api_response.dart';
 import 'package:bac_files_admin/features/managers/data/converters/managers_base_converter.dart';
 
 class SelectEntitiesResponse<Entity> {
+  final int? lastPage;
   final List<Entity> entities;
 
-  SelectEntitiesResponse({required this.entities});
+  SelectEntitiesResponse({required this.entities, required this.lastPage});
 
   //
   factory SelectEntitiesResponse.fromApiResponse({
@@ -12,6 +13,7 @@ class SelectEntitiesResponse<Entity> {
     required ManagersBaseConverter<Entity> converter,
   }) {
     return SelectEntitiesResponse(
+      lastPage: response.lastPage,
       entities: List<Entity>.from((response.data).map((item) => converter.fromJson(item))),
     );
   }

@@ -15,6 +15,7 @@ class PagesHolderView extends StatefulWidget {
 class _PagesHolderViewState extends State<PagesHolderView> {
   void _changePage(int pageIndex) {
     widget.navigationShell.goBranch(pageIndex);
+    FocusManager.instance.primaryFocus?.unfocus();
   }
 
   @override

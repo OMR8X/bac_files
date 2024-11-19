@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:bac_files_admin/features/files/domain/entities/bac_file.dart';
+import 'package:bac_files_admin/features/uploads/domain/entities/operation_state.dart';
 import 'package:bac_files_admin/features/uploads/domain/entities/upload_operation.dart';
 import 'package:bac_files_admin/features/uploads/domain/usecases/operations/get_operations_usecase.dart';
 import 'package:bac_files_admin/features/uploads/domain/usecases/operations/update_operation_usecase.dart';
@@ -60,7 +61,11 @@ class UpdateOperationFileBloc extends Bloc<UpdateOperationFileEvent, UpdateOpera
     //
     emit(state.copyWith(status: UpdateOperationFileStatus.loading));
     //
-    final response = await _updateOperationUseCase(operation: state.operation.copyWith(file: state.bacFile));
+    final response = await _updateOperationUseCase(
+        operation: state.operation.copyWith(
+      file: state.bacFile,
+      state: OperationState.initializing,
+    ));
     //
     response.fold(
       (l) {

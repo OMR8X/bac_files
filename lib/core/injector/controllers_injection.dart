@@ -6,6 +6,8 @@ import 'package:bac_files_admin/features/files/domain/usecases/delete_file_useca
 import 'package:bac_files_admin/features/files/domain/usecases/get_file_usecase.dart';
 import 'package:bac_files_admin/features/files/domain/usecases/update_file_usecase.dart';
 import 'package:bac_files_admin/features/managers/domain/entities/managers.dart';
+import 'package:bac_files_admin/features/uploads/domain/usecases/operations/add_operations_usecase.dart';
+import 'package:bac_files_admin/features/uploads/domain/usecases/operations/delete_all_operation_usecase.dart';
 import 'package:bac_files_admin/features/uploads/domain/usecases/operations/update_operation_usecase.dart';
 import 'package:bac_files_admin/presentation/files/state/create_file/create_file_bloc.dart';
 import 'package:bac_files_admin/presentation/managers/state/managers_view/managers_view_bloc.dart';
@@ -53,9 +55,9 @@ controllersInjection() {
     sl<GetAllOperationsUseCase>(),
     sl<AddOperationUseCase>(),
     sl<DeleteOperationUseCase>(),
-    sl<UpdateOperationUseCase>(),
-    sl<CacheManager>(),
-  ));
+    sl<AddOperationsUseCase>(),
+    sl<DeleteAllOperationUseCase>(),
+  )..add(const InitializeOperationsEvent()));
 
   ///
   sl.registerFactory<CreateFileBloc>(

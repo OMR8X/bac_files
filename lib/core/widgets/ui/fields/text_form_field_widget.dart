@@ -45,6 +45,7 @@ class TextFormFieldWidget extends StatelessWidget {
         textInputAction: textInputAction ?? TextInputAction.next,
         onSaved: onSaved,
         onChanged: onChanged,
+        style: FontStylesResources.textFieldStyle,
         onFieldSubmitted: onFieldSubmitted,
         decoration: InputDecoration(
           hintText: " $hintText",

@@ -1,5 +1,6 @@
 import 'package:bac_files_admin/core/resources/styles/border_radius_resources.dart';
 import 'package:bac_files_admin/core/resources/styles/colors_resources.dart';
+import 'package:bac_files_admin/core/resources/styles/font_styles_manager.dart';
 import 'package:bac_files_admin/core/resources/styles/padding_resources.dart';
 import 'package:bac_files_admin/core/resources/themes/extensions/surface_container_colors.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,7 @@ class DropDownWidget<T> extends StatelessWidget {
               borderRadius: BorderRadiusResource.fieldBorderRadius,
             ),
             child: DropdownMenu(
+              textStyle: FontStylesResources.buttonStyle,
               hintText: hintText,
               label: hintText != null ? Text(hintText!) : null,
               width: SizesResources.mainWidth(context),

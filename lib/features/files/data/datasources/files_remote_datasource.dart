@@ -25,7 +25,6 @@ class FilesRemoteDataSourceImplements implements FilesRemoteDataSource {
     //
     if (!(await File(request.operation.path).exists())) throw const FileNotExistsException();
     //
-    //
     FormData formData = FormData.fromMap({
       "file": await MultipartFile.fromFile(
         request.operation.path,

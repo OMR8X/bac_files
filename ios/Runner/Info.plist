@@ -23,6 +23,11 @@
 
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
 	<key>CFBundleName</key>
 	<string>bac_files_admin</string>
 	<key>CFBundlePackageType</key>

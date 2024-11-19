@@ -1,5 +1,4 @@
-
-
+import 'package:bac_files_admin/core/resources/styles/font_styles_manager.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/resources/styles/decoration_resources.dart';
@@ -36,6 +35,7 @@ class SearchBarWidget extends StatelessWidget {
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
                 ),
+                style: FontStylesResources.textFieldStyle,
                 onChanged: onChanged,
                 onFieldSubmitted: onFieldSubmitted,
               ),

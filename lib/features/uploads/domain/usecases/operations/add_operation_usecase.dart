@@ -7,7 +7,7 @@ import '../../repositories/operations_repository.dart';
 class AddOperationUseCase {
   final OperationsRepository repository;
   AddOperationUseCase({required this.repository});
-  Future<Either<Failure, Unit>> call({required UploadOperation operation}) async {
+  Future<Either<Failure, List<UploadOperation>>> call({required UploadOperation operation}) async {
     return await repository.addOperation(operation: operation);
   }
 }

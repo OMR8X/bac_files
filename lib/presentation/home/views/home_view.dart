@@ -28,15 +28,18 @@ class _HomeViewState extends State<HomeView> {
     super.initState();
   }
 
+  unfocus() {
+    FocusManager.instance.primaryFocus?.unfocus();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        FocusManager.instance.primaryFocus?.unfocus();
-      },
+      onTap: unfocus,
       child: Scaffold(
         appBar: AppBar(
           title: const Text("الرئيسية"),
+          centerTitle: false,
           actions: const [
             SwitchThemeWidget(),
           ],
@@ -44,6 +47,7 @@ class _HomeViewState extends State<HomeView> {
         body: Column(
           children: [
             SearchBarWidget(
+              key: const ValueKey("search_bar"),
               onChanged: (keywords) {
                 sl<HomeBloc>().add(HomeLoadFilesEvent(keywords: keywords));
               },
@@ -56,15 +60,31 @@ class _HomeViewState extends State<HomeView> {
                   listener: (context, state) {},
                   builder: (context, state) {
                     return BacFilesListBuilderWidget(
+                      isFetching: state.status == HomeStatus.fetchingMoreData,
                       isLoading: state.status == HomeStatus.loading,
                       files: state.files,
+                      onRefresh: () {
+                        sl<HomeBloc>().add(const HomeLoadFilesEvent());
+                      },
+                      onEndReached: () {
+                        sl<HomeBloc>().add(const HomeLoadMoreFilesEvent());
+                      },
                       onEdit: (file) {
+                        //
+                        unfocus();
+                        //
                         context.push(AppRoutes.updateFile.path, extra: file.id);
                       },
                       onExplore: (file) {
+                        //
+                        unfocus();
+                        //
                         context.push(AppRoutes.exploreFile.path, extra: file.id);
                       },
                       onDelete: (file) async {
+                        //
+                        unfocus();
+                        //
                         showDeleteItemDialog(
                           context: context,
                           onConform: () async {

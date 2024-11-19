@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 
 class AppTransitions {
   ///
-  static const Duration transitionDuration = Duration(milliseconds: 150);
-  static const Duration reverseTransitionDuration = Duration(milliseconds: 100);
+  static const Duration transitionDuration = Duration(milliseconds: 180);
+  static const Duration reverseTransitionDuration = Duration(milliseconds: 80);
 
   ///
   static Widget commonTransition(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
-    final curve = CurvedAnimation(parent: animation, curve: Curves.decelerate);
-    return SlideTransition(
-      position: Tween<Offset>(begin: const Offset(0, 0.3), end: Offset.zero).animate(curve),
-      child: FadeTransition(
-        opacity: Tween<double>(begin: 0.8, end: 1.0).animate(curve),
+    final fadeCurve = CurvedAnimation(parent: animation, curve: Curves.easeOut);
+    final slideCurve = CurvedAnimation(parent: animation, curve: Curves.easeOut);
+    final scaleCurve = CurvedAnimation(parent: animation, curve: Curves.easeOutCirc);
+    return FadeTransition(
+      opacity: Tween<double>(begin: 0.1, end: 1.0).animate(fadeCurve),
+      child: ScaleTransition(
+        scale: Tween<double>(begin: 0.96, end: 1.0).animate(scaleCurve),
         child: child,
       ),
     );

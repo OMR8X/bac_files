@@ -1,6 +1,7 @@
 import 'package:bac_files_admin/features/files/domain/entities/bac_file.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'operation_state.dart';
 
 class UploadOperation extends Equatable {
@@ -32,7 +33,7 @@ class UploadOperation extends Equatable {
       id: 0,
       path: '',
       file: BacFile.empty(),
-      state: OperationState.initializing,
+      state: OperationState.created,
     );
   }
 

@@ -2,6 +2,7 @@ import 'package:bac_files_admin/core/injector/app_injection.dart';
 import 'package:bac_files_admin/features/uploads/data/repositories/operations_repository_implement.dart';
 import 'package:bac_files_admin/features/uploads/domain/repositories/operations_repository.dart';
 import 'package:bac_files_admin/features/uploads/domain/usecases/operations/add_operation_usecase.dart';
+import 'package:bac_files_admin/features/uploads/domain/usecases/operations/add_operations_usecase.dart';
 import 'package:bac_files_admin/features/uploads/domain/usecases/operations/delete_operation_usecase.dart';
 import 'package:bac_files_admin/features/uploads/domain/usecases/operations/get_operations_usecase.dart';
 import 'package:bac_files_admin/features/uploads/domain/usecases/operations/update_operation_usecase.dart';
@@ -10,6 +11,7 @@ import 'package:bac_files_admin/features/uploads/domain/usecases/uploads/start_u
 import 'package:bac_files_admin/features/uploads/domain/usecases/uploads/stop_all_uploads_usecase.dart';
 import 'package:bac_files_admin/features/uploads/domain/usecases/uploads/stop_upload_usecase.dart';
 import '../../features/uploads/data/datasources/operations_local_datasource.dart';
+import '../../features/uploads/domain/usecases/operations/delete_all_operation_usecase.dart';
 import '../../features/uploads/domain/usecases/operations/get_operation_usecase.dart';
 import '../../features/uploads/domain/usecases/operations/update_operations_usecase.dart';
 import '../../features/uploads/domain/usecases/uploads/refresh_uploads_usecase.dart';
@@ -52,6 +54,13 @@ uploadsInjection() {
   );
 
   ///
+  sl.registerFactory<AddOperationsUseCase>(
+    () => AddOperationsUseCase(
+      repository: sl(),
+    ),
+  );
+
+  ///
   sl.registerFactory<UpdateOperationUseCase>(
     () => UpdateOperationUseCase(
       repository: sl(),
@@ -68,6 +77,13 @@ uploadsInjection() {
   ///
   sl.registerFactory<DeleteOperationUseCase>(
     () => DeleteOperationUseCase(
+      repository: sl(),
+    ),
+  );
+
+  ///
+  sl.registerFactory<DeleteAllOperationUseCase>(
+    () => DeleteAllOperationUseCase(
       repository: sl(),
     ),
   );

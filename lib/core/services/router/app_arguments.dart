@@ -1,6 +1,6 @@
-import 'package:bac_files_admin/features/files/domain/entities/bac_file.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+
+import '../../../features/files/domain/entities/bac_file.dart';
 
 class ExploreManagerViewArguments {
   final String title;
@@ -22,3 +22,19 @@ class ExploreManagerViewArguments {
   });
 }
 
+class SetUpFileArguments {
+  final bool isLoading, isUpdating;
+  final String? path;
+  final BacFile? bacFile;
+  final void Function(BacFile file, String path) onSubmit;
+  final void Function(String path)? onChangeFilePath;
+
+  SetUpFileArguments({
+    this.isLoading = false,
+    this.isUpdating = false,
+    this.path,
+    this.bacFile,
+    required this.onSubmit,
+    this.onChangeFilePath,
+  });
+}

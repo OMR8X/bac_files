@@ -8,23 +8,29 @@ class DecorationResources {
   ///
   static BoxDecoration tileDecoration({required ThemeData theme}) {
     return BoxDecoration(
-      color: theme.extension<SurfaceContainerColors>()?.surfaceContainer,
+      color: theme.colorScheme.surface,
       borderRadius: BorderRadiusResource.tileBorderRadius,
-      boxShadow: [
-        BoxShadow(
-          color: theme.colorScheme.shadow,
-          spreadRadius: 0,
-          blurRadius: 5.77,
-          offset: const Offset(2, 2),
+      border: Border(
+        bottom: BorderSide(
+          color: theme.colorScheme.outlineVariant,
+          width: 0.5,
         ),
-      ],
+      ),
+      // boxShadow: [
+      //   BoxShadow(
+      //     color: theme.colorScheme.shadow,
+      //     spreadRadius: 0,
+      //     blurRadius: 5.77,
+      //     offset: const Offset(2, 2),
+      //   ),
+      // ],
     );
   }
 
   static BoxDecoration inputFieldDecoration({required ThemeData theme}) {
     return BoxDecoration(
       color: theme.extension<SurfaceContainerColors>()?.surfaceContainerHigh,
-      borderRadius: BorderRadiusResource.tileBorderRadius,
+      borderRadius: BorderRadiusResource.fieldBorderRadius,
     );
   }
 }

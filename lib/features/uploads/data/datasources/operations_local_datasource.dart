@@ -15,16 +15,22 @@ abstract class OperationsLocalDataSource {
   Future<List<UploadOperation>> getOperations();
 
   ///
-  Future<void> addOperation(UploadOperation operation);
+  Future<List<UploadOperation>> addOperation(UploadOperation operation);
 
   ///
-  Future<void> updateOperation(UploadOperation operation);
+  Future<List<UploadOperation>> addOperations(List<UploadOperation> operations);
 
   ///
-  Future<void> updateAllOperationsState(OperationState state);
+  Future<List<UploadOperation>> updateOperation(UploadOperation operation);
 
   ///
-  Future<void> deleteOperation(int operationId);
+  Future<List<UploadOperation>> updateAllOperationsState(OperationState state);
+
+  ///
+  Future<List<UploadOperation>> deleteOperation(int operationId);
+
+  ///
+  Future<List<UploadOperation>> deleteAllOperation();
 }
 
 class OperationsLocalDataSourceImplement implements OperationsLocalDataSource {
@@ -38,7 +44,7 @@ class OperationsLocalDataSourceImplement implements OperationsLocalDataSource {
 
   ///
   @override
-  Future<void> addOperation(UploadOperation operation) async {
+  Future<List<UploadOperation>> addOperation(UploadOperation operation) async {
     ///
     /// get local operations
     List<UploadOperation> localOperations = await _getOperations();
@@ -62,12 +68,43 @@ class OperationsLocalDataSourceImplement implements OperationsLocalDataSource {
     await _setOperations(localOperations);
 
     ///
-    return;
+    return localOperations;
   }
 
   ///
   @override
-  Future<void> updateOperation(UploadOperation operation) async {
+  Future<List<UploadOperation>> addOperations(List<UploadOperation> operations) async {
+    ///
+    /// get local operations
+    List<UploadOperation> localOperations = await _getOperations();
+
+    ///
+    /// generate id based on current time (milliseconds since epoch) and limit to 6 digits
+    int id = DateTime.now().millisecondsSinceEpoch % 1000000;
+
+    ///
+    /// check if the generated id already exists in local operations
+    while (localOperations.any((op) => op.id == id)) {
+      id = (id + 1) % 1000000; // increment id and wrap around if necessary
+    }
+
+    ///
+    for (var operation in operations) {
+      localOperations.add(operation.copyWith(id: id));
+      id++;
+    }
+
+    ///
+    /// set local operations
+    await _setOperations(localOperations);
+
+    ///
+    return localOperations;
+  }
+
+  ///
+  @override
+  Future<List<UploadOperation>> updateOperation(UploadOperation operation) async {
     ///
     /// get local operations
     List<UploadOperation> localOperations = await _getOperations();
@@ -76,34 +113,61 @@ class OperationsLocalDataSourceImplement implements OperationsLocalDataSource {
     /// update operation
     for (int i = 0; i < localOperations.length; i++) {
       if (localOperations[i].id == operation.id) {
+        debugPrint('updateOperation operation: ${operation.error}');
         localOperations[i] = operation;
       }
     }
+
+    ///
 
     ///
     /// set local operations
     await _setOperations(localOperations);
 
     ///
-    return;
+    return localOperations;
   }
 
   ///
   @override
-  Future<void> deleteOperation(int operationId) async {
+  Future<List<UploadOperation>> deleteOperation(int operationId) async {
+    print("tick 1");
+
+    ///
+    List<UploadOperation> localOperations = await _getOperations();
+    print("tick 2");
+
+    ///
+    /// add new operation
+    localOperations.removeWhere((e) => e.id == operationId);
+    print("tick 3");
+
+    ///
+    /// mapping
+    await _setOperations(localOperations);
+    print("tick 4");
+
+    ///
+    print("tick 5");
+    return localOperations;
+  }
+
+  ///
+  @override
+  Future<List<UploadOperation>> deleteAllOperation() async {
     ///
     List<UploadOperation> localOperations = await _getOperations();
 
     ///
     /// add new operation
-    localOperations.removeWhere((e) => e.id == operationId);
+    localOperations.removeWhere((e) => true);
 
     ///
     /// mapping
     await _setOperations(localOperations);
 
     ///
-    return;
+    return localOperations;
   }
 
   ///
@@ -135,37 +199,41 @@ class OperationsLocalDataSourceImplement implements OperationsLocalDataSource {
 
     ///
     /// mapping
-    List<UploadOperation> operations = localData.map((e) => UploadOperationModel.fromJson(e).toEntity).toList();
+    List<UploadOperation> operations = localData.map((e) {
+      return UploadOperationModel.fromJson(e).toEntity;
+    }).toList();
 
     ///
     return operations;
   }
 
-  Future<void> _setOperations(List<UploadOperation> operations) async {
+  Future<List<UploadOperation>> _setOperations(List<UploadOperation> operations) async {
     ///
     /// mapping
-    List<Map<String, dynamic>> localData = operations.map((e) => e.toModel.toJson()).toList();
+    List<Map<String, dynamic>> localData = operations.map((e) {
+      return e.toModel.toJson();
+    }).toList();
 
     ///
     await _cacheManager().write('operations', localData);
 
     ///
-    return;
+    return operations;
   }
 
   @override
-  Future<void> updateAllOperationsState(OperationState state) async {
+  Future<List<UploadOperation>> updateAllOperationsState(OperationState state) async {
     //
     final List<UploadOperation> operations = await _getOperations();
     //
     for (int i = 0; i < operations.length; i++) {
-      if (operations[i].state != OperationState.succeed) {
+      if (operations[i].state != OperationState.succeed && operations[i].state != OperationState.created) {
         operations[i] = operations[i].copyWith(state: state);
       }
     }
     //
     await _setOperations(operations);
     //
-    return;
+    return operations;
   }
 }

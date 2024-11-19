@@ -35,7 +35,7 @@ class ListSelectionWidget<T> extends StatelessWidget {
         width: SizesResources.mainWidth(context),
         height: 50,
         child: Container(
-          decoration: DecorationResources.tileDecoration(
+          decoration: DecorationResources.inputFieldDecoration(
             theme: Theme.of(context),
           ),
           child: Material(
@@ -56,7 +56,7 @@ class ListSelectionWidget<T> extends StatelessWidget {
                 child: Text(
                   title,
                   style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Colors.white,
                         fontWeight: FontWeightResources.bold,
                       ),
                 ),

@@ -68,9 +68,11 @@ class BackgroundUploadsDataSourceImplements implements BackgroundUploadsDataSour
       return response.fold((l) => [], (r) => r.map((operation) => UploadFileRequest.fromOperation(operation)).toList());
     });
     //
+    debugPrint("requests before: ${requests.length}");
+    //
     requests.removeWhere((e) => e.operation.state != OperationState.pending);
     //
-    await _backgroundMessengerRepository.sendUpdateState();
+    debugPrint("requests after: ${requests.length}");
     //
     return requests;
   }
@@ -80,15 +82,22 @@ class BackgroundUploadsDataSourceImplements implements BackgroundUploadsDataSour
     //
     debugPrint("STARTING ALL UPLOADS..");
     //
-    await _updateAllOperationsStateUseCase.call(state: OperationState.pending);
-    //
-    await _backgroundMessengerRepository.sendUpdateState();
+    await _updateAllOperationsStateUseCase.call(state: OperationState.pending).then((response) {
+      response.fold(
+        (l) {},
+        (r) async {
+          await _backgroundMessengerRepository.sendUpdateState(operations: r);
+        },
+      );
+    });
     //
     return;
   }
 
   @override
   Future<void> startUpload({required int operationID}) async {
+    //
+    debugPrint("startingUpload in data source");
     //
     final Completer completer = Completer<void>();
     //
@@ -99,17 +108,22 @@ class BackgroundUploadsDataSourceImplements implements BackgroundUploadsDataSour
           debugPrint("error while getting operation: $l");
         },
         (r) async {
-          await _updateOperationUseCase.call(operation: r.copyWith(state: OperationState.pending));
-          await _backgroundMessengerRepository.sendUpdateState();
-          debugPrint("fk 1");
+          debugPrint("updating the operation state");
+          await _updateOperationUseCase.call(operation: r.copyWith(state: OperationState.pending)).then((response) {
+            response.fold(
+              (l) {},
+              (r) async {
+                await _backgroundMessengerRepository.sendUpdateState(operations: r);
+              },
+            );
+          });
+
           completer.complete();
         },
       );
     });
     //
     await completer.future;
-    //
-    debugPrint("fk 2");
     //
     return;
   }
@@ -119,35 +133,21 @@ class BackgroundUploadsDataSourceImplements implements BackgroundUploadsDataSour
     //
     debugPrint("5 - STOPPING ALL UPLOADS..");
     //
-    await _updateAllOperationsStateUseCase.call(state: OperationState.initializing);
-    //
-    await _backgroundMessengerRepository.sendUpdateState();
+    await _updateAllOperationsStateUseCase.call(state: OperationState.initializing).then((response) {
+      response.fold(
+        (l) {},
+        (r) async {
+          await _backgroundMessengerRepository.sendUpdateState(operations: r);
+        },
+      );
+    });
+
     //
     return;
   }
 
   @override
   Future<void> stopUpload({required int operationID}) async {
-    //
-    debugPrint("STOPPING UPLOAD..");
-    //
-    final Completer completer = Completer<void>();
-    //
-    await _getOperationUseCase.call(operationId: operationID).then((response) {
-      response.fold(
-        (l) {
-          debugPrint("error while getting operation: $l");
-        },
-        (r) async {
-          debugPrint("operation : $r");
-          await _updateOperationUseCase.call(operation: r.copyWith(state: OperationState.initializing));
-          await _backgroundMessengerRepository.sendUpdateState();
-          completer.complete();
-        },
-      );
-    });
-    //
-    await completer.future;
     //
     return;
   }
@@ -187,8 +187,7 @@ class BackgroundUploadsDataSourceImplements implements BackgroundUploadsDataSour
         },
       );
     });
-    //
-    await _backgroundMessengerRepository.sendUpdateState();
+
     //
     return await requestCompleter.future;
 
@@ -216,7 +215,7 @@ class BackgroundUploadsDataSourceImplements implements BackgroundUploadsDataSour
     //
     await _updateOperationUseCase(operation: request.operation.copyWith(state: OperationState.succeed));
     //
-    _backgroundMessengerRepository.sendOperationCompletedMessage(
+    await _backgroundMessengerRepository.sendOperationCompletedMessage(
       id: request.operation.id,
       title: request.operation.file.title,
     );
@@ -228,9 +227,14 @@ class BackgroundUploadsDataSourceImplements implements BackgroundUploadsDataSour
 
   Future<void> _onRequestFailed({required UploadFileRequest request, required Failure failure}) async {
     //
-    await _updateOperationUseCase(operation: request.operation.copyWith(state: OperationState.failed, error: failure.message));
+    await _updateOperationUseCase(
+      operation: request.operation.copyWith(
+        state: OperationState.failed,
+        error: failure.message,
+      ),
+    );
     //
-    _backgroundMessengerRepository.sendOperationFailed(
+    await _backgroundMessengerRepository.sendOperationFailed(
       id: request.operation.id,
       title: request.operation.file.title,
     );

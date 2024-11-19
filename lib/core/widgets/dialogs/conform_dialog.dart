@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:bac_files_admin/core/resources/styles/padding_resources.dart';
 import 'package:bac_files_admin/core/resources/styles/sizes_resources.dart';
 import 'package:bac_files_admin/core/resources/styles/spaces_resources.dart';
@@ -34,27 +32,33 @@ showConformDialog({
               ),
 
               ///
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 19,
-                  fontWeight: FontWeight.bold,
+              Padding(
+                padding: PaddingResources.padding_1_0,
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 19,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                textAlign: TextAlign.center,
               ),
 
               ///
               const SizedBox(
-                height: SpacesResources.s2,
+                height: SpacesResources.s4,
               ),
 
               ///
-              Text(
-                body,
-                style: const TextStyle(
-                  fontSize: 14,
+              Padding(
+                padding: PaddingResources.padding_2_0,
+                child: Text(
+                  body,
+                  style: const TextStyle(
+                    fontSize: 14,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                textAlign: TextAlign.center,
               ),
 
               ///

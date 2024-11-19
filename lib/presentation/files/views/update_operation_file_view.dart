@@ -1,3 +1,4 @@
+import 'package:bac_files_admin/core/services/router/app_arguments.dart';
 import 'package:bac_files_admin/core/widgets/ui/loading_widget.dart';
 import 'package:bac_files_admin/presentation/files/state/update_file/update_file_bloc.dart';
 import 'package:bac_files_admin/presentation/files/state/update_operation_file/update_operation_file_bloc.dart';
@@ -37,13 +38,16 @@ class _UpdateOperationFileViewState extends State<UpdateOperationFileView> {
               return const LoadingWidget();
             }
             return SetUpFileView(
-              isLoading: state.status == UpdateOperationFileStatus.loading,
-              isUpdating: true,
-              bacFile: state.bacFile,
-              onSubmit: (file, path) {
-                context.read<UpdateOperationFileBloc>().add(UpdateOperationFileEditEvent(bacFile: file));
-                context.read<UpdateOperationFileBloc>().add(const UpdateOperationFileSaveEvent());
-              },
+              arguments: SetUpFileArguments(
+                isLoading: state.status == UpdateOperationFileStatus.loading,
+                isUpdating: true,
+                bacFile: state.bacFile,
+                path: state.operation.path,
+                onSubmit: (file, path) {
+                  context.read<UpdateOperationFileBloc>().add(UpdateOperationFileEditEvent(bacFile: file));
+                  context.read<UpdateOperationFileBloc>().add(const UpdateOperationFileSaveEvent());
+                },
+              ),
             );
           },
         ),

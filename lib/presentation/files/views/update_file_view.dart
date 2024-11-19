@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/injector/app_injection.dart';
+import '../../../core/services/router/app_arguments.dart';
 
 class UpdateFileView extends StatefulWidget {
   const UpdateFileView({super.key, required this.fileId});
@@ -36,6 +37,7 @@ class _UpdateFileViewState extends State<UpdateFileView> {
               return const LoadingWidget();
             }
             return SetUpFileView(
+                arguments: SetUpFileArguments(
               isLoading: state.status == UpdateFileStatus.loading,
               isUpdating: true,
               bacFile: state.bacFile,
@@ -43,7 +45,7 @@ class _UpdateFileViewState extends State<UpdateFileView> {
                 context.read<UpdateFileBloc>().add(UpdateFileEditEvent(bacFile: file));
                 context.read<UpdateFileBloc>().add(const UpdateFileUploadEvent());
               },
-            );
+            ));
           },
         ),
       ),

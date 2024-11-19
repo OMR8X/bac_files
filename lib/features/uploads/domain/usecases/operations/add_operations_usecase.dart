@@ -4,10 +4,10 @@ import 'package:dartz/dartz.dart';
 import '../../../../../core/resources/errors/failures.dart';
 import '../../repositories/operations_repository.dart';
 
-class UpdateOperationUseCase {
+class AddOperationsUseCase {
   final OperationsRepository repository;
-  UpdateOperationUseCase({required this.repository});
-  Future<Either<Failure, List<UploadOperation>>> call({required UploadOperation operation}) async {
-    return await repository.updateOperation(operation: operation);
+  AddOperationsUseCase({required this.repository});
+  Future<Either<Failure, List<UploadOperation>>> call({required List<UploadOperation> operations}) async {
+    return await repository.addOperations(operations: operations);
   }
 }

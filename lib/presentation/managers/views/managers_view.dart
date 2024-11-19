@@ -18,10 +18,12 @@ import 'package:bac_files_admin/features/managers/domain/usecases/teachers/delet
 import 'package:bac_files_admin/presentation/managers/state/managers_view/managers_view_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/resources/styles/assets_resources.dart';
 import '../../../core/services/router/app_routes.dart';
+import '../../../core/widgets/animations/staggered_grid_wrapper_widget.dart';
 import '../widgets/category_tile_widget.dart';
 
 class ManagersView extends StatefulWidget {
@@ -38,6 +40,7 @@ class _ManagersViewState extends State<ManagersView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("التصانيف"),
+        centerTitle: false,
       ),
       body: BlocProvider(
         create: (context) => sl<ManagersViewBloc>(),
@@ -49,169 +52,234 @@ class _ManagersViewState extends State<ManagersView> {
             }
 
             ///
-            return GridView(
-              padding: PaddingResources.padding_2_2,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 5 / 2,
+            return AnimationLimiter(
+              child: GridView(
+                padding: PaddingResources.padding_2_2,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 5 / 2,
+                ),
+                children: [
+                  StaggeredGridWrapperWidget(
+                    position: 0,
+                    child: CategoryTileWidget(
+                      title: "اساتذة",
+                      subTitle: sl<FileManagers>().teachers.length.toString(),
+                      icon: UIImagesResources.teachersIcon,
+                      onTap: () {
+                        context.push(
+                          AppRoutes.manager.path,
+                          extra: ExploreManagerViewArguments(
+                            title: "تصفح الاساتذة",
+                            items: sl<FileManagers>().teachers,
+                            itemName: (teacher) {
+                              return teacher.name;
+                            },
+                            itemDetails: (teacher) {
+                              return "الرقم : ${teacher.id}";
+                            },
+                            onDelete: (index) {
+                              final teacher = sl<FileManagers>().teachers[index];
+                              onDeleteTeacher(teacher);
+                            },
+                            onEdit: (index) {
+                              final extra = sl<FileManagers>().teachers[index];
+                              context.pushReplacement(AppRoutes.setUpTeacher.path, extra: extra);
+                            },
+                            onCreate: () {
+                              context.pushReplacement(AppRoutes.setUpTeacher.path);
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  AnimationConfiguration.staggeredList(
+                    position: 0,
+                    duration: const Duration(milliseconds: 300),
+                    child: FadeInAnimation(
+                      curve: Curves.easeOut,
+                      child: ScaleAnimation(
+                        scale: 0.96,
+                        curve: Curves.easeOutCirc,
+                        child: SlideAnimation(
+                          verticalOffset: 2.0,
+                          curve: Curves.easeOut,
+                          child: CategoryTileWidget(
+                            title: "تصانيف",
+                            subTitle: sl<FileManagers>().categories.length.toString(),
+                            icon: UIImagesResources.categoriesIcon,
+                            onTap: () {
+                              context.push(
+                                AppRoutes.manager.path,
+                                extra: ExploreManagerViewArguments(
+                                  title: "تصفح التصانيف",
+                                  items: sl<FileManagers>().categories,
+                                  itemName: (category) {
+                                    return category.name;
+                                  },
+                                  itemDetails: (category) {
+                                    return "الرقم : ${category.id}";
+                                  },
+                                  onDelete: (index) {
+                                    final category = sl<FileManagers>().categories[index];
+                                    onDeleteCategory(category);
+                                  },
+                                  onEdit: (index) {
+                                    final extra = sl<FileManagers>().categories[index];
+                                    context.pushReplacement(AppRoutes.setUpCategory.path, extra: extra);
+                                  },
+                                  onCreate: () {
+                                    context.pushReplacement(AppRoutes.setUpCategory.path);
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  AnimationConfiguration.staggeredList(
+                    position: 0,
+                    duration: const Duration(milliseconds: 300),
+                    child: FadeInAnimation(
+                      curve: Curves.easeOut,
+                      child: ScaleAnimation(
+                        scale: 0.96,
+                        curve: Curves.easeOutCirc,
+                        child: SlideAnimation(
+                          verticalOffset: 2.0,
+                          curve: Curves.easeOut,
+                          child: CategoryTileWidget(
+                            title: "مواد",
+                            subTitle: sl<FileManagers>().materials.length.toString(),
+                            icon: UIImagesResources.materialsIcon,
+                            onTap: () {
+                              context.push(
+                                AppRoutes.manager.path,
+                                extra: ExploreManagerViewArguments(
+                                  title: "تصفح المواد",
+                                  items: sl<FileManagers>().materials,
+                                  itemName: (material) {
+                                    return material.name;
+                                  },
+                                  itemDetails: (material) {
+                                    return "الرقم : ${material.id}";
+                                  },
+                                  onDelete: (index) {
+                                    final material = sl<FileManagers>().materials[index];
+                                    onDeleteMaterial(material);
+                                  },
+                                  onEdit: (index) {
+                                    final extra = sl<FileManagers>().materials[index];
+                                    context.pushReplacement(AppRoutes.setUpMaterial.path, extra: extra);
+                                  },
+                                  onCreate: () {
+                                    context.pushReplacement(AppRoutes.setUpMaterial.path);
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  AnimationConfiguration.staggeredList(
+                    position: 0,
+                    duration: const Duration(milliseconds: 300),
+                    child: FadeInAnimation(
+                      curve: Curves.easeOut,
+                      child: ScaleAnimation(
+                        scale: 0.96,
+                        curve: Curves.easeOutCirc,
+                        child: SlideAnimation(
+                          verticalOffset: 2.0,
+                          curve: Curves.easeOut,
+                          child: CategoryTileWidget(
+                            title: "فروع",
+                            subTitle: sl<FileManagers>().sections.length.toString(),
+                            icon: UIImagesResources.sectionsIcon,
+                            onTap: () {
+                              context.push(
+                                AppRoutes.manager.path,
+                                extra: ExploreManagerViewArguments(
+                                  title: "تصفح الفروع",
+                                  items: sl<FileManagers>().sections,
+                                  itemName: (section) {
+                                    return section.name;
+                                  },
+                                  itemDetails: (section) {
+                                    return "الرقم : ${section.id}";
+                                  },
+                                  onDelete: (index) {
+                                    final section = sl<FileManagers>().sections[index];
+                                    onDeleteSection(section);
+                                  },
+                                  onEdit: (index) {
+                                    final extra = sl<FileManagers>().sections[index];
+                                    context.pushReplacement(AppRoutes.setUpSection.path, extra: extra);
+                                  },
+                                  onCreate: () {
+                                    context.pushReplacement(AppRoutes.setUpSection.path);
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  AnimationConfiguration.staggeredList(
+                    position: 0,
+                    duration: const Duration(milliseconds: 300),
+                    child: FadeInAnimation(
+                      curve: Curves.easeOut,
+                      child: ScaleAnimation(
+                        scale: 0.96,
+                        curve: Curves.easeOutCirc,
+                        child: SlideAnimation(
+                          verticalOffset: 2.0,
+                          curve: Curves.easeOut,
+                          child: CategoryTileWidget(
+                            title: "مدارس",
+                            subTitle: sl<FileManagers>().schools.length.toString(),
+                            icon: UIImagesResources.schoolsIcon,
+                            onTap: () {
+                              context.push(
+                                AppRoutes.manager.path,
+                                extra: ExploreManagerViewArguments(
+                                  title: "تصفح المدارس",
+                                  items: sl<FileManagers>().schools,
+                                  itemName: (school) {
+                                    return school.name;
+                                  },
+                                  itemDetails: (school) {
+                                    return "الرقم : ${school.id}";
+                                  },
+                                  onDelete: (index) {
+                                    final school = sl<FileManagers>().schools[index];
+                                    onDeleteSchool(school);
+                                  },
+                                  onEdit: (index) {
+                                    final extra = sl<FileManagers>().schools[index];
+                                    context.pushReplacement(AppRoutes.setUpSchool.path, extra: extra);
+                                  },
+                                  onCreate: () {
+                                    context.pushReplacement(AppRoutes.setUpSchool.path);
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              children: [
-                CategoryTileWidget(
-                  title: "اساتذة",
-                  subTitle: sl<FileManagers>().teachers.length.toString(),
-                  icon: UIImagesResources.teachersIcon,
-                  onTap: () {
-                    context.push(
-                      AppRoutes.manager.path,
-                      extra: ExploreManagerViewArguments(
-                        title: "تصفح الاساتذة",
-                        items: sl<FileManagers>().teachers,
-                        itemName: (teacher) {
-                          return teacher.name;
-                        },
-                        itemDetails: (teacher) {
-                          return "الرقم : ${teacher.id}";
-                        },
-                        onDelete: (index) {
-                          final teacher = sl<FileManagers>().teachers[index];
-                          onDeleteTeacher(teacher);
-                        },
-                        onEdit: (index) {
-                          final extra = sl<FileManagers>().teachers[index];
-                          context.pushReplacement(AppRoutes.setUpTeacher.path, extra: extra);
-                        },
-                        onCreate: () {
-                          context.pushReplacement(AppRoutes.setUpTeacher.path);
-                        },
-                      ),
-                    );
-                  },
-                ),
-                CategoryTileWidget(
-                  title: "تصانيف",
-                  subTitle: sl<FileManagers>().categories.length.toString(),
-                  icon: UIImagesResources.categoriesIcon,
-                  onTap: () {
-                    context.push(
-                      AppRoutes.manager.path,
-                      extra: ExploreManagerViewArguments(
-                        title: "تصفح التصانيف",
-                        items: sl<FileManagers>().categories,
-                        itemName: (category) {
-                          return category.name;
-                        },
-                        itemDetails: (category) {
-                          return "الرقم : ${category.id}";
-                        },
-                        onDelete: (index) {
-                          final category = sl<FileManagers>().categories[index];
-                          onDeleteCategory(category);
-                        },
-                        onEdit: (index) {
-                          final extra = sl<FileManagers>().categories[index];
-                          context.pushReplacement(AppRoutes.setUpCategory.path, extra: extra);
-                        },
-                        onCreate: () {
-                          context.pushReplacement(AppRoutes.setUpCategory.path);
-                        },
-                      ),
-                    );
-                  },
-                ),
-                CategoryTileWidget(
-                  title: "مواد",
-                  subTitle: sl<FileManagers>().materials.length.toString(),
-                  icon: UIImagesResources.materialsIcon,
-                  onTap: () {
-                    context.push(
-                      AppRoutes.manager.path,
-                      extra: ExploreManagerViewArguments(
-                        title: "تصفح المواد",
-                        items: sl<FileManagers>().materials,
-                        itemName: (material) {
-                          return material.name;
-                        },
-                        itemDetails: (material) {
-                          return "الرقم : ${material.id}";
-                        },
-                        onDelete: (index) {
-                          final material = sl<FileManagers>().materials[index];
-                          onDeleteMaterial(material);
-                        },
-                        onEdit: (index) {
-                          final extra = sl<FileManagers>().materials[index];
-                          context.pushReplacement(AppRoutes.setUpMaterial.path, extra: extra);
-                        },
-                        onCreate: () {
-                          context.pushReplacement(AppRoutes.setUpMaterial.path);
-                        },
-                      ),
-                    );
-                  },
-                ),
-                CategoryTileWidget(
-                  title: "فروع",
-                  subTitle: sl<FileManagers>().sections.length.toString(),
-                  icon: UIImagesResources.sectionsIcon,
-                  onTap: () {
-                    context.push(
-                      AppRoutes.manager.path,
-                      extra: ExploreManagerViewArguments(
-                        title: "تصفح الفروع",
-                        items: sl<FileManagers>().sections,
-                        itemName: (section) {
-                          return section.name;
-                        },
-                        itemDetails: (section) {
-                          return "الرقم : ${section.id}";
-                        },
-                        onDelete: (index) {
-                          final section = sl<FileManagers>().sections[index];
-                          onDeleteSection(section);
-                        },
-                        onEdit: (index) {
-                          final extra = sl<FileManagers>().sections[index];
-                          context.pushReplacement(AppRoutes.setUpSection.path, extra: extra);
-                        },
-                        onCreate: () {
-                          context.pushReplacement(AppRoutes.setUpSection.path);
-                        },
-                      ),
-                    );
-                  },
-                ),
-                CategoryTileWidget(
-                  title: "مدارس",
-                  subTitle: sl<FileManagers>().schools.length.toString(),
-                  icon: UIImagesResources.schoolsIcon,
-                  onTap: () {
-                    context.push(
-                      AppRoutes.manager.path,
-                      extra: ExploreManagerViewArguments(
-                        title: "تصفح المدارس",
-                        items: sl<FileManagers>().schools,
-                        itemName: (school) {
-                          return school.name;
-                        },
-                        itemDetails: (school) {
-                          return "الرقم : ${school.id}";
-                        },
-                        onDelete: (index) {
-                          final school = sl<FileManagers>().schools[index];
-                          onDeleteSchool(school);
-                        },
-                        onEdit: (index) {
-                          final extra = sl<FileManagers>().schools[index];
-                          context.pushReplacement(AppRoutes.setUpSchool.path, extra: extra);
-                        },
-                        onCreate: () {
-                          context.pushReplacement(AppRoutes.setUpSchool.path);
-                        },
-                      ),
-                    );
-                  },
-                ),
-              ],
             );
           },
         ),

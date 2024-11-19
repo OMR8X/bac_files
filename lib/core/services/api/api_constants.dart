@@ -5,6 +5,7 @@ class ApiSettings {
   static const connectTimeout = 15;
   //
   // static const baseUrl = 'http://127.0.0.1:8000';
+
   static const baseUrl = 'http://82.180.146.95';
   //
 }
@@ -57,5 +58,11 @@ class ApiEndpoints {
 
   ///  [files]
   static String get files => '/api/files';
+
   static String get search => '$files/search';
+
+  ///
+  static String viewPdf(String id) {
+    return "${ApiSettings.baseUrl}/pdf-viewer/$id";
+  }
 }

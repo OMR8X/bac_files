@@ -64,8 +64,8 @@ class AppLocalNotificationsSettings {
     android: AndroidNotificationDetails(
       uploadsChannel.id,
       uploadsChannel.name,
-      importance: Importance.min,
-      priority: Priority.min,
+      importance: Importance.high,
+      priority: Priority.high,
       playSound: false,
       enableVibration: false,
       enableLights: false,

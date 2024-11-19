@@ -15,10 +15,10 @@ final class AddOperationEvent extends UploadsEvent {
 }
 
 final class AddSharedOperationEvent extends UploadsEvent {
-  const AddSharedOperationEvent({required this.path});
-  final String path;
+  const AddSharedOperationEvent({required this.paths});
+  final List<String> paths;
   @override
-  List<Object> get props => [path];
+  List<Object> get props => [paths];
 }
 
 final class InitializeOperationsEvent extends UploadsEvent {
@@ -29,8 +29,8 @@ final class InitializeOperationsEvent extends UploadsEvent {
 }
 
 final class UpdateOperationsEvent extends UploadsEvent {
-  const UpdateOperationsEvent();
-
+  const UpdateOperationsEvent({this.operations});
+  final List<UploadOperation>? operations;
   @override
   List<Object> get props => [];
 }
@@ -44,6 +44,13 @@ final class StartOperationEvent extends UploadsEvent {
 
 final class StartAllOperationsEvent extends UploadsEvent {
   const StartAllOperationsEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+final class DeleteAllOperationsEvent extends UploadsEvent {
+  const DeleteAllOperationsEvent();
 
   @override
   List<Object> get props => [];
@@ -83,15 +90,9 @@ final class CancelOperationEvent extends UploadsEvent {
 }
 
 final class CompleteOperationEvent extends UploadsEvent {
-  const CompleteOperationEvent({required this.operation});
-  final int operation;
-  @override
-  List<Object> get props => [];
+  const CompleteOperationEvent();
 }
 
 final class FailedOperationEvent extends UploadsEvent {
-  const FailedOperationEvent({required this.operation});
-  final int operation;
-  @override
-  List<Object> get props => [];
+  const FailedOperationEvent();
 }

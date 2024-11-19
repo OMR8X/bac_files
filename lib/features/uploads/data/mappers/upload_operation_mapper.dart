@@ -9,6 +9,7 @@ extension UploadOperationMapper on UploadOperation {
       path: path,
       file: file,
       state: state,
+      error: error,
     );
   }
 }
@@ -20,6 +21,7 @@ extension UploadOperationModelMapper on UploadOperationModel {
       path: path,
       file: file,
       state: state,
+      error: error,
     );
   }
 }

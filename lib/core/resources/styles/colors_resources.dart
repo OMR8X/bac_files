@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 
 class ColorsResourcesLight {
   //
-  static const Color primary = Color(0xff5896F1);
+  static const Color primary = Color(0xff046CDD);
+  static const Color primaryContainer = Color(0xff79BAFB);
   static const Color onPrimary = Color(0xffEFF9FF);
   //
   static const Color error = Color(0xffF15858);
+  static const Color errorContainer = Color(0xffF15858);
   static const Color onError = Color(0xffFFEFF3);
   //
-  static const Color success = Color(0xff61C566);
+  static const Color success = Color(0xff00AE6F);
   static const Color onSuccess = Color(0xffDCFFE5);
   //
   static const Color surface = Color(0xffF2F7F9);
-  static const Color onSurface = Color(0xff2B2B2B);
-  static const Color onSurfaceVariant = Color(0xff848788);
+  static const Color onSurface = Color(0xff000000);
+  static const Color onSurfaceVariant = Color(0xff8A8A8E);
   //
   static const Color surfaceContainer = Color(0xffFFFFFF);
   static const Color surfaceContainerHigh = Color(0xffE3E9EA);
@@ -24,17 +26,22 @@ class ColorsResourcesLight {
   static const Color boldShadow = Color(0xffCDD0D5);
   static const Color lightShadow = Color(0xffE3EEFF);
   //
+  static const Color titleText = Color(0xff000000);
+  static const Color subTitleText = Color(0xff8A8A8E);
+  //
 }
 
 class ColorsResourcesDark {
   //
-  static const Color primary = Color(0xff487AC5);
+  static const Color primary = Color(0xff2C92F8);
+  static const Color primaryContainer = Color(0xff0556A8);
   static const Color onPrimary = Color(0xff1B2226);
   //
   static const Color error = Color(0xffFF8198);
+  static const Color errorContainer = Color(0xffB05D6B);
   static const Color onError = Color(0xff251B1B);
   //
-  static const Color success = Color(0xff61C566);
+  static const Color success = Color(0xff1CFDAB);
   static const Color onSuccess = Color(0xff1B2522);
   //
   static const Color surface = Color(0xff080808);
@@ -50,4 +57,6 @@ class ColorsResourcesDark {
   static const Color boldShadow = Color(0xffE3EEFF);
   static const Color lightShadow = Color(0xff080808);
   //
+  static const Color titleText = Color(0xffFFFFFF);
+  static const Color subTitleText = Color(0xff8D8D93);
 }

@@ -5,6 +5,7 @@ import 'package:bac_files_admin/features/managers/domain/entities/file_material.
 import 'package:bac_files_admin/features/managers/domain/entities/file_section.dart';
 import 'package:bac_files_admin/features/managers/domain/entities/school.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 import '../../../../core/functions/extractors/extract_relevent_element_function.dart';
 import '../../../../core/functions/formatters/normalize_file_name.dart';
@@ -38,8 +39,8 @@ class BacFile extends Equatable {
     required this.categoriesIds,
   });
 
-  String publicUrl() {
-    return "${ApiSettings.baseUrl}/storage/files/$id.pdf";
+  String publicViewUrl() {
+    return ApiEndpoints.viewPdf(id);
   }
 
   BacFile copyWith({
@@ -100,7 +101,7 @@ class BacFile extends Equatable {
       title: title,
       size: File(path).lengthSync().toString(),
       extension: path.split("/").last.split(".").last,
-      year: extractRelevantElement<int>(title, List.generate(10, (i) => 2024 - i), (e) => e.toString()).toString(),
+      year: extractRelevantElement<int>(title, List.generate(10, (i) => 2024 - i), (e) => e.toString())?.toString(),
       materialId: extractRelevantElement<FileMaterial>(title, sl<FileManagers>().materials, (e) => e.name)?.id,
       sectionId: extractRelevantElement<FileSection>(title, sl<FileManagers>().sections, (e) => e.name)?.id,
       teacherId: extractRelevantElement<FileTeacher>(title, sl<FileManagers>().teachers, (e) => e.name)?.id,

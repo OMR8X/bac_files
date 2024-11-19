@@ -1,4 +1,5 @@
 import 'package:bac_files_admin/core/injector/app_injection.dart';
+import 'package:bac_files_admin/core/resources/themes/extensions/surface_container_colors.dart';
 import 'package:bac_files_admin/features/files/domain/entities/bac_file.dart';
 import 'package:bac_files_admin/features/managers/domain/entities/managers.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,6 @@ class BacFileTileWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          margin: PaddingResources.padding_0_2,
           width: SizesResources.mainWidth(context),
           decoration: DecorationResources.tileDecoration(theme: Theme.of(context)),
           child: Material(
@@ -73,7 +73,6 @@ class BacFileTileWidget extends StatelessWidget {
 
 class _DetailsWidget extends StatelessWidget {
   const _DetailsWidget({
-    super.key,
     required this.file,
   });
   final BacFile file;
@@ -86,20 +85,16 @@ class _DetailsWidget extends StatelessWidget {
         children: [
           Text(
             file.title,
-            style: TextStyle(
-              fontWeight: FontWeightResources.bold,
-              color: Theme.of(context).colorScheme.onSurface,
-              fontSize: FontSizeResources.s12,
-            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: FontStylesResources.tileTitleStyle(context),
           ),
           const SizedBox(height: SpacesResources.s1),
           Text(
             sl<FileManagers>().materialById(id: file.materialId)!.name,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onSurfaceVariant,
-              fontSize: FontSizeResources.s10,
-            ),
-          )
+            style: FontStylesResources.tileSubTitleStyle(context),
+          ),
+          const SizedBox(height: SpacesResources.s1),
         ],
       ),
     );
@@ -118,8 +113,8 @@ class _FileExtensionIconWidget extends StatelessWidget {
       alignment: Alignment.center,
       margin: PaddingResources.padding_1_1,
       decoration: BoxDecoration(
-        borderRadius: BorderRadiusResource.tileBorderRadius,
-        color: Theme.of(context).colorScheme.primary,
+        borderRadius: BorderRadiusResource.iconBorderRadius,
+        color: Theme.of(context).colorScheme.primaryContainer,
       ),
       width: 35,
       height: 35,
@@ -128,7 +123,7 @@ class _FileExtensionIconWidget extends StatelessWidget {
         child: Text(
           extension,
           style: TextStyle(
-            color: Theme.of(context).colorScheme.onPrimary,
+            color: Theme.of(context).colorScheme.onSurface,
             fontWeight: FontWeightResources.black,
             fontSize: 12,
           ),
@@ -145,14 +140,14 @@ class _EditIconWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton.filled(
       style: IconButton.styleFrom(
-        backgroundColor: Theme.of(context).colorScheme.onPrimary,
+        backgroundColor: Theme.of(context).extension<SurfaceContainerColors>()!.surfaceContainer,
         minimumSize: const Size(SizesResources.sizeUnit * 10, SizesResources.sizeUnit * 10),
       ),
       onPressed: onPressed,
       icon: Icon(
         Icons.edit,
         size: 15,
-        color: Theme.of(context).colorScheme.primary,
+        color: Theme.of(context).colorScheme.primaryContainer,
       ),
     );
   }
@@ -165,14 +160,14 @@ class _DeleteIconWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton.filled(
       style: IconButton.styleFrom(
-        backgroundColor: Theme.of(context).colorScheme.onError,
+        backgroundColor: Theme.of(context).extension<SurfaceContainerColors>()!.surfaceContainer,
         minimumSize: const Size(SizesResources.sizeUnit * 10, SizesResources.sizeUnit * 10),
       ),
       onPressed: onPressed,
       icon: Icon(
         Icons.delete,
         size: 15,
-        color: Theme.of(context).colorScheme.error,
+        color: Theme.of(context).colorScheme.errorContainer,
       ),
     );
   }

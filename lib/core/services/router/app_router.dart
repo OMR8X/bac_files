@@ -208,12 +208,13 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           key: state.pageKey,
           transitionDuration: AppTransitions.transitionDuration,
+          opaque: false,
           reverseTransitionDuration: AppTransitions.reverseTransitionDuration,
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return AppTransitions.commonTransition(context, animation, secondaryAnimation, child);
           },
           child: PdfFileView(
-            url: state.extra as String,
+            file: state.extra as BacFile,
           ),
         ),
       ),

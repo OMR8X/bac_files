@@ -4,10 +4,10 @@ import 'package:dartz/dartz.dart';
 import '../../../../../core/resources/errors/failures.dart';
 import '../../entities/upload_operation.dart';
 
-class DeleteOperationUseCase {
+class DeleteAllOperationUseCase {
   final OperationsRepository repository;
-  DeleteOperationUseCase({required this.repository});
-  Future<Either<Failure, List<UploadOperation>>> call({required int operationId}) async {
-    return await repository.deleteOperations(operationId: operationId);
+  DeleteAllOperationUseCase({required this.repository});
+  Future<Either<Failure, List<UploadOperation>>> call() async {
+    return await repository.deleteAllOperations();
   }
 }

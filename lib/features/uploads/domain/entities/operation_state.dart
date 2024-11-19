@@ -1,5 +1,8 @@
 enum OperationState {
   ///
+  /// file is [empty]
+  created,
+
   /// file is [initializing]
   initializing,
 
@@ -14,6 +17,7 @@ enum OperationState {
   ///
   /// File has [failed] to upload
   failed,
+
   ///
   /// File has [canceled]
   canceled,

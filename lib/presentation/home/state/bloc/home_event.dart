@@ -14,6 +14,12 @@ final class HomeLoadFilesEvent extends HomeEvent {
   List<Object> get props => [];
 }
 
+final class HomeLoadMoreFilesEvent extends HomeEvent {
+  const HomeLoadMoreFilesEvent();
+  @override
+  List<Object> get props => [];
+}
+
 final class DeleteFileEvent extends HomeEvent {
   final String fileId;
   const DeleteFileEvent({required this.fileId});

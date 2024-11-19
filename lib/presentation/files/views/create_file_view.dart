@@ -1,3 +1,4 @@
+import 'package:bac_files_admin/core/services/router/app_arguments.dart';
 import 'package:bac_files_admin/presentation/files/state/create_file/create_file_bloc.dart';
 import 'package:bac_files_admin/presentation/files/views/set_up_file_view.dart';
 import 'package:flutter/material.dart';
@@ -32,14 +33,16 @@ class _CreateFileViewState extends State<CreateFileView> {
           },
           builder: (context, state) {
             return SetUpFileView(
-              isLoading: state.status == CreateFileStatus.loading,
-              bacFile: state.bacFile,
-              onChangeFilePath: (path) {
-                context.read<CreateFileBloc>().add(CreateFilePickFileEvent(path: path));
-              },
-              onSubmit: (file, path) {
-                context.read<CreateFileBloc>().add(CreateFileSubmitEvent(bacFile: file, path: path));
-              },
+              arguments: SetUpFileArguments(
+                isLoading: state.status == CreateFileStatus.loading,
+                bacFile: state.bacFile,
+                onChangeFilePath: (path) {
+                  context.read<CreateFileBloc>().add(CreateFilePickFileEvent(path: path));
+                },
+                onSubmit: (file, path) {
+                  context.read<CreateFileBloc>().add(CreateFileSubmitEvent(bacFile: file, path: path));
+                },
+              ),
             );
           },
         ),

@@ -31,7 +31,9 @@ class BorderRadiusResource {
   //
   static final fieldBorderRadius = bordersRadiusSmall;
   //
-  static final tileBorderRadius = bordersRadiusSmall;
+  static const tileBorderRadius = BorderRadius.zero;
+  //
+  static final iconBorderRadius = bordersRadiusSmall;
   //
   static final dialogBorderRadius = bordersRadiusLarge;
 }

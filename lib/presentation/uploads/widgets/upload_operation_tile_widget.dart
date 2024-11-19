@@ -5,7 +5,6 @@ import 'package:bac_files_admin/core/resources/themes/extensions/surface_contain
 import 'package:bac_files_admin/core/widgets/dialogs/conform_dialog.dart';
 import 'package:bac_files_admin/features/uploads/domain/entities/operation_state.dart';
 import 'package:bac_files_admin/features/uploads/domain/entities/upload_operation.dart';
-import 'package:bac_files_admin/presentation/home/state/bloc/home_bloc.dart';
 import 'package:bac_files_admin/presentation/uploads/state/uploads/uploads_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
@@ -63,20 +62,11 @@ class _UploadOperationTileWidgetState extends State<UploadOperationTileWidget> {
     });
     //
     _completeSubscription = FlutterBackgroundService().on("on-completed").listen((data) {
-      //
-      debugPrint("on-completed");
-      //
-      final operationId = data!['operation_id'] as int;
-      sl<UploadsBloc>().add(CompleteOperationEvent(operation: operationId));
-      sl<HomeBloc>().add(const HomeLoadFilesEvent());
+      sl<UploadsBloc>().add(const CompleteOperationEvent());
     });
     //
     _failedSubscription = FlutterBackgroundService().on("on-failed").listen((data) {
-      //
-      debugPrint("on-failed");
-      //
-      final operationId = data!['operation_id'] as int;
-      sl<UploadsBloc>().add(FailedOperationEvent(operation: operationId));
+      sl<UploadsBloc>().add(const FailedOperationEvent());
     });
     super.initState();
   }
@@ -92,99 +82,106 @@ class _UploadOperationTileWidgetState extends State<UploadOperationTileWidget> {
   //
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: PaddingResources.padding_5_2,
-      width: SizesResources.mainWidth(context),
-      decoration: DecorationResources.tileDecoration(theme: Theme.of(context)),
-      child: Material(
-        color: Colors.transparent,
-        child: Padding(
-          padding: PaddingResources.padding_3_3,
-          child: Row(
-            children: [
-              ///
-              const _FileExtensionIconWidget(extension: 'PDF'),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          width: SizesResources.mainWidth(context),
+          decoration: DecorationResources.tileDecoration(theme: Theme.of(context)),
+          child: Material(
+            color: Colors.transparent,
+            child: Padding(
+              padding: PaddingResources.padding_4_4,
+              child: Row(
+                children: [
+                  ///
+                  const _FileExtensionIconWidget(extension: 'PDF'),
 
-              ///
-              const SizedBox(width: SpacesResources.s4),
+                  ///
+                  const SizedBox(width: SpacesResources.s4),
 
-              ///
-              _DetailsWidget(
-                operation: widget.operation,
-                progress: _progress,
-              ),
+                  ///
+                  _DetailsWidget(
+                    operation: widget.operation,
+                    progress: _progress,
+                  ),
 
-              ///
-              if (widget.operation.state == OperationState.initializing)
-                _UploadIconWidget(
-                  onPressed: () {
-                    if (widget.onUpload == null) return;
-                    widget.onUpload!(widget.operation);
-                  },
-                ),
-
-              ///
-              if (widget.operation.state == OperationState.failed) ...[
-                _RetryIconWidget(
-                  onPressed: () {
-                    if (widget.onUpload == null) return;
-                    widget.onUpload!(widget.operation);
-                  },
-                ),
-                _ErrorDetailsIconWidget(
-                  onPressed: () {
-                    showConformDialog(
-                      context: context,
-                      onConform: () {},
-                      title: "تفاصيل الخطأ",
-                      body: widget.operation.error ?? "لا يوجد تفاصيل",
-                      action: "موافق",
-                    );
-                  },
-                )
-              ],
-
-              ///
-              if (widget.operation.state == OperationState.initializing)
-                _EditIconWidget(
-                  onPressed: () {
-                    if (widget.onEdit == null) return;
-                    widget.onEdit!(widget.operation);
-                  },
-                ),
-
-              ///
-              if ([OperationState.pending, OperationState.uploading].contains(widget.operation.state))
-                _StopIconWidget(onPressed: () {
-                  if (widget.onStop == null) return;
-                  widget.onStop!(widget.operation);
-                }),
-
-              ///
-              if ([OperationState.initializing, OperationState.succeed, OperationState.failed].contains(widget.operation.state))
-                _DeleteIconWidget(
-                  onPressed: () {
-                    //
-                    if (widget.onDelete == null) return;
-                    //
-                    if (widget.operation.state == OperationState.succeed) {
-                      widget.onDelete!(widget.operation);
-                      return;
-                    }
-                    //
-                    showCancelItemDialog(
-                      context: context,
-                      item: widget.operation.file.title,
-                      onConform: () {
-                        widget.onDelete!(widget.operation);
+                  ///
+                  if (widget.operation.state == OperationState.initializing)
+                    _UploadIconWidget(
+                      onPressed: () {
+                        if (widget.onUpload == null) return;
+                        widget.onUpload!(widget.operation);
                       },
-                    );
-                  },
-                ),
-            ],
+                    ),
+
+                  ///
+                  if (widget.operation.state == OperationState.failed) ...[
+                    _RetryIconWidget(
+                      onPressed: () {
+                        if (widget.onUpload == null) return;
+                        widget.onUpload!(widget.operation);
+                      },
+                    ),
+                    _ErrorDetailsIconWidget(
+                      onPressed: () {
+                        showConformDialog(
+                          context: context,
+                          onConform: () {},
+                          title: "تفاصيل الخطأ",
+                          body: widget.operation.error ?? "لا يوجد تفاصيل",
+                          action: "موافق",
+                        );
+                      },
+                    )
+                  ],
+
+                  ///
+                  if ([OperationState.initializing, OperationState.created].contains(widget.operation.state))
+                    _EditIconWidget(
+                      onPressed: () {
+                        if (widget.onEdit == null) return;
+                        widget.onEdit!(widget.operation);
+                      },
+                    ),
+
+                  ///
+                  if ([OperationState.pending, OperationState.uploading].contains(widget.operation.state))
+                    _StopIconWidget(
+                      onPressed: () {
+                        if (widget.onStop == null) return;
+                        widget.onStop!(widget.operation);
+                      },
+                    ),
+
+                  ///
+                  if ([OperationState.initializing, OperationState.succeed, OperationState.failed, OperationState.created].contains(widget.operation.state))
+                    _DeleteIconWidget(
+                      state: widget.operation.state,
+                      onPressed: () {
+                        //
+                        if (widget.onDelete == null) return;
+                        //
+                        if (widget.operation.state == OperationState.succeed) {
+                          widget.onDelete!(widget.operation);
+                          return;
+                        }
+                        //
+                        showCancelItemDialog(
+                          context: context,
+                          item: widget.operation.file.title,
+                          onConform: () {
+                            widget.onDelete!(widget.operation);
+                          },
+                        );
+                      },
+                    ),
+                ],
+              ),
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 }
@@ -212,38 +209,33 @@ class _DetailsWidget extends StatelessWidget {
                 Expanded(
                   child: Text(
                     operation.file.title,
-                    style: TextStyle(
-                      fontWeight: FontWeightResources.extraBold,
-                      color: Theme.of(context).colorScheme.onSurface,
-                      fontSize: FontSizeResources.s12,
-                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: FontStylesResources.tileTitleStyle(context),
                   ),
                 ),
                 if ([OperationState.uploading].contains(operation.state))
                   Text(
                     "%${progress.toStringAsFixed(2)}",
-                    style: TextStyle(
-                      fontWeight: FontWeightResources.light,
-                      color: Theme.of(context).colorScheme.onSurface,
-                      fontSize: FontSizeResources.s9,
-                    ),
+                    style: FontStylesResources.tileSubTitleStyle(context),
                   ),
               ],
             ),
 
             ///
             if ([OperationState.uploading, OperationState.pending].contains(operation.state)) ...[
-              const SizedBox(height: SpacesResources.s3),
+              const SizedBox(height: SpacesResources.s4),
               LinearProgressIndicator(
                 borderRadius: BorderRadiusResource.bordersRadiusTiny,
                 backgroundColor: Theme.of(context).extension<SurfaceContainerColors>()!.surfaceContainerHigh,
                 value: progress,
               ),
+              const SizedBox(height: SpacesResources.s1),
             ],
 
             ///
             if ([OperationState.initializing, OperationState.uploading].contains(operation.state)) ...[
-              const SizedBox(height: SpacesResources.s4),
+              const SizedBox(height: SpacesResources.s2),
               Text(
                 '${(int.parse(operation.file.size) / (1024 * 1024)).toStringAsFixed(2)} MB',
                 style: TextStyle(
@@ -258,9 +250,8 @@ class _DetailsWidget extends StatelessWidget {
               const SizedBox(height: SpacesResources.s4),
               Text(
                 'تمت عملية الرفع بنجاح',
-                style: TextStyle(
+                style: FontStylesResources.tileSubTitleStyle(context).copyWith(
                   color: Theme.of(context).extension<SuccessColors>()!.success,
-                  fontSize: FontSizeResources.s10,
                 ),
               ),
             ],
@@ -270,9 +261,8 @@ class _DetailsWidget extends StatelessWidget {
               const SizedBox(height: SpacesResources.s4),
               Text(
                 'فشلت عملية الرفع',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.error,
-                  fontSize: FontSizeResources.s10,
+                style: FontStylesResources.tileSubTitleStyle(context).copyWith(
+                  color: Theme.of(context).colorScheme.errorContainer,
                 ),
               ),
             ],
@@ -307,8 +297,8 @@ class _FileExtensionIconWidget extends StatelessWidget {
       alignment: Alignment.center,
       margin: PaddingResources.padding_1_1,
       decoration: BoxDecoration(
-        borderRadius: BorderRadiusResource.tileBorderRadius,
-        color: Theme.of(context).colorScheme.primary,
+        borderRadius: BorderRadiusResource.iconBorderRadius,
+        color: Theme.of(context).colorScheme.primaryContainer,
       ),
       width: 35,
       height: 35,
@@ -317,7 +307,7 @@ class _FileExtensionIconWidget extends StatelessWidget {
         child: Text(
           extension,
           style: TextStyle(
-            color: Theme.of(context).colorScheme.onPrimary,
+            color: Theme.of(context).colorScheme.onSurface,
             fontWeight: FontWeightResources.black,
             fontSize: 12,
           ),
@@ -334,14 +324,14 @@ class _RetryIconWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton.filled(
       style: IconButton.styleFrom(
-        backgroundColor: Theme.of(context).colorScheme.onPrimary,
+        backgroundColor: Theme.of(context).extension<SurfaceContainerColors>()!.surfaceContainer,
         minimumSize: const Size(SizesResources.sizeUnit * 10, SizesResources.sizeUnit * 10),
       ),
       onPressed: onPressed,
       icon: Icon(
         Icons.refresh_rounded,
-        size: 15,
-        color: Theme.of(context).colorScheme.primary,
+        size: 12,
+        color: Theme.of(context).colorScheme.primaryContainer,
       ),
     );
   }
@@ -354,14 +344,14 @@ class _ErrorDetailsIconWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton.filled(
       style: IconButton.styleFrom(
-        backgroundColor: Theme.of(context).colorScheme.onPrimary,
+        backgroundColor: Theme.of(context).extension<SurfaceContainerColors>()!.surfaceContainer,
         minimumSize: const Size(SizesResources.sizeUnit * 10, SizesResources.sizeUnit * 10),
       ),
       onPressed: onPressed,
       icon: Icon(
         Icons.details,
-        size: 15,
-        color: Theme.of(context).colorScheme.error,
+        size: 12,
+        color: Theme.of(context).colorScheme.errorContainer,
       ),
     );
   }
@@ -374,14 +364,14 @@ class _UploadIconWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton.filled(
       style: IconButton.styleFrom(
-        backgroundColor: Theme.of(context).colorScheme.onPrimary,
+        backgroundColor: Theme.of(context).extension<SurfaceContainerColors>()!.surfaceContainer,
         minimumSize: const Size(SizesResources.sizeUnit * 10, SizesResources.sizeUnit * 10),
       ),
       onPressed: onPressed,
       icon: Icon(
         Icons.upload,
-        size: 15,
-        color: Theme.of(context).colorScheme.primary,
+        size: 12,
+        color: Theme.of(context).colorScheme.primaryContainer,
       ),
     );
   }
@@ -394,34 +384,35 @@ class _EditIconWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton.filled(
       style: IconButton.styleFrom(
-        backgroundColor: Theme.of(context).colorScheme.onPrimary,
+        backgroundColor: Theme.of(context).extension<SurfaceContainerColors>()!.surfaceContainer,
         minimumSize: const Size(SizesResources.sizeUnit * 10, SizesResources.sizeUnit * 10),
       ),
       onPressed: onPressed,
       icon: Icon(
         Icons.edit,
-        size: 15,
-        color: Theme.of(context).colorScheme.primary,
+        size: 12,
+        color: Theme.of(context).colorScheme.primaryContainer,
       ),
     );
   }
 }
 
 class _DeleteIconWidget extends StatelessWidget {
-  const _DeleteIconWidget({required this.onPressed});
+  const _DeleteIconWidget({required this.onPressed, required this.state});
+  final OperationState state;
   final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
     return IconButton.filled(
       style: IconButton.styleFrom(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: Theme.of(context).extension<SurfaceContainerColors>()!.surfaceContainer,
         minimumSize: const Size(SizesResources.sizeUnit * 10, SizesResources.sizeUnit * 10),
       ),
       onPressed: onPressed,
       icon: Icon(
         Icons.close,
-        size: 15,
-        color: Theme.of(context).colorScheme.error,
+        size: 12,
+        color: Theme.of(context).colorScheme.onSurfaceVariant,
       ),
     );
   }
@@ -440,7 +431,7 @@ class _StopIconWidget extends StatelessWidget {
       onPressed: onPressed,
       icon: Icon(
         Icons.pause,
-        size: 15,
+        size: 12,
         color: Theme.of(context).colorScheme.primary,
       ),
     );

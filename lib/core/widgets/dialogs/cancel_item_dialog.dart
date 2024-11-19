@@ -36,7 +36,7 @@ showCancelItemDialog({
 
                 ///
                 Text(
-                  "ازالة ملف",
+                  "ازالة العنصر",
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeightResources.extraBold,
                       ),

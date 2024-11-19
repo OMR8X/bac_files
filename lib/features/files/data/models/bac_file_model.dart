@@ -29,7 +29,7 @@ class BacFileModel extends BacFile {
     }
     if (json['categories_ids'] != null) {
       categoriesId.removeWhere((e) => true);
-      for (var item in (json['categories_ids'] as List<String>)) {
+      for (var item in (json['categories_ids'] as List)) {
         categoriesId.add(item);
       }
     }

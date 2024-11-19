@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:bac_files_admin/core/resources/errors/exceptions.dart';
 import 'package:bac_files_admin/core/resources/errors/failures.dart';
 import 'package:bac_files_admin/features/files/data/datasources/files_remote_datasource.dart';
 import 'package:bac_files_admin/features/files/data/responses/upload_file_response.dart';
 import 'package:bac_files_admin/features/files/domain/requests/upload_file_request.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import '../../domain/repositories/files_repository.dart';
 
 class FilesRepositoryImplement implements FilesRepository {
@@ -28,6 +30,8 @@ class FilesRepositoryImplement implements FilesRepository {
       } else {
         return left(AnonFailure(message: e.message));
       }
+    } on ServerException catch (e) {
+      return left(AnonFailure(message: e.toString()));
     } on Exception catch (e) {
       return left(AnonFailure(message: e.toString()));
     }

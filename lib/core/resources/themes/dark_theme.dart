@@ -1,4 +1,5 @@
 import 'package:bac_files_admin/core/resources/styles/colors_resources.dart';
+import 'package:bac_files_admin/core/resources/styles/font_styles_manager.dart';
 import 'package:bac_files_admin/core/resources/themes/extensions/surface_container_colors.dart';
 import 'package:flutter/material.dart';
 import '../styles/border_radius_resources.dart';
@@ -10,17 +11,17 @@ class AppDarkTheme {
   ///
   static ThemeData theme() {
     return ThemeData(
-      fontFamily: "Vazirmatn",
+      fontFamily: AppFontStyles.fontFamily,
       colorScheme: const ColorScheme(
         brightness: Brightness.dark,
         primary: ColorsResourcesDark.primary,
+        primaryContainer: ColorsResourcesDark.primaryContainer,
         onPrimary: ColorsResourcesDark.onPrimary,
         secondary: ColorsResourcesDark.primary,
         onSecondary: ColorsResourcesDark.primary,
         error: ColorsResourcesDark.error,
+        errorContainer: ColorsResourcesDark.errorContainer,
         onError: ColorsResourcesDark.onError,
-        background: ColorsResourcesDark.surface,
-        onBackground: ColorsResourcesDark.onSurface,
         surface: ColorsResourcesDark.surface,
         onSurface: ColorsResourcesDark.onSurface,
         onSurfaceVariant: ColorsResourcesDark.onSurfaceVariant,
@@ -36,11 +37,15 @@ class AppDarkTheme {
           surfaceContainer: ColorsResourcesDark.surfaceContainer,
           surfaceContainerHigh: ColorsResourcesDark.surfaceContainerHigh,
         ),
-                SuccessColors(
+        SuccessColors(
           success: ColorsResourcesDark.success,
           onSuccess: ColorsResourcesDark.onSuccess,
         ),
       ],
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: ColorsResourcesDark.surfaceContainerHigh,
+        foregroundColor: ColorsResourcesDark.primary,
+      ),
       dropdownMenuTheme: DropdownMenuThemeData(
         inputDecorationTheme: InputDecorationTheme(
           border: OutlineInputBorder(
@@ -62,11 +67,11 @@ class AppDarkTheme {
       ///
       menuTheme: MenuThemeData(
         style: MenuStyle(
-          backgroundColor: const MaterialStatePropertyAll(
+          backgroundColor: const WidgetStatePropertyAll(
             ColorsResourcesDark.surfaceContainerHigh,
           ),
           alignment: Alignment.topCenter,
-          shape: MaterialStatePropertyAll(
+          shape: WidgetStatePropertyAll(
             RoundedRectangleBorder(
               borderRadius: BorderRadiusResource.fieldBorderRadius,
             ),
@@ -79,11 +84,13 @@ class AppDarkTheme {
         style: ElevatedButton.styleFrom(
           //
           backgroundColor: ColorsResourcesDark.primary,
-          foregroundColor: ColorsResourcesDark.onPrimary,
+          foregroundColor: Colors.white,
           //
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadiusResource.buttonBorderRadius,
           ),
+          //
+          textStyle: FontStylesResources.buttonStyle,
         ),
       ),
 
@@ -97,6 +104,7 @@ class AppDarkTheme {
 
       ///
       inputDecorationTheme: InputDecorationTheme(
+        
         border: OutlineInputBorder(
           borderRadius: BorderRadiusResource.fieldBorderRadius,
           borderSide: const BorderSide(

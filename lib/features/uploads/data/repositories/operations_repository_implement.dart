@@ -14,10 +14,10 @@ class OperationsRepositoryImplement implements OperationsRepository {
     required OperationsLocalDataSource localDataSource,
   }) : _localDataSource = localDataSource;
   @override
-  Future<Either<Failure, Unit>> addOperation({required UploadOperation operation}) async {
+  Future<Either<Failure, List<UploadOperation>>> addOperation({required UploadOperation operation}) async {
     try {
-      await _localDataSource.addOperation(operation);
-      return right(unit);
+      var response = await _localDataSource.addOperation(operation);
+      return right(response);
     } on Exception catch (e) {
       debugPrint(e.toString());
       return left(const AnonFailure());
@@ -25,12 +25,33 @@ class OperationsRepositoryImplement implements OperationsRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> deleteOperations({required int operationId}) async {
+  Future<Either<Failure, List<UploadOperation>>> addOperations({required List<UploadOperation> operations}) async {
     try {
-      await _localDataSource.deleteOperation(operationId);
-      return right(unit);
+      var response = await _localDataSource.addOperations(operations);
+      return right(response);
+    } on Exception catch (e) {
+      debugPrint(e.toString());
+      return left(const AnonFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<UploadOperation>>> deleteOperations({required int operationId}) async {
+    try {
+      var response = await _localDataSource.deleteOperation(operationId);
+      return right(response);
     } on Exception {
       // TODO: Handle exception
+      return left(const AnonFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<UploadOperation>>> deleteAllOperations() async {
+    try {
+      var response = await _localDataSource.deleteAllOperation();
+      return right(response);
+    } on Exception {
       return left(const AnonFailure());
     }
   }
@@ -41,7 +62,6 @@ class OperationsRepositoryImplement implements OperationsRepository {
       final response = await _localDataSource.getOperation(operationId: operationId);
       return right(response);
     } on Exception {
-      // TODO: Handle exception
       return left(const AnonFailure());
     }
   }
@@ -58,10 +78,10 @@ class OperationsRepositoryImplement implements OperationsRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> updateOperation({required UploadOperation operation}) async {
+  Future<Either<Failure, List<UploadOperation>>> updateOperation({required UploadOperation operation}) async {
     try {
-      await _localDataSource.updateOperation(operation);
-      return right(unit);
+      var response = await _localDataSource.updateOperation(operation);
+      return right(response);
     } on Exception {
       // TODO: Handle exception
       return left(const AnonFailure());
@@ -69,10 +89,10 @@ class OperationsRepositoryImplement implements OperationsRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> updateAllOperationsState({required OperationState state}) async {
+  Future<Either<Failure, List<UploadOperation>>> updateAllOperationsState({required OperationState state}) async {
     try {
-      await _localDataSource.updateAllOperationsState(state);
-      return right(unit);
+      var response = await _localDataSource.updateAllOperationsState(state);
+      return right(response);
     } on Exception {
       // TODO: Handle exception
       return left(const AnonFailure());

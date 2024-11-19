@@ -1,17 +1,20 @@
 String normalizeFileName(String input) {
   ///
-  /// Remove all [ under-scores and dashes ] from the file name
-  input = input.replaceAll(RegExp(r'[-_]'), ' ');
-
-  ///
-  /// Remove all [non-alphanumeric characters except spaces] from the file name
-  input = input.replaceAll(RegExp(r'[^a-zA-Z\u0600-\u06FF\s]'), '');
-
-  ///
   /// Replace each character in the input string using the mapping
   for (var key in arabicNormalizationMap.keys) {
     input = input.replaceAll(key, arabicNormalizationMap[key] ?? "");
   }
+
+  ///
+  /// Remove all [under-scores and dashes] from the file name
+  input = input.replaceAll(RegExp(r'[-_]'), ' ');
+
+  ///
+  /// Remove all [non-alphanumeric characters except spaces] from the file name
+  input = input.replaceAll(RegExp(r'[^a-zA-Z\u0600-\u06FF\s0-9]'), ' ');
+
+  ///
+  List<String> words = [];
 
   ///
   return input;
@@ -22,7 +25,6 @@ Map<String, String> arabicNormalizationMap = {
   'آ': 'ا',
   'أ': 'ا',
   'إ': 'ا',
-  'إ': 'ا',
   'ٱ': 'ا',
 
   // Normalize variations of 'ي'
@@ -48,10 +50,8 @@ Map<String, String> arabicNormalizationMap = {
   ' ٔ': '', // Hamza above
   'ٔ': '', // Hamza above (different form)
   ' ٕ': '', // Hamza below
-  'ؤ': 'و', // Waw with hamza
-  'ئ': 'ي', // Ya with hamza
 
-  // Other Arabic characters
+  // Normalize Arabic characters (add more as needed)
   'ب': 'ب',
   'ت': 'ت',
   'ث': 'ث',
@@ -84,5 +84,15 @@ Map<String, String> arabicNormalizationMap = {
   '؛': ';',
   '؟': '?',
 
-  // Add more mappings as needed
+  // Arabic to English number mapping
+  '٠': '0',
+  '١': '1',
+  '٢': '2',
+  '٣': '3',
+  '٤': '4',
+  '٥': '5',
+  '٦': '6',
+  '٧': '7',
+  '٨': '8',
+  '٩': '9',
 };

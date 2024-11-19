@@ -1,7 +1,9 @@
 import 'package:bac_files_admin/core/services/notifications/app_notification_service.dart';
 import 'package:bac_files_admin/core/services/notifications/local/app_local_notifications_settings.dart';
+import 'package:bac_files_admin/features/uploads/data/mappers/upload_operation_mapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
+import '../../domain/entities/upload_operation.dart';
 import '../../domain/repositories/background_messenger_repository.dart';
 
 class BackgroundMessengerRepositoryImplements implements BackgroundMessengerRepository {
@@ -15,11 +17,13 @@ class BackgroundMessengerRepositoryImplements implements BackgroundMessengerRepo
         _appNotificationService = appNotificationService;
 
   @override
-  Future<void> sendUpdateState() async {
+  Future<void> sendUpdateState({List<UploadOperation>? operations}) async {
     //
-    debugPrint("6- sending update state message..");
+    debugPrint("sending update state message..");
     //
-    _serviceInstance.invoke("on-update-state");
+    _serviceInstance.invoke("on-update-state", {
+      "operations": operations?.map((e) => e.toModel.toJson()).toList(),
+    });
     //
     return;
   }
@@ -29,11 +33,9 @@ class BackgroundMessengerRepositoryImplements implements BackgroundMessengerRepo
     //
     debugPrint("sending operation completed message..");
     //
-    _serviceInstance.invoke("on-completed", {
-      "operation_id": id,
-    });
+    _serviceInstance.invoke("on-completed");
     //
-    _appNotificationService.showMessageNotification(
+    await _appNotificationService.showMessageNotification(
       id: id,
       title: "تمت العملية",
       message: "تم رفع $title",
@@ -47,11 +49,9 @@ class BackgroundMessengerRepositoryImplements implements BackgroundMessengerRepo
     //
     debugPrint("sending operation failed message..");
     //
-    _serviceInstance.invoke("on-failed", {
-      "operation_id": id,
-    });
+    _serviceInstance.invoke("on-failed");
     //
-    _appNotificationService.showMessageNotification(
+    await _appNotificationService.showMessageNotification(
       id: id,
       title: "فشلت العملية",
       message: "حدث خطا اثناء محاولة رفع $title",

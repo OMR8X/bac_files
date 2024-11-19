@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
+import 'package:bac_files_admin/core/resources/styles/colors_resources.dart';
+import 'package:flutter/material.dart';
 
 class AppFontStyles {
-  static const String fontFamily = 'Tajawal';
+  static const String fontFamily = 'NotoSansArabic';
   static TextStyle makeFontStyle({
     double? fontSize,
     double? height,
@@ -19,6 +20,53 @@ class AppFontStyles {
       height: height,
     );
   }
+}
+
+class FontStylesResources {
+  ///
+  static TextStyle tileTitleStyle(BuildContext context) {
+    //
+    Color color = Theme.of(context).brightness == Brightness.dark ? ColorsResourcesDark.titleText : ColorsResourcesLight.titleText;
+    //
+    return TextStyle(
+      color: Theme.of(context).colorScheme.onSurface,
+      fontFamily: AppFontStyles.fontFamily,
+      fontWeight: FontWeightResources.medium,
+      fontSize: 11,
+    );
+  }
+
+  ///
+  static TextStyle tileSubTitleStyle(BuildContext context) {
+    Color color = Theme.of(context).brightness == Brightness.dark ? ColorsResourcesDark.subTitleText : ColorsResourcesLight.subTitleText;
+    return TextStyle(
+      color: Theme.of(context).colorScheme.onSurfaceVariant,
+      fontFamily: AppFontStyles.fontFamily,
+      fontWeight: FontWeightResources.regular,
+      fontSize: 9,
+    );
+  }
+
+  ///
+  static const TextStyle buttonStyle = TextStyle(
+    fontFamily: AppFontStyles.fontFamily,
+    fontWeight: FontWeightResources.bold,
+    fontSize: 12,
+  );
+
+  ///
+  static const TextStyle textFieldStyle = TextStyle(
+    fontFamily: AppFontStyles.fontFamily,
+    fontWeight: FontWeightResources.bold,
+    fontSize: 12,
+  );
+
+  ///
+  static const TextStyle appBarButtonStyle = TextStyle(
+    fontFamily: AppFontStyles.fontFamily,
+    fontWeight: FontWeightResources.regular,
+    fontSize: 11,
+  );
 }
 
 class FontWeightResources {
