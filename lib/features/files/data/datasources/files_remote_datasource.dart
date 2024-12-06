@@ -1,19 +1,26 @@
-import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
-import 'package:bac_files_admin/core/resources/errors/failures.dart';
 import 'package:bac_files_admin/core/services/api/api_constants.dart';
 import 'package:bac_files_admin/core/services/api/api_manager.dart';
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
+import '../../../../core/injector/app_injection.dart';
 import '../../../../core/resources/errors/exceptions.dart';
 import '../../../../core/services/api/responses/api_response.dart';
+import '../../../../core/services/debug/debugging_client.dart';
+import '../../../../core/services/debug/debugging_manager.dart';
+import '../../domain/requests/download_file_request.dart';
 import '../../domain/requests/upload_file_request.dart';
+
+import '../responses/download_file_response.dart';
 import '../responses/upload_file_response.dart';
 
 abstract class FilesRemoteDataSource {
   Future<UploadFileResponse> uploadFile({required UploadFileRequest request});
+  Future<DownloadFileResponse> downloadFile({required DownloadFileRequest request});
 }
 
 class FilesRemoteDataSourceImplements implements FilesRemoteDataSource {
@@ -23,7 +30,9 @@ class FilesRemoteDataSourceImplements implements FilesRemoteDataSource {
   @override
   Future<UploadFileResponse> uploadFile({required UploadFileRequest request}) async {
     //
-    if (!(await File(request.operation.path).exists())) throw const FileNotExistsException();
+    if (!(await File(request.operation.path).exists())) {
+      throw const FileNotExistsException();
+    }
     //
     FormData formData = FormData.fromMap({
       "file": await MultipartFile.fromFile(
@@ -45,7 +54,7 @@ class FilesRemoteDataSourceImplements implements FilesRemoteDataSource {
     final headers = {
       "Content-Type": "multipart/form-data",
     };
-
+    //
     ///
     final dioResponse = await _manager().post(
       ApiEndpoints.files,
@@ -67,5 +76,87 @@ class FilesRemoteDataSourceImplements implements FilesRemoteDataSource {
 
     ///
     return response;
+  }
+
+  @override
+  Future<DownloadFileResponse> downloadFile({required DownloadFileRequest request}) async {
+    ///
+    /// Prepare file
+    File file = File(request.operation.path);
+
+    /// Calculate file local bytes length
+    int localBytesLength = 0;
+    int fullLength = 0;
+    //
+    // Ensure the file exists
+    if (!await file.exists()) {
+      await file.create();
+    }
+
+    if (await file.exists()) {
+      localBytesLength = await file.length();
+      fullLength += localBytesLength;
+    }
+
+    ///
+    /// Prepare RandomAccessFile
+    final randomAccessFile = file.openSync(mode: FileMode.append);
+
+    ///
+    /// prepare headers
+    Map<String, dynamic>? headers = {};
+
+    /// check if file contain previous data
+    if (localBytesLength != 0) {
+      headers = {HttpHeaders.rangeHeader: "bytes=$localBytesLength-"};
+    }
+    //
+    /// prepare http connection
+    Response response = await _manager().get(
+      ApiEndpoints.downloadFile(request.operation.file.id),
+      headers: headers,
+      responseType: ResponseType.stream,
+      cancelToken: request.cancelToken,
+    );
+
+    /// get file full length
+    int contentLength = int.parse(
+      response.headers.value(HttpHeaders.contentLengthHeader) ?? '0',
+    );
+
+    fullLength += contentLength;
+
+    /// prepare stream
+    final stream = (response.data.stream as Stream<Uint8List>);
+
+    ///
+
+    final subscription = stream.listen(
+      (chunk) {
+        /// Write bytes to file
+        randomAccessFile.writeFromSync(chunk);
+
+        /// Update localBytesLength
+        localBytesLength += chunk.length;
+        //
+
+        request.onSendProgress(localBytesLength, fullLength);
+      },
+    );
+
+    ///
+    // Cancel the subscription if the token is cancelled
+    request.cancelToken.whenCancel.then((_) {
+      subscription.cancel();
+    });
+
+    ///
+    await subscription.asFuture();
+
+    ///
+    await randomAccessFile.close();
+
+    ///
+    return DownloadFileResponse();
   }
 }

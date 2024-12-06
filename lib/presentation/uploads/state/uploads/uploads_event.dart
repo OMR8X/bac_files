@@ -9,7 +9,7 @@ final class UploadsEvent extends Equatable {
 
 final class AddOperationEvent extends UploadsEvent {
   const AddOperationEvent({required this.operation});
-  final UploadOperation operation;
+  final Operation operation;
   @override
   List<Object> get props => [operation];
 }
@@ -21,8 +21,8 @@ final class AddSharedOperationEvent extends UploadsEvent {
   List<Object> get props => [paths];
 }
 
-final class InitializeOperationsEvent extends UploadsEvent {
-  const InitializeOperationsEvent();
+final class InitializeUploadsEvent extends UploadsEvent {
+  const InitializeUploadsEvent();
 
   @override
   List<Object> get props => [];
@@ -30,14 +30,14 @@ final class InitializeOperationsEvent extends UploadsEvent {
 
 final class UpdateOperationsEvent extends UploadsEvent {
   const UpdateOperationsEvent({this.operations});
-  final List<UploadOperation>? operations;
+  final List<Operation>? operations;
   @override
   List<Object> get props => [];
 }
 
 final class StartOperationEvent extends UploadsEvent {
   const StartOperationEvent({required this.operation});
-  final UploadOperation operation;
+  final Operation operation;
   @override
   List<Object> get props => [];
 }
@@ -58,14 +58,14 @@ final class DeleteAllOperationsEvent extends UploadsEvent {
 
 final class DeleteOperationEvent extends UploadsEvent {
   const DeleteOperationEvent({required this.operation});
-  final UploadOperation operation;
+  final Operation operation;
   @override
   List<Object> get props => [operation];
 }
 
 final class StopOperationEvent extends UploadsEvent {
   const StopOperationEvent({required this.operation});
-  final UploadOperation operation;
+  final Operation operation;
   @override
   List<Object> get props => [operation];
 }
@@ -84,7 +84,7 @@ final class RefreshOperationEvent extends UploadsEvent {
 
 final class CancelOperationEvent extends UploadsEvent {
   const CancelOperationEvent({required this.operation});
-  final UploadOperation operation;
+  final Operation operation;
   @override
   List<Object> get props => [operation];
 }

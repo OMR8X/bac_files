@@ -1,9 +1,10 @@
 import 'package:bac_files_admin/core/services/router/app_transations.dart';
 import 'package:bac_files_admin/features/files/domain/entities/bac_file.dart';
+import 'package:bac_files_admin/presentation/debugging/views/debugs_view.dart';
 import 'package:bac_files_admin/presentation/files/views/create_file_view.dart';
 import 'package:bac_files_admin/presentation/files/views/explore_file_view.dart';
+import 'package:bac_files_admin/presentation/files/views/pdf_bac_file_view.dart';
 import 'package:bac_files_admin/presentation/files/views/pdf_file_view.dart';
-import 'package:bac_files_admin/presentation/files/views/set_up_file_view.dart';
 import 'package:bac_files_admin/presentation/files/views/update_file_view.dart';
 import 'package:bac_files_admin/presentation/files/views/update_operation_file_view.dart';
 import 'package:bac_files_admin/presentation/managers/views/exaplore_manager_view.dart';
@@ -19,12 +20,12 @@ import 'package:bac_files_admin/presentation/root/views/pages_holder.dart';
 import 'package:bac_files_admin/presentation/uploads/views/uploads_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../features/managers/domain/entities/file_category.dart';
 import '../../../features/managers/domain/entities/file_material.dart';
 import '../../../features/managers/domain/entities/file_section.dart';
 import '../../../features/managers/domain/entities/school.dart';
 import '../../../features/managers/domain/entities/teacher.dart';
+import '../../../presentation/downloads/views/downloads_view.dart';
 import 'app_arguments.dart';
 import 'app_routes.dart';
 
@@ -34,12 +35,13 @@ class AppRouter {
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
   static final _rootNavigatorHome = GlobalKey<NavigatorState>();
   static final _rootNavigatorUploads = GlobalKey<NavigatorState>();
+  static final _rootNavigatorDownloads = GlobalKey<NavigatorState>();
   static final _rootNavigatorCategories = GlobalKey<NavigatorState>();
 
   ///
   ///
   static final router = GoRouter(
-    debugLogDiagnostics: true,
+    debugLogDiagnostics: false,
     initialLocation: AppRoutes.loader.path,
     navigatorKey: _rootNavigatorKey,
     routes: [
@@ -203,8 +205,25 @@ class AppRouter {
       ),
       // pdf file route
       GoRoute(
-        name: AppRoutes.pdfFile.name,
-        path: AppRoutes.pdfFile.path,
+        name: AppRoutes.remotePdfFile.name,
+        path: AppRoutes.remotePdfFile.path,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          transitionDuration: AppTransitions.transitionDuration,
+          opaque: false,
+          reverseTransitionDuration: AppTransitions.reverseTransitionDuration,
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return AppTransitions.commonTransition(context, animation, secondaryAnimation, child);
+          },
+          child: PdfBacFileView(
+            file: state.extra as BacFile,
+          ),
+        ),
+      ),
+      // pdf file route
+      GoRoute(
+        name: AppRoutes.localPdfFile.name,
+        path: AppRoutes.localPdfFile.path,
         pageBuilder: (context, state) => CustomTransitionPage(
           key: state.pageKey,
           transitionDuration: AppTransitions.transitionDuration,
@@ -214,7 +233,7 @@ class AppRouter {
             return AppTransitions.commonTransition(context, animation, secondaryAnimation, child);
           },
           child: PdfFileView(
-            file: state.extra as BacFile,
+            path: state.extra as String,
           ),
         ),
       ),
@@ -232,6 +251,20 @@ class AppRouter {
           child: UpdateOperationFileView(
             operationId: state.extra as int,
           ),
+        ),
+      ),
+      // debugs route
+      GoRoute(
+        name: AppRoutes.debugs.name,
+        path: AppRoutes.debugs.path,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          transitionDuration: AppTransitions.transitionDuration,
+          reverseTransitionDuration: AppTransitions.reverseTransitionDuration,
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return AppTransitions.commonTransition(context, animation, secondaryAnimation, child);
+          },
+          child: const DebugsView(),
         ),
       ),
 
@@ -280,6 +313,28 @@ class AppRouter {
                     return AppTransitions.commonTransition(context, animation, secondaryAnimation, child);
                   },
                   child: UploadsView(
+                    key: state.pageKey,
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+          /// Downloads route
+          StatefulShellBranch(
+            navigatorKey: _rootNavigatorDownloads,
+            routes: [
+              GoRoute(
+                name: AppRoutes.downloads.name,
+                path: AppRoutes.downloads.path,
+                pageBuilder: (context, state) => CustomTransitionPage(
+                  key: state.pageKey,
+                  transitionDuration: AppTransitions.transitionDuration,
+                  reverseTransitionDuration: AppTransitions.reverseTransitionDuration,
+                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                    return AppTransitions.commonTransition(context, animation, secondaryAnimation, child);
+                  },
+                  child: DownloadsView(
                     key: state.pageKey,
                   ),
                 ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../debug/debugging_manager.dart';
 import 'cache_client.dart';
 
 /// callable class
@@ -19,9 +20,8 @@ class CacheManager {
   }
 
   Future<void> refresh() async {
-    debugPrint("refreshing cache in ${sl.isRegistered<ServiceInstance>() ? "background" : "foreground"}");
+    
     await _cacheClient.refresh(await getApplicationDocumentsDirectory());
-
     return;
   }
 

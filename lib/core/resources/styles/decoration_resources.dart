@@ -1,7 +1,5 @@
-import 'package:bac_files_admin/core/resources/styles/colors_resources.dart';
 import 'package:bac_files_admin/core/resources/themes/extensions/surface_container_colors.dart';
 import 'package:flutter/material.dart';
-
 import 'border_radius_resources.dart';
 
 class DecorationResources {

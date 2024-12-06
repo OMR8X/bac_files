@@ -11,6 +11,7 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../core/injector/app_injection.dart';
 import '../../../../core/resources/errors/failures.dart';
+import '../../../../core/services/debug/debugging_manager.dart';
 import '../../../../features/files/domain/entities/bac_file.dart';
 import '../../../home/state/bloc/home_bloc.dart';
 

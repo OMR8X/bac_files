@@ -1,24 +1,24 @@
 import 'dart:async';
-import 'dart:math';
-
 import 'package:bac_files_admin/core/injector/app_injection.dart';
 import 'package:bac_files_admin/core/resources/errors/failures.dart';
+import 'package:bac_files_admin/core/services/cache/cache_manager.dart';
 import 'package:bac_files_admin/core/services/debug/debugging_manager.dart';
 import 'package:bac_files_admin/features/files/domain/entities/bac_file.dart';
-import 'package:bac_files_admin/features/uploads/data/models/upload_operation_model.dart';
-import 'package:bac_files_admin/features/uploads/domain/entities/operation_state.dart';
-import 'package:bac_files_admin/features/uploads/domain/usecases/operations/add_operation_usecase.dart';
-import 'package:bac_files_admin/features/uploads/domain/usecases/operations/delete_all_operation_usecase.dart';
-import 'package:bac_files_admin/features/uploads/domain/usecases/operations/delete_operation_usecase.dart';
-import 'package:bac_files_admin/features/uploads/domain/usecases/operations/get_operations_usecase.dart';
+import 'package:bac_files_admin/features/operations/domain/entities/operation_type.dart';
+import 'package:bac_files_admin/features/operations/domain/usecases/update_operation_usecase.dart';
+import 'package:bac_files_admin/features/operations/domain/usecases/update_operations_usecase.dart';
 import 'package:bac_files_admin/presentation/home/state/bloc/home_bloc.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../../features/uploads/domain/entities/upload_operation.dart';
-import '../../../../features/uploads/domain/usecases/operations/add_operations_usecase.dart';
+import '../../../../features/operations/domain/entities/operation.dart';
+import '../../../../features/operations/domain/entities/operation_state.dart';
+import '../../../../features/operations/domain/usecases/add_operation_usecase.dart';
+import '../../../../features/operations/domain/usecases/add_operations_usecase.dart';
+import '../../../../features/operations/domain/usecases/delete_all_operation_usecase.dart';
+import '../../../../features/operations/domain/usecases/delete_operation_usecase.dart';
+import '../../../../features/operations/domain/usecases/get_operations_usecase.dart';
 
 part 'uploads_event.dart';
 part 'uploads_state.dart';
@@ -26,6 +26,8 @@ part 'uploads_state.dart';
 class UploadsBloc extends Bloc<UploadsEvent, UploadsState> {
   ///
   late StreamSubscription _backgroundUpdateStateSubscription;
+  late StreamSubscription _backgroundOnCompleteSubscription;
+  late StreamSubscription _backgroundOnFailedSubscription;
 
   ///
   final GetAllOperationsUseCase _getOperationsUseCase;
@@ -33,6 +35,8 @@ class UploadsBloc extends Bloc<UploadsEvent, UploadsState> {
   final AddOperationsUseCase _addOperationsUseCase;
   final DeleteOperationUseCase _deleteOperationUseCase;
   final DeleteAllOperationUseCase _deleteAllOperationUseCase;
+  final UpdateOperationUseCase _updateOperationUseCase;
+  final UpdateAllOperationsStateUseCase _updateAllOperationsStateUseCase;
 
   ///
   UploadsBloc(
@@ -41,9 +45,11 @@ class UploadsBloc extends Bloc<UploadsEvent, UploadsState> {
     this._deleteOperationUseCase,
     this._addOperationsUseCase,
     this._deleteAllOperationUseCase,
+    this._updateOperationUseCase,
+    this._updateAllOperationsStateUseCase,
   ) : super(UploadsState.initializing()) {
     ///
-    on<InitializeOperationsEvent>(onInitializeOperationsEvent);
+    on<InitializeUploadsEvent>(onInitializeOperationsEvent);
     on<UpdateOperationsEvent>(onUpdateOperationsEvent);
     //
     on<AddOperationEvent>(onAddOperationEvent);
@@ -62,25 +68,34 @@ class UploadsBloc extends Bloc<UploadsEvent, UploadsState> {
   }
 
   ///
-  onInitializeOperationsEvent(InitializeOperationsEvent event, Emitter<UploadsState> emit) async {
+  onInitializeOperationsEvent(InitializeUploadsEvent event, Emitter<UploadsState> emit) async {
     //
     await emitContent(emit: emit);
     //
-    await refreshUploads();
-    //
     _backgroundUpdateStateSubscription = FlutterBackgroundService().on("on-update-state").listen((event) {
       //
-      sl<DebuggingManager>()().logMessage("receiving update state from background service");
+      sl<UploadsBloc>().add(const UpdateOperationsEvent());
       //
-      if (event?["operations"] != null) {
-        //
-        List<UploadOperation> operations = (event!["operations"] as List).map((e) {
-          return UploadOperationModel.fromJson(e);
-        }).toList();
-        //
-        sl<UploadsBloc>().add(UpdateOperationsEvent(operations: operations));
-      } else {
-        sl<UploadsBloc>().add(const UpdateOperationsEvent());
+    });
+    //
+    _backgroundOnCompleteSubscription = FlutterBackgroundService().on("on-completed").listen((data) {
+      //
+      final operationId = data!['operation_id'] as int;
+      final fileId = data['file_id'] as String;
+      //
+      if (state.operations.any((e) => e.file.id == fileId || e.id == operationId)) {
+        sl<UploadsBloc>().add(const CompleteOperationEvent());
+      }
+      //
+    });
+    //
+    _backgroundOnFailedSubscription = FlutterBackgroundService().on("on-failed").listen((data) {
+      //
+      final operationId = data!['operation_id'] as int;
+      final fileId = data['file_id'] as String;
+      //
+      if (state.operations.any((e) => e.file.id == fileId || e.id == operationId)) {
+        sl<UploadsBloc>().add(const FailedOperationEvent());
       }
       //
     });
@@ -100,116 +115,111 @@ class UploadsBloc extends Bloc<UploadsEvent, UploadsState> {
   }
 
   onCompleteOperationEvent(CompleteOperationEvent event, Emitter<UploadsState> emit) async {
+    await sl<CacheManager>().refresh();
     sl<HomeBloc>().add(const HomeLoadFilesEvent());
-    await emitContent(emit: emit);
+    sl<UploadsBloc>().add(const UpdateOperationsEvent());
   }
 
   onFailedOperationEvent(FailedOperationEvent event, Emitter<UploadsState> emit) async {
-    await emitContent(emit: emit);
+    await sl<CacheManager>().refresh();
+    sl<UploadsBloc>().add(const UpdateOperationsEvent());
   }
 
   onAddSharedOperationEvent(AddSharedOperationEvent event, Emitter<UploadsState> emit) async {
     //
-    List<UploadOperation> operations = [];
+    List<Operation> operations = [];
     //
     for (var path in event.paths) {
-      operations.add(UploadOperation(
+      operations.add(Operation(
         id: 0,
         path: path,
         file: BacFile.fromPath(path: path),
         state: OperationState.created,
+        type: OperationType.upload,
       ));
     }
+    //
     await _addOperationsUseCase.call(operations: operations);
     //
     sl<UploadsBloc>().add(const UpdateOperationsEvent());
   }
 
   onRefreshOperationEvent(RefreshOperationEvent event, Emitter<UploadsState> emit) async {
-    refreshUploads();
+    emitContent(emit: emit);
   }
 
   ///
-  onStartOperationEvent(StartOperationEvent event, Emitter<UploadsState> emit) {
-    startUpload(event.operation.id);
+  onStartOperationEvent(StartOperationEvent event, Emitter<UploadsState> emit) async {
+    //
+    await _updateOperationUseCase(
+        operation: event.operation.copyWith(
+      state: OperationState.pending,
+    ));
     sl<UploadsBloc>().add(const UpdateOperationsEvent());
   }
 
   ///
-  onStartAllOperationsEvent(StartAllOperationsEvent event, Emitter<UploadsState> emit) {
-    startAllUploads();
+  onStartAllOperationsEvent(StartAllOperationsEvent event, Emitter<UploadsState> emit) async {
+    //
+    await _updateAllOperationsStateUseCase(type: OperationType.upload, state: OperationState.pending);
+    sl<UploadsBloc>().add(const UpdateOperationsEvent());
   }
 
   ///
-  onStopOperationEvent(StopOperationEvent event, Emitter<UploadsState> emit) {
-    stopUpload(event.operation.id);
+  onStopOperationEvent(StopOperationEvent event, Emitter<UploadsState> emit) async {
+    //
+    await _updateOperationUseCase(
+        operation: event.operation.copyWith(
+      state: OperationState.initializing,
+    ));
+    sl<UploadsBloc>().add(const UpdateOperationsEvent());
   }
 
   ///
-  onStopAllOperationEvent(StopAllOperationEvent event, Emitter<UploadsState> emit) {
-    stopAllUploads();
+  onStopAllOperationEvent(StopAllOperationEvent event, Emitter<UploadsState> emit) async {
+    //
+    await _updateAllOperationsStateUseCase(
+      type: OperationType.upload,
+      state: OperationState.initializing,
+    );
+    sl<UploadsBloc>().add(const UpdateOperationsEvent());
   }
 
   ///
   onDeleteOperationEvent(DeleteOperationEvent event, Emitter<UploadsState> emit) async {
-    await _deleteOperationUseCase.call(operationId: event.operation.id);
+    //
+    await _deleteOperationUseCase(operationId: event.operation.id);
     sl<UploadsBloc>().add(const UpdateOperationsEvent());
   }
 
   ///
   onDeleteAllOperationsEvent(DeleteAllOperationsEvent event, Emitter<UploadsState> emit) async {
     //
-    await _deleteAllOperationUseCase.call();
-    //
+    await _deleteAllOperationUseCase(type: OperationType.upload);
     sl<UploadsBloc>().add(const UpdateOperationsEvent());
   }
 
-  Future<void> startUpload(int operationID) async {
-    sl<DebuggingManager>()().logDebug("calling start upload from bloc , operation id: $operationID");
-    FlutterBackgroundService().invoke("start_upload", {
-      "operation_id": operationID,
-    });
-  }
-
-  Future<void> startAllUploads() async {
-    sl<DebuggingManager>()().logMessage("calling start_all_uploads from bloc");
-    FlutterBackgroundService().invoke("start_all_uploads");
-  }
-
-  Future<void> stopUpload(int operationID) async {
-    sl<DebuggingManager>()().logDebug("calling stop_upload from bloc , operation id: $operationID");
-    FlutterBackgroundService().invoke("stop_upload", {
-      "operation_id": operationID,
-    });
-  }
-
-  Future<void> stopAllUploads() async {
-    sl<DebuggingManager>()().logMessage("1 - calling stop_all_uploads from bloc");
-    FlutterBackgroundService().invoke("stop_all_uploads");
-  }
-
-  Future<void> refreshUploads() async {
-    sl<DebuggingManager>()().logMessage("calling refresh_uploads from bloc");
+  Future<void> invoker() async {
     FlutterBackgroundService().invoke("refresh_uploads");
   }
 
-  Future<void> emitContent({required Emitter<UploadsState> emit, List<UploadOperation>? operations}) async {
+  Future<void> emitContent({required Emitter<UploadsState> emit, List<Operation>? operations}) async {
     ///
     if (operations != null) {
       emit(UploadsState.content(operations: List.from(operations)));
       return;
     }
-
-    ///
-    final operationsResponse = await _getOperationsUseCase();
+//
+    final operationsResponse = await _getOperationsUseCase(type: OperationType.upload);
 
     ///
     operationsResponse.fold(
       (l) {
-        debugPrint(l.toString());
         emit(UploadsState.failure(failure: l));
       },
-      (r) => emit(UploadsState.content(operations: List.from(r))),
+      (r) {
+        emit(UploadsState.content(operations: List.from(r)));
+      },
     );
 
     ///
@@ -219,6 +229,8 @@ class UploadsBloc extends Bloc<UploadsEvent, UploadsState> {
   @override
   Future<void> close() {
     _backgroundUpdateStateSubscription.cancel();
+    _backgroundOnCompleteSubscription.cancel();
+    _backgroundOnFailedSubscription.cancel();
     return super.close();
   }
 }

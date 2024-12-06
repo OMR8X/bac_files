@@ -1,16 +1,18 @@
 import 'dart:math';
 
 import 'package:bac_files_admin/features/files/domain/entities/bac_file.dart';
-import 'package:bac_files_admin/features/uploads/domain/entities/operation_state.dart';
-import 'package:bac_files_admin/features/uploads/domain/entities/upload_operation.dart';
-import 'package:bac_files_admin/features/uploads/domain/usecases/operations/get_operations_usecase.dart';
-import 'package:bac_files_admin/features/uploads/domain/usecases/operations/update_operation_usecase.dart';
+import 'package:bac_files_admin/features/operations/domain/entities/operation_type.dart';
 import 'package:bac_files_admin/presentation/uploads/state/uploads/uploads_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../core/injector/app_injection.dart';
 import '../../../../core/resources/errors/failures.dart';
+import '../../../../core/services/debug/debugging_manager.dart';
+import '../../../../features/operations/domain/entities/operation.dart';
+import '../../../../features/operations/domain/entities/operation_state.dart';
+import '../../../../features/operations/domain/usecases/get_operations_usecase.dart';
+import '../../../../features/operations/domain/usecases/update_operation_usecase.dart';
 import '../../../home/state/bloc/home_bloc.dart';
 
 part 'update_operation_file_event.dart';
@@ -18,8 +20,8 @@ part 'update_operation_file_state.dart';
 
 class UpdateOperationFileBloc extends Bloc<UpdateOperationFileEvent, UpdateOperationFileState> {
   final UpdateOperationUseCase _updateOperationUseCase;
-  final GetAllOperationsUseCase _getOperationsUseCase;
-  UpdateOperationFileBloc(this._updateOperationUseCase, this._getOperationsUseCase) : super(UpdateOperationFileState.initial()) {
+  final GetAllOperationsUseCase _getAllOperationsUseCase;
+  UpdateOperationFileBloc(this._updateOperationUseCase, this._getAllOperationsUseCase) : super(UpdateOperationFileState.initial()) {
     on<UpdateOperationFileInitializeEvent>(onUpdateOperationFileInitializeEvent);
     on<UpdateOperationFileEditEvent>(onUpdateOperationFileEditEvent);
     on<UpdateOperationFileSaveEvent>(onUpdateOperationFileSaveEvent);
@@ -29,7 +31,7 @@ class UpdateOperationFileBloc extends Bloc<UpdateOperationFileEvent, UpdateOpera
     //
     emit(state.copyWith(status: UpdateOperationFileStatus.fetching));
     //
-    final response = await _getOperationsUseCase();
+    final response = await _getAllOperationsUseCase(type: OperationType.upload);
     //
     response.fold(
       (l) {
@@ -72,7 +74,7 @@ class UpdateOperationFileBloc extends Bloc<UpdateOperationFileEvent, UpdateOpera
         emit(state.copyWith(status: UpdateOperationFileStatus.failure, failure: l));
       },
       (r) {
-        sl<UploadsBloc>().add(const InitializeOperationsEvent());
+        sl<UploadsBloc>().add(const InitializeUploadsEvent());
         emit(state.copyWith(status: UpdateOperationFileStatus.success));
       },
     );

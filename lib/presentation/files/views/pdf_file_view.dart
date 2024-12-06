@@ -1,74 +1,27 @@
-import 'package:bac_files_admin/core/resources/styles/padding_resources.dart';
-import 'package:bac_files_admin/features/files/domain/entities/bac_file.dart';
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class PdfFileView extends StatefulWidget {
   const PdfFileView({
     super.key,
-    required this.file,
+    required this.path,
   });
-  final BacFile file;
+  final String path;
 
   @override
   State<PdfFileView> createState() => _PdfFileViewState();
 }
 
 class _PdfFileViewState extends State<PdfFileView> {
-  int totalPages = 1;
-  int currentPage = 1;
-  late final WebViewController controller;
-
-  @override
-  void initState() {
-    super.initState();
-
-    controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setNavigationDelegate(
-        NavigationDelegate(
-          onProgress: (int progress) {},
-          onPageStarted: (String url) {},
-          onPageFinished: (String url) {
-            getTotalPages();
-            getCurrentPage();
-          },
-          onWebResourceError: (error) {
-            print('Web resource error: ${error.description}');
-          },
-          onHttpError: (HttpResponseError error) {},
-        ),
-      );
-    // Load the PDF URL
-    controller.loadRequest(Uri.parse(widget.file.publicViewUrl()));
-  }
-
-  void goToNextPage() {
-    controller.runJavaScript("goToNextPage();");
-    getTotalPages();
-    getCurrentPage();
-  }
-
-  void goToPrevPage() {
-    controller.runJavaScript("goToPrevPage();");
-    getTotalPages();
-    getCurrentPage();
-  }
-
-  // Method to get total pages from JavaScript
-  Future<void> getTotalPages() async {
-    final totalPagesStr = await controller.runJavaScriptReturningResult("getTotalPages();");
-    setState(() {
-      totalPages = int.tryParse(totalPagesStr.toString()) ?? 0; // Parse the total pages
-    });
-  }
-
-  // Method to get current page from JavaScript
-  Future<void> getCurrentPage() async {
-    final currentPageStr = await controller.runJavaScriptReturningResult("getCurrentPage();");
-    setState(() {
-      currentPage = int.tryParse(currentPageStr.toString()) ?? 1; // Parse the current page
-    });
+  int? pages;
+  int? page = 1;
+  int? total;
+  PDFViewController? pdfViewController;
+  initializeController(PDFViewController pdfViewController) async {
+    this.pdfViewController = pdfViewController;
+    total = await pdfViewController.getPageCount();
+    setState(() {});
   }
 
   @override
@@ -76,52 +29,40 @@ class _PdfFileViewState extends State<PdfFileView> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        titleTextStyle: Theme.of(context).textTheme.labelLarge,
-        title: Text(widget.file.title),
-        centerTitle: false,
+        title: const Text("اسم الملف"),
         actions: [
-          TextButton(
-            onPressed: () {},
-            child: Text("$totalPages/$currentPage"),
-          )
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text("$total/$page"),
+          ),
         ],
+        titleTextStyle: Theme.of(context).textTheme.labelLarge,
       ),
-      body: Stack(
-        children: [
-          Center(
-            child: InteractiveViewer(
-              panEnabled: true,
-              boundaryMargin: const EdgeInsets.all(100), // Margin around the boundaries
-              minScale: 0.3,
-              maxScale: 5.0,
-              child: WebViewWidget(controller: controller),
-            ),
-          ),
-
-          ///
-          Align(
-            alignment: const Alignment(0.9, 0.9),
-            child: FloatingActionButton(
-              heroTag: "goToPrevPage",
-              onPressed: goToPrevPage,
-              foregroundColor: Theme.of(context).colorScheme.primary,
-              backgroundColor: Theme.of(context).colorScheme.onPrimary,
-              child: const Icon(Icons.arrow_back),
-            ),
-          ),
-
-          ///
-          Align(
-            alignment: const Alignment(-0.9, 0.9),
-            child: FloatingActionButton(
-              heroTag: "goToNextPage",
-              onPressed: goToNextPage,
-              foregroundColor: Theme.of(context).colorScheme.primary,
-              backgroundColor: Theme.of(context).colorScheme.onPrimary,
-              child: const Icon(Icons.arrow_forward),
-            ),
-          ),
-        ],
+      body: PDFView(
+        //
+        filePath: widget.path,
+        //
+        enableSwipe: true,
+        //
+        pageFling: false,
+        //
+        backgroundColor: Colors.grey[800],
+        //
+        onRender: (pages) => setState(() => this.pages = pages),
+        //
+        onViewCreated: (PDFViewController pdfViewController) => initializeController(pdfViewController),
+        //
+        onPageChanged: (int? page, int? total) => setState(() {
+          this.page = page;
+          this.total = total;
+        }),
+        //
+        onError: (error) {
+          Fluttertoast.showToast(msg: "حصل خطا ما \nتفاصيل الخطا : $error");
+        },
+        onPageError: (page, error) {
+          Fluttertoast.showToast(msg: "حصل خطا ما \nتفاصيل الخطا : $error");
+        },
       ),
     );
   }

@@ -41,8 +41,8 @@ class AppLocalNotificationsSettings {
   ///
   static NotificationDetails defaultNotificationsChannelDetails = NotificationDetails(
     android: AndroidNotificationDetails(
-      uploadsChannel.id,
-      uploadsChannel.name,
+      defaultChannel.id,
+      defaultChannel.name,
       importance: Importance.min,
       priority: Priority.min,
       playSound: false,
@@ -52,7 +52,7 @@ class AppLocalNotificationsSettings {
     iOS: const DarwinNotificationDetails(
       badgeNumber: 1,
       presentAlert: false,
-      presentBadge: true,
+      presentBadge: false,
       presentSound: false,
       subtitle: 'Subtitle goes here',
       threadIdentifier: 'thread_id',
@@ -64,8 +64,8 @@ class AppLocalNotificationsSettings {
     android: AndroidNotificationDetails(
       uploadsChannel.id,
       uploadsChannel.name,
-      importance: Importance.high,
-      priority: Priority.high,
+      importance: Importance.min,
+      priority: Priority.min,
       playSound: false,
       enableVibration: false,
       enableLights: false,

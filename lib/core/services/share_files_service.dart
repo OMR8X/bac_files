@@ -13,7 +13,6 @@ class ShareFilesService {
     ///
     /// For receiving single shared files
     ReceiveSharingIntent.instance.getMediaStream().listen((List<SharedMediaFile> items) {
-      debugPrint("Received shared files: ${items.length}");
       onAddFiles(items);
     }, onError: (error) {
       Fluttertoast.showToast(msg: "error : ${error.toString()}");
@@ -22,7 +21,6 @@ class ShareFilesService {
     ///
     /// For receiving files when the app is in background or closed
     ReceiveSharingIntent.instance.getInitialMedia().then((List<SharedMediaFile> items) {
-      debugPrint("Received shared files when app is in background or closed: ${items.length}");
       onAddFiles(items);
     }, onError: (error) {
       Fluttertoast.showToast(msg: "error : ${error.toString()}");

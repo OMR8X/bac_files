@@ -1,108 +1,101 @@
-import 'package:bac_files_admin/core/resources/errors/failures.dart';
-import 'package:bac_files_admin/core/services/debug/debugging_manager.dart';
 import 'package:bac_files_admin/features/files/domain/requests/upload_file_request.dart';
-import 'package:dartz/dartz.dart';
+import 'package:bac_files_admin/features/files/domain/usecases/upload_file_usecase.dart';
+import 'package:bac_files_admin/features/uploads/domain/repositories/background_uploads_repository.dart';
+import 'package:bac_files_admin/features/uploads/domain/usecases/start_uploads_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import '../../../../core/injector/app_injection.dart';
-import '../../../files/data/responses/upload_file_response.dart';
+import '../../../../core/services/debug/debugging_manager.dart';
+import '../../../downloads/domain/entities/background_downloads_state.dart';
+import '../../../downloads/domain/repositories/background_downloads_messenger_repository.dart';
+import '../../../operations/domain/entities/operation.dart';
 
 class BackgroundUploadsState {
   //
   bool isUploading = false;
   bool isRefreshing = false;
-  bool canUpload = true;
   List<UploadFileRequest> requests = List.empty(growable: true);
   UploadFileRequest? currentRequest;
-  //
 
   // start upload
-  startUploads({
-    required Future<Either<Failure, UploadFileResponse>> Function({required UploadFileRequest request}) onUploadFiles,
-  }) async {
-    //
-    sl<DebuggingManager>()().logMessage("starting uploads , length is : ${requests.length}");
-    //
-    canUpload = true;
-    //
-    if (isUploading) return;
-    //
-    isUploading = true;
-    //
-    while (requests.isNotEmpty && canUpload) {
-      //
-      sl<DebuggingManager>()().logMessage("refreshing an upload..");
-
-      ///
-      currentRequest = requests.firstOrNull;
-
-      /// check if there is a request
-      if (currentRequest == null) continue;
-
-      /// start uploading
-      try {
-        await onUploadFiles(request: currentRequest!).then((value) {
-          value.fold((l) {
-            if (requests.isNotEmpty) {
-              requests.removeAt(0);
-            }
-          }, (r) {
-            if (requests.isNotEmpty) {
-              if (requests.isNotEmpty) {
-                requests.removeAt(0);
-              }
-            }
-          });
-        });
-      } on Exception catch (e) {
-        continue;
-      }
-      //
-      await Future.delayed(const Duration(seconds: 1));
-      //
+  startUploads() async {
+    if (isUploading) {
+      return;
     }
+
+    isUploading = true;
+    await _processNextUpload();
     //
     isUploading = false;
-    //
     isRefreshing = false;
+    //
+    if (sl<BackgroundDownloadsState>().requests.isEmpty) {
+      if (sl<BackgroundUploadsState>().requests.isEmpty) {
+        sl<ServiceInstance>().stopSelf();
+      }
+    }
   }
 
-  //
+  _processNextUpload() async {
+    //
+    if (requests.isEmpty) {
+      return;
+    }
+    //
+    currentRequest = requests.first;
+    //
+    requests.removeAt(0);
+    //
+    try {
+      //
+      var response = await sl<StartUploadUsecase>().call(
+        request: currentRequest!,
+      );
+      //
+      await _processNextUpload();
+      //
+    } on Exception {
+      await _processNextUpload();
+    }
+  }
+
   // stop upload
-  stopUploading() {
-    debugPrint("stopUploading in state");
+  cancelCurrentUploading() {
     try {
       isUploading = false;
-      canUpload = false;
       currentRequest?.cancelToken.cancel();
     } on Exception {}
   }
 
-  //
-  // refresh uploads
-  refreshUploads({required List<UploadFileRequest> requests}) async {
-    ///
-    debugPrint("can refreshUploads in state ? $isRefreshing");
+  setUploads({required List<Operation> operations}) async {
+    requests = operations.map((e) {
+      return UploadFileRequest.fromOperation(e);
+    }).toList();
+  }
 
-    ///
-    if (isRefreshing) return;
+  addUploads({required List<Operation> operations}) async {
+    //
+    requests.addAll(operations.map((e) => UploadFileRequest.fromOperation(e)).toList());
+    //
+    if (!isUploading) {
+      startUploads();
+    }
+  }
 
-    ///
-    debugPrint("start refreshUploads in state");
+  removeUploads({required List<int> ids}) async {
+    for (var id in ids) {
+      requests.removeWhere((e) => e.operation.id == id);
+      //
+      if (currentRequest?.operation.id == id) {
+        cancelCurrentUploading();
+      }
+    }
+  }
 
-    ///
-    isRefreshing = true;
-
-    ///
-    this.requests.removeWhere((e) => true);
-
-    ///
-    this.requests.addAll(requests);
-
-    ///
-    sl<DebuggingManager>()().logMessage("refreshing uploads, length is : ${requests.length}");
-
-    ///
-    isRefreshing = false;
+  removeAllUploads() async {
+    //
+    requests.removeWhere((e) => true);
+    //
+    cancelCurrentUploading();
   }
 }

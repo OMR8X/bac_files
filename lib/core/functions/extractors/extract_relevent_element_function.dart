@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 
 T? extractRelevantElement<T>(String title, List<T> elements, String Function(T) getName) {
   //
-  debugPrint("call. ${DateTime.now()}");
-  //
   List<(T, double)> result = [];
   //
   List<String> wordsOfTitle = splitTitleToWords(title);

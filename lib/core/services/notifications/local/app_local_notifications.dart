@@ -12,7 +12,8 @@ abstract class LocalNotificationsRepository {
 
   ///
   Future<void> cancelNotification({required int id});
-  //
+
+  ///
   Future<void> createChannel({required AndroidNotificationChannel channel});
 }
 
@@ -42,10 +43,9 @@ class LocalNotificationsRepositoryImplements implements LocalNotificationsReposi
       settings,
       onDidReceiveNotificationResponse: (NotificationResponse? notificationResponse) {
         if (notificationResponse == null) {
-          debugPrint(" NotificationResponse is null");
           return;
         }
-        debugPrint("onDidReceiveNotificationResponse: ${notificationResponse.payload}");
+
         return;
       },
       onDidReceiveBackgroundNotificationResponse: onDidReceiveBackgroundNotificationResponse,
@@ -75,20 +75,16 @@ class LocalNotificationsRepositoryImplements implements LocalNotificationsReposi
 
   Future<void> _requestNotificationPermission() async {
     var status = await Permission.notification.status;
-    print(status);
     if (status.isDenied) {
       status = await Permission.notification.request();
     } else if (status.isPermanentlyDenied) {
-      print(status);
       await openAppSettings();
     }
-    print(status);
   }
 
   ///
   @override
   Future<void> createChannel({required AndroidNotificationChannel channel}) async {
-    //
     await notificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.createNotificationChannel(channel);
     return;
   }
@@ -97,9 +93,8 @@ class LocalNotificationsRepositoryImplements implements LocalNotificationsReposi
 @pragma('vm:entry-point')
 void onDidReceiveBackgroundNotificationResponse(NotificationResponse? response) async {
   if (response == null) {
-    debugPrint("Background NotificationResponse is null");
     return;
   }
-  debugPrint("onDidReceiveBackgroundNotificationResponse: ${response.payload}");
+
   return;
 }

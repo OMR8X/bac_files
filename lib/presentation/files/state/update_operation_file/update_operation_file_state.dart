@@ -6,7 +6,7 @@ final class UpdateOperationFileState extends Equatable {
   //
   final BacFile bacFile;
   final UpdateOperationFileStatus status;
-  final UploadOperation operation;
+  final Operation operation;
   final Failure? failure;
   //
   const UpdateOperationFileState({
@@ -19,14 +19,14 @@ final class UpdateOperationFileState extends Equatable {
   factory UpdateOperationFileState.initial() {
     return UpdateOperationFileState(
       bacFile: BacFile.empty(),
-      operation: UploadOperation.empty(),
+      operation: Operation.empty(),
       status: UpdateOperationFileStatus.initial,
       failure: null,
     );
   }
   UpdateOperationFileState copyWith({
     BacFile? bacFile,
-    UploadOperation? operation,
+    Operation? operation,
     UpdateOperationFileStatus? status,
     Failure? failure,
   }) {

@@ -3,7 +3,7 @@ part of 'uploads_bloc.dart';
 enum UploadsStatus { initializing, content, failure }
 
 final class UploadsState extends Equatable {
-  final List<UploadOperation> operations;
+  final List<Operation> operations;
   final UploadsStatus status;
   final Failure? failure;
   const UploadsState({
@@ -16,7 +16,7 @@ final class UploadsState extends Equatable {
     return [operations, operations.length, status, failure];
   }
 
-  UploadsState addOperation(UploadOperation operation) {
+  UploadsState addOperation(Operation operation) {
     int lastId = operations.isEmpty ? 0 : operations.last.id;
     return copyWith(operations: List.from(operations)..add(operation.copyWith(id: lastId + 1)));
   }
@@ -32,7 +32,7 @@ final class UploadsState extends Equatable {
       failure: null,
     );
   }
-  factory UploadsState.content({required List<UploadOperation> operations}) {
+  factory UploadsState.content({required List<Operation> operations}) {
     return UploadsState(
       operations: operations,
       status: UploadsStatus.content,
@@ -48,7 +48,7 @@ final class UploadsState extends Equatable {
   }
 
   UploadsState copyWith({
-    List<UploadOperation>? operations,
+    List<Operation>? operations,
     UploadsStatus? status,
     Failure? failure,
   }) {

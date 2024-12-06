@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/resources/errors/exceptions.dart';
 import '../../../../core/resources/errors/failures.dart';
+import '../../../../main.dart';
 import '../../domain/repositories/managers_repository.dart';
 import '../../domain/requests/create_entity_request.dart';
 import '../../domain/requests/delete_entity_request.dart';
@@ -52,7 +53,7 @@ class ManagersRepositoryImplement implements ManagersRepository {
       //
     } catch (e) {
       //
-      debugPrint(e.toString());
+
       //
       return left(const AnonFailure());
       //
@@ -85,7 +86,7 @@ class ManagersRepositoryImplement implements ManagersRepository {
       //
     } catch (e) {
       //
-      debugPrint(e.toString());
+
       //
       return left(const AnonFailure());
       //
@@ -107,20 +108,24 @@ class ManagersRepositoryImplement implements ManagersRepository {
       return right(response);
       //
     } on DioException catch (e) {
+      await ErrorsCopier().addErrorLogs("${e.toString()}\n ${e.stackTrace.toString()}");
       return left(ServerFailure(message: e.message));
       //
     } on TimeoutException {
       return left(const TimeOutFailure());
       //
     } on ServerException catch (e) {
+      await ErrorsCopier().addErrorLogs(e.toString());
       return left(ServerFailure(message: e.message));
       //
     } on AuthException catch (e) {
+      await ErrorsCopier().addErrorLogs(e.toString());
       return left(AuthFailure(message: e.message));
       //
     } catch (e) {
       //
-      debugPrint(e.toString());
+
+      await ErrorsCopier().addErrorLogs(e.toString());
       //
       return left(const AnonFailure());
       //
@@ -155,7 +160,7 @@ class ManagersRepositoryImplement implements ManagersRepository {
       //
     } catch (e) {
       //
-      debugPrint(e.toString());
+
       //
       return left(const AnonFailure());
     }
@@ -189,7 +194,7 @@ class ManagersRepositoryImplement implements ManagersRepository {
       //
     } catch (e) {
       //
-      debugPrint(e.toString());
+
       //
       return left(const AnonFailure());
     }

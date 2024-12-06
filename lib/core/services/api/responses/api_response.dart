@@ -27,6 +27,10 @@ class ApiResponse {
   });
 
   void throwErrorIfExists() {
+    if (status == false || (errors?.isNotEmpty ?? false)) {
+      throw ServerException(message: message);
+    }
+
     if (statusCode != 200 || statusCode != 201) {
       if (errors != null && errors != {}) {
         throw ServerException(message: message);
@@ -37,7 +41,10 @@ class ApiResponse {
     throw const ServerException();
   }
 
-  dynamic getData() {
+  dynamic getData({dynamic key}) {
+    if (key != null) {
+      return data[key];
+    }
     return data;
   }
 
@@ -61,7 +68,7 @@ class ApiResponse {
   factory ApiResponse.fromDioResponse(Response response) {
     return ApiResponse(
       data: response.data["data"] ?? [],
-      status: response.data["status"] == 'success',
+      status: response.data["status"] as bool?,
       statusCode: response.statusCode,
       errors: response.data["errors"],
       message: response.data["message"] ?? "",

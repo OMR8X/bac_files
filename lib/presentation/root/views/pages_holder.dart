@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bac_files_admin/core/resources/styles/assets_resources.dart';
 import 'package:bac_files_admin/core/resources/styles/spaces_resources.dart';
 import 'package:flutter/material.dart';
@@ -98,7 +100,7 @@ class _NavigationBar extends StatelessWidget {
                   children: [
                     Image.asset(
                       color: currentIndex == 1 ? activeColor : unActiveColor,
-                      UIImagesResources.listIcon,
+                      UIImagesResources.uploadingIcon,
                       width: 20,
                     ),
                     //
@@ -130,7 +132,39 @@ class _NavigationBar extends StatelessWidget {
                   children: [
                     Image.asset(
                       color: currentIndex == 2 ? activeColor : unActiveColor,
-                      UIImagesResources.uploadingIcon,
+                      UIImagesResources.downloadingIcon,
+                      width: 20,
+                    ),
+                    //
+                    const SizedBox(
+                      height: SpacesResources.s6,
+                    ),
+                    //
+                    Text(
+                      "عمليات التحميل",
+                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                            color: currentIndex == 2 ? activeColor : unActiveColor,
+                            fontSize: 10,
+                          ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: GestureDetector(
+              onTap: () {
+                changePage(3);
+              },
+              child: Material(
+                color: Colors.transparent,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset(
+                      color: currentIndex == 3 ? activeColor : unActiveColor,
+                      UIImagesResources.listIcon,
                       width: 20,
                     ),
                     //
@@ -141,7 +175,7 @@ class _NavigationBar extends StatelessWidget {
                     Text(
                       "التصانيف",
                       style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                            color: currentIndex == 2 ? activeColor : unActiveColor,
+                            color: currentIndex == 3 ? activeColor : unActiveColor,
                             fontSize: 10,
                           ),
                     )

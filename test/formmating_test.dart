@@ -122,8 +122,6 @@ void main() async {
         String actual = normalizeFileName(n);
 
         /// debugging
-        debugPrint("original name: $n");
-        debugPrint("normalized  name: $actual");
 
         ///
         /// [ Extract Categories ]
@@ -132,34 +130,33 @@ void main() async {
 
         ///
         /// [ Extract Material ]
-        debugPrint("material:");
+
         material = extractRelevantElement<FileMaterial>(actual, managers.materials, (m) {
           return m.name;
         });
 
         ///
         /// [ Extract School ]
-        debugPrint("school:");
+
         school = extractRelevantElement<FileSchool>(actual, managers.schools, (e) {
           return e.name;
         });
 
         ///
         /// [ Extract Section ]
-        debugPrint("section:");
+
         section = extractRelevantElement<FileSection>(actual, managers.sections, (e) {
           return e.name;
         });
 
         ///
         /// [ Extract Teacher ]
-        debugPrint("teacher:");
+
         teacher = extractRelevantElement<FileTeacher>(actual, managers.teachers, (e) {
           return e.name;
         });
         //
         //
-        debugPrint("------------------");
       }
     },
   );

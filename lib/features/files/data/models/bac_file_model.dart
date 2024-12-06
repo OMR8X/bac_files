@@ -49,7 +49,6 @@ class BacFileModel extends BacFile {
   }
 
   Map<String, dynamic> toJson() {
-    debugPrint("categories_ids is $categoriesIds");
     return {
       'id': id,
       'title': title,

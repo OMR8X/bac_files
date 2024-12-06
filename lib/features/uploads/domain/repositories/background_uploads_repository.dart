@@ -1,12 +1,9 @@
+import 'package:dartz/dartz.dart';
+
+import '../../../../core/resources/errors/failures.dart';
+import '../../../files/data/responses/upload_file_response.dart';
+import '../../../files/domain/requests/upload_file_request.dart';
+
 abstract class BackgroundUploadsRepository {
-  //
-  Future<void> startAllUploads();
-  //
-  Future<void> startUpload({required int operationID});
-  //
-  Future<void> refreshUploads();
-  //
-  Future<void> stopAllUploads();
-  //
-  Future<void> stopUpload({required int operationID});
+  Future<Either<Failure, UploadFileResponse>> startUpload({required UploadFileRequest request});
 }

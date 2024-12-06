@@ -1,14 +1,18 @@
 import 'dart:io';
 
+import 'package:bac_files_admin/core/injector/app_injection.dart';
 import 'package:bac_files_admin/core/resources/errors/exceptions.dart';
 import 'package:bac_files_admin/core/resources/errors/failures.dart';
+import 'package:bac_files_admin/core/services/debug/debugging_manager.dart';
 import 'package:bac_files_admin/features/files/data/datasources/files_remote_datasource.dart';
 import 'package:bac_files_admin/features/files/data/responses/upload_file_response.dart';
+import 'package:bac_files_admin/features/files/domain/requests/download_file_request.dart';
 import 'package:bac_files_admin/features/files/domain/requests/upload_file_request.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
+import '../../../../core/services/debug/debugging_client.dart';
 import '../../domain/repositories/files_repository.dart';
+import '../responses/download_file_response.dart';
 
 class FilesRepositoryImplement implements FilesRepository {
   final FilesRemoteDataSource _remoteDataSource;
@@ -22,18 +26,64 @@ class FilesRepositoryImplement implements FilesRepository {
     try {
       final response = await _remoteDataSource.uploadFile(request: request);
       return right(response);
-    } on PathNotFoundException catch (e) {
-      return left(FileNotExistsFailure(message: e.toString()));
-    } on DioException catch (e) {
-      if (e.type == DioExceptionType.cancel) {
-        return left(CanceledFailure(message: e.message));
-      } else {
-        return left(AnonFailure(message: e.message));
-      }
-    } on ServerException catch (e) {
-      return left(AnonFailure(message: e.toString()));
     } on Exception catch (e) {
-      return left(AnonFailure(message: e.toString()));
+      //
+      late final Failure failure;
+      //
+      if (e is PathNotFoundException) {
+        failure = FileNotExistsFailure(message: e.toString());
+      }
+      //
+      else if (e is DioException) {
+        if (e.type == DioExceptionType.cancel) {
+          failure = (CanceledFailure(message: e.message));
+        } else {
+          failure = (AnonFailure(message: e.message));
+        }
+      }
+      //
+      else if (e is ServerException) {
+        failure = (AnonFailure(message: e.message));
+      }
+      //
+      else {
+        failure = (AnonFailure(message: e.toString()));
+      }
+
+      return left(failure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, DownloadFileResponse>> downloadFile({required DownloadFileRequest request}) async {
+    try {
+      final response = await _remoteDataSource.downloadFile(request: request);
+      return right(response);
+    } on Exception catch (e) {
+      //
+      late final Failure failure;
+      //
+      if (e is PathNotFoundException) {
+        failure = FileNotExistsFailure(message: e.toString());
+      }
+      //
+      else if (e is DioException) {
+        if (e.type == DioExceptionType.cancel) {
+          failure = (CanceledFailure(message: e.message));
+        } else {
+          failure = (AnonFailure(message: e.message));
+        }
+      }
+      //
+      else if (e is ServerException) {
+        failure = (AnonFailure(message: e.message));
+      }
+      //
+      else {
+        failure = (AnonFailure(message: e.toString()));
+      }
+      //
+      return left(failure);
     }
   }
 }

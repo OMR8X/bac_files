@@ -17,8 +17,9 @@ class UIImagesResources {
 
   ///
   static const String homeIcon = '$path/home-ic.png';
-  static const String uploadingIcon = '$path/list-ic.png';
-  static const String listIcon = '$path/uploading-ic.png';
+  static const String uploadingIcon = '$path/uploading-ic.png';
+  static const String downloadingIcon = '$path/downloads-ic.png';
+  static const String listIcon = '$path/list-ic.png';
   static const String categoriesIcon = '$path/categories-ic.png';
   static const String materialsIcon = '$path/materials-ic.png';
   static const String schoolsIcon = '$path/schools-ic.png';

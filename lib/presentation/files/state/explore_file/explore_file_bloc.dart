@@ -5,6 +5,9 @@ import 'package:bac_files_admin/features/managers/domain/requests/select_entity_
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../../../core/injector/app_injection.dart';
+import '../../../../core/services/debug/debugging_manager.dart';
+
 part 'explore_file_event.dart';
 part 'explore_file_state.dart';
 
@@ -16,15 +19,13 @@ class ExploreFileBloc extends Bloc<ExploreFileEvent, ExploreFileState> {
 
   onExploreFileInitializeEvent(ExploreFileInitializeEvent event, Emitter<ExploreFileState> emit) async {
     //
-    emit(ExploreFileState.fetching());
-    //
     await _getFileUsecase.call(request: SelectEntityRequest(id: event.fileId)).then((response) {
-      response.fold(
-        (l) {
-          emit(state.failed(failure: l));
+      return response.fold(
+        (l) async {
+          return emit(state.failed(failure: l));
         },
-        (r) {
-          emit(state.loaded(file: r.entity));
+        (r) async {
+          return emit(state.loaded(file: r.entity));
         },
       );
     });

@@ -1,11 +1,8 @@
-import 'dart:async';
-
 import 'package:bac_files_admin/core/injector/app_injection.dart';
 import 'package:bac_files_admin/core/services/router/index.dart';
 import 'package:bac_files_admin/core/services/share_files_service.dart';
 import 'package:bac_files_admin/core/widgets/dialogs/delete_item_dialog.dart';
-import 'package:bac_files_admin/features/files/domain/usecases/delete_file_usecase.dart';
-import 'package:bac_files_admin/features/managers/domain/requests/delete_entity_request.dart';
+import 'package:bac_files_admin/main.dart';
 import 'package:bac_files_admin/presentation/home/state/bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,6 +36,15 @@ class _HomeViewState extends State<HomeView> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text("الرئيسية"),
+          leading: IconButton(
+            onPressed: () {
+              context.push(AppRoutes.debugs.path);
+            },
+            icon: const Icon(
+              Icons.bug_report_outlined,
+              size: 30,
+            ),
+          ),
           centerTitle: false,
           actions: const [
             SwitchThemeWidget(),
@@ -55,7 +61,7 @@ class _HomeViewState extends State<HomeView> {
             ),
             Expanded(
               child: BlocProvider(
-                create: (context) => sl<HomeBloc>()..add(const HomeLoadFilesEvent()),
+                create: (context) => sl<HomeBloc>(),
                 child: BlocConsumer<HomeBloc, HomeState>(
                   listener: (context, state) {},
                   builder: (context, state) {

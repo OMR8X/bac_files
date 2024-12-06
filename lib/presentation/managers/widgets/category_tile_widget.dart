@@ -21,6 +21,7 @@ class CategoryTileWidget extends StatelessWidget {
       margin: PaddingResources.padding_2_2,
       decoration: DecorationResources.tileDecoration(
         theme: Theme.of(context),
+        
       ),
       child: Material(
         color: Colors.transparent,

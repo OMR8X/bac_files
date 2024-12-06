@@ -12,6 +12,10 @@ enum AppRoutes {
     name: 'uploads',
     path: '/uploads',
   ),
+  downloads(
+    name: 'downloads',
+    path: '/downloads',
+  ),
   manager(
     name: 'manager',
     path: '/manager',
@@ -52,13 +56,21 @@ enum AppRoutes {
     name: 'explore-file',
     path: '/explore-file',
   ),
-  pdfFile(
-    name: 'pdf-file',
-    path: '/pdf-file',
+  remotePdfFile(
+    name: 'remote-pdf-file',
+    path: '/remote-pdf-file',
+  ),
+  localPdfFile(
+    name: 'local-pdf-file',
+    path: '/local-pdf-file',
   ),
   updateOperationFile(
     name: 'update-operation-file',
     path: '/update-operation-file',
+  ),
+  debugs(
+    name: 'debugs',
+    path: '/debugs',
   ),
   testing(
     name: 'testing',

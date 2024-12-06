@@ -57,10 +57,6 @@ class AppNotificationsServiceImplement implements AppNotificationsService {
             'action_1',
             'الغاء العملية',
           ),
-          const AndroidNotificationAction(
-            'action_2',
-            'اعادة المحاولة',
-          ),
         ],
       ),
       iOS: const DarwinNotificationDetails(),

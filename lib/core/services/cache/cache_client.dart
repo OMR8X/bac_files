@@ -60,14 +60,17 @@ class HiveClient implements CacheClient {
   /// write to hive box
   @override
   Future<void> write(String key, dynamic data) async {
-    await (_cacheBox ?? await Hive.openBox(CacheConstant.boxName)).put(key, data);
+    try {
+      await (_cacheBox ?? await Hive.openBox(CacheConstant.boxName)).put(key, data);
+    } on HiveError catch (_) {
+      return;
+    }
   }
 
   /// read from hive box
   @override
   Future<dynamic> read(String key) async {
     final data = await (_cacheBox ?? await Hive.openBox(CacheConstant.boxName)).get(key);
-
     return data;
   }
 

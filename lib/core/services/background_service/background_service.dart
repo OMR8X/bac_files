@@ -4,12 +4,12 @@ import 'dart:ui';
 import 'package:bac_files_admin/core/injector/app_injection.dart';
 import 'package:bac_files_admin/core/services/notifications/local/app_local_notifications.dart';
 import 'package:bac_files_admin/core/services/notifications/local/app_local_notifications_settings.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 
-import 'functions/uploads_function.dart';
+import 'background_function.dart';
 
-const initializingNotificationId = 1;
+const initializingNotificationId = 99999;
 
 abstract class AppBackgroundService {
   ///
@@ -62,11 +62,12 @@ class AppBackgroundServiceImplements implements AppBackgroundService {
     await FlutterBackgroundService().configure(
       ///
       androidConfiguration: AndroidConfiguration(
-        onStart: onStartUploadsFunction,
-        autoStart: true,
+        onStart: backgroundFunction,
+        autoStart: false,
         isForegroundMode: true,
-        notificationChannelId: AppLocalNotificationsSettings.uploadsChannel.id,
-        initialNotificationTitle: AppLocalNotificationsSettings.uploadsChannel.name,
+        autoStartOnBoot: false,
+        notificationChannelId: AppLocalNotificationsSettings.defaultChannel.id,
+        initialNotificationTitle: AppLocalNotificationsSettings.defaultChannel.name,
         initialNotificationContent: 'جار رفع الملفات',
         foregroundServiceNotificationId: initializingNotificationId,
         foregroundServiceTypes: [
@@ -76,7 +77,7 @@ class AppBackgroundServiceImplements implements AppBackgroundService {
       iosConfiguration: IosConfiguration(
         autoStart: true,
         onBackground: onIosBackground,
-        onForeground: onStartUploadsFunction,
+        onForeground: backgroundFunction,
       ),
     );
     return;
@@ -86,9 +87,14 @@ class AppBackgroundServiceImplements implements AppBackgroundService {
   @override
   Future<void> startBackgroundService() async {
     try {
-      await FlutterBackgroundService().startService();
+      final res = await FlutterBackgroundService().startService();
+      //
+      await Future.delayed(Durations.medium4);
+      //
+       
       return;
-    } on Exception {
+    } on Exception catch (e) {
+       
       return;
     }
   }
@@ -136,7 +142,6 @@ onStart(ServiceInstance service) async {
     //   );
     // }
 
-    print('FLUTTER BACKGROUND SERVICE: ${DateTime.now()}');
 
     service.invoke(
       'update',

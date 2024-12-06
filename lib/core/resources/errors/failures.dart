@@ -15,6 +15,12 @@ class FileNotExistsFailure extends Failure {
   const FileNotExistsFailure({String? message}) : super(message ?? _defaultMessage);
 }
 
+class ItemNotExistsFailure extends Failure {
+  static const String _defaultMessage = "العنصر غير موجود";
+
+  const ItemNotExistsFailure({String? message}) : super(message ?? _defaultMessage);
+}
+
 class CanceledFailure extends Failure {
   static const String _defaultMessage = "تم الغاء العملية";
 

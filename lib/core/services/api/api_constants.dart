@@ -30,11 +30,13 @@ class ApiEndpoints {
   ///
   /// [Auth]
   ///
-  static String get signIn => '';
-  static String get signUp => '';
-  static String get signOut => '';
-  static String get changePassword => '';
-  static String get forgetPassword => '';
+  static String get signIn => '/api/auth/sign-in';
+  static String get signUp => '/api/auth/sign-up';
+  static String get signOut => '/api/auth/sign-out';
+  static String get changePassword => '/api/auth/change-password';
+  static String get forgetPassword => '/api/auth/forget-password';
+  static String get getUserData => '/api/auth/get-user-data';
+  static String get updateUserData => '/api/auth/update-user-data';
 
   ///
   /// [Managers]
@@ -64,5 +66,10 @@ class ApiEndpoints {
   ///
   static String viewPdf(String id) {
     return "${ApiSettings.baseUrl}/pdf-viewer/$id";
+  }
+
+  ///
+  static String downloadFile(String id) {
+    return "$files/download/$id";
   }
 }

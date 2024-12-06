@@ -3,6 +3,7 @@ import 'package:bac_files_admin/core/services/api/api_manager.dart';
 import 'package:bac_files_admin/features/files/data/datasources/files_remote_datasource.dart';
 import 'package:bac_files_admin/features/files/data/repositories/file_repository_implement.dart';
 import 'package:bac_files_admin/features/files/domain/repositories/files_repository.dart';
+import 'package:bac_files_admin/features/files/domain/usecases/download_file_usecase.dart';
 import 'package:bac_files_admin/features/files/domain/usecases/upload_file_usecase.dart';
 import 'package:bac_files_admin/features/files/domain/usecases/delete_file_usecase.dart';
 import 'package:bac_files_admin/features/files/domain/usecases/get_all_files_usecase.dart';
@@ -30,6 +31,11 @@ filesInjection() {
   /// [Use Cases]
   sl.registerFactory<UploadFileUsecase>(
     () => UploadFileUsecase(
+      repository: sl(),
+    ),
+  );
+  sl.registerFactory<DownloadFileUsecase>(
+    () => DownloadFileUsecase(
       repository: sl(),
     ),
   );

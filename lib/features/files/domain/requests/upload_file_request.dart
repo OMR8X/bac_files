@@ -1,8 +1,10 @@
-import 'package:bac_files_admin/features/uploads/domain/entities/upload_operation.dart';
+
 import 'package:dio/dio.dart';
 
+import '../../../operations/domain/entities/operation.dart';
+
 class UploadFileRequest {
-  final UploadOperation operation;
+  final Operation operation;
   final CancelToken cancelToken;
   final void Function(int sent, int total) onSendProgress;
 
@@ -13,7 +15,7 @@ class UploadFileRequest {
   });
 
   UploadFileRequest copyWith({
-    UploadOperation? operation,
+    Operation? operation,
     CancelToken? cancelToken,
     void Function(int sent, int total)? onSendProgress,
   }) {
@@ -24,7 +26,7 @@ class UploadFileRequest {
     );
   }
 
-  factory UploadFileRequest.fromOperation(UploadOperation operation) {
+  factory UploadFileRequest.fromOperation(Operation operation) {
     return UploadFileRequest(
       operation: operation,
       cancelToken: CancelToken(),

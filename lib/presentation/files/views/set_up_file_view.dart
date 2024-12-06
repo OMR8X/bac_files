@@ -14,8 +14,10 @@ import 'package:bac_files_admin/features/managers/domain/entities/school.dart';
 import 'package:bac_files_admin/features/managers/domain/entities/teacher.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 import 'package:open_file/open_file.dart' as openFile;
 import 'package:open_file_platform_interface/src/types/open_result.dart';
+import '../../../core/services/router/app_routes.dart';
 import '../../../core/widgets/ui/fields/list_selection_widget.dart';
 import '../../../features/managers/domain/entities/file_section.dart';
 
@@ -91,26 +93,7 @@ class _SetUpFileViewState extends State<SetUpFileView> {
                 color: Theme.of(context).colorScheme.primary,
               ),
               onPressed: () async {
-                try {
-                  final openResults = await openFile.OpenFile.open(_path);
-                  switch (openResults.type) {
-                    case ResultType.done:
-                      break;
-                    case ResultType.fileNotFound:
-                      Fluttertoast.showToast(msg: openResults.message);
-                      break;
-                    case ResultType.noAppToOpen:
-                      break;
-                    case ResultType.permissionDenied:
-                      Fluttertoast.showToast(msg: openResults.message);
-                      break;
-                    case ResultType.error:
-                      Fluttertoast.showToast(msg: openResults.message);
-                      break;
-                  }
-                } on Exception catch (e) {
-                  debugPrint(e.toString());
-                }
+                context.push(AppRoutes.localPdfFile.path, extra: _path);
               },
             ),
         ],
