@@ -6,9 +6,7 @@ import 'package:bac_files_admin/features/uploads/domain/repositories/background_
 import 'package:dartz/dartz.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 
-import '../../../../core/injector/app_injection.dart';
 import '../../../../core/services/cache/cache_manager.dart';
-import '../../../../core/services/debug/debugging_manager.dart';
 import '../../../files/domain/requests/upload_file_request.dart';
 
 class BackgroundUploadsRepositoryImplements implements BackgroundUploadsRepository {

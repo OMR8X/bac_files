@@ -1,9 +1,8 @@
-import 'dart:async';
-
 import 'package:bac_files_admin/core/injector/app_injection.dart';
 import 'package:bac_files_admin/core/resources/errors/failures.dart';
 import 'package:bac_files_admin/features/managers/domain/entities/managers.dart';
 import 'package:bac_files_admin/features/managers/domain/usecases/select_managers_usecase.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -17,13 +16,20 @@ class AppLoaderBloc extends Bloc<AppLoaderLoadData, AppLoaderState> {
   }
 
   onAppLoaderLoadData(AppLoaderLoadData event, Emitter<AppLoaderState> emit) async {
+    //
     await _selectManagersUseCase().then((value) {
       value.fold(
         (failure) {
-          emit(AppLoaderState.failure(failure: failure));
+          if (failure is AuthFailure) {
+            emit(AppLoaderState.failure(failure: failure, state: LoadState.unauthenticated));
+          } else {
+            emit(AppLoaderState.failure(failure: failure, state: LoadState.failure));
+          }
         },
         (success) {
-          _injectManagers(success.entities.first);
+          if (success.entities.isNotEmpty) {
+            _injectManagers(success.entities.first);
+          }
           emit(AppLoaderState.succeed());
         },
       );

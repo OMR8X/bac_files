@@ -1,9 +1,7 @@
 import 'package:bac_files_admin/features/downloads/domain/usecases/start_downloads_usecase.dart';
 import 'package:bac_files_admin/features/uploads/domain/entities/background_uploads_state.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import '../../../../core/injector/app_injection.dart';
-import '../../../../core/services/debug/debugging_manager.dart';
 import '../../../files/domain/requests/download_file_request.dart';
 import '../../../operations/domain/entities/operation.dart';
 

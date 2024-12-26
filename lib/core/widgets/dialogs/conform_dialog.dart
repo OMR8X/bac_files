@@ -10,6 +10,7 @@ showConformDialog({
   required String body,
   required String action,
 }) {
+
   showDialog(
     context: context,
     builder: (context) {
@@ -106,7 +107,7 @@ showConformDialog({
                         onConform();
                       },
                       child: Text(
-                        "موافق",
+                        action,
                         style: Theme.of(context).textTheme.labelMedium?.copyWith(
                               color: Theme.of(context).colorScheme.primary,
                             ),

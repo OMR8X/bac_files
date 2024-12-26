@@ -4,6 +4,23 @@ enum AppRoutes {
     name: 'loader',
     path: '/loader',
   ),
+  authViewsManager(
+    name: 'auth-views-manager',
+    path: '/auth-views-manager',
+  ),
+  authStart(
+    name: 'auth-start',
+    path: '/auth-start',
+  ),
+
+  settings(
+    name: 'settings',
+    path: '/settings',
+  ),
+  updateUserData(
+    name: 'update-user-data',
+    path: '/update-user-data',
+  ),
   home(
     name: 'home',
     path: '/home',

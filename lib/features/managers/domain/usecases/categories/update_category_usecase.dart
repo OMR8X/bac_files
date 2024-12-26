@@ -1,5 +1,4 @@
 import 'package:bac_files_admin/core/services/api/api_constants.dart';
-import 'package:bac_files_admin/features/managers/data/mappers/category_mappers.dart';
 import 'package:bac_files_admin/features/managers/domain/entities/file_category.dart';
 import 'package:dartz/dartz.dart';
 

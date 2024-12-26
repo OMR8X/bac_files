@@ -1,6 +1,4 @@
-import 'package:bac_files_admin/features/managers/data/models/category_model.dart';
 import 'package:bac_files_admin/features/managers/data/models/managers_model.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/file_category.dart';
 import 'package:bac_files_admin/features/managers/domain/entities/managers.dart';
 
 extension ManagerMapper on FileManagers {

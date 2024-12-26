@@ -136,6 +136,7 @@ class UploadsBloc extends Bloc<UploadsEvent, UploadsState> {
         file: BacFile.fromPath(path: path),
         state: OperationState.created,
         type: OperationType.upload,
+        date: DateTime.now(),
       ));
     }
     //

@@ -2,9 +2,8 @@ import 'dart:math';
 
 import 'package:bac_files_admin/core/resources/styles/padding_resources.dart';
 import 'package:bac_files_admin/core/resources/styles/spaces_resources.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../resources/styles/sizes_resources.dart';
 
 showDeleteItemDialog({
@@ -72,7 +71,7 @@ showDeleteItemDialog({
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
                           padding: EdgeInsets.zero,
                         ),
-                         onPressed: () {
+                        onPressed: () {
                           Navigator.of(context).pop();
                         },
                         child: Text(

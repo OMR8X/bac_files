@@ -1,10 +1,9 @@
-import 'dart:math';
-
+import 'package:bac_files_admin/core/injector/app_injection.dart';
 import 'package:bac_files_admin/core/resources/styles/assets_resources.dart';
 import 'package:bac_files_admin/core/resources/styles/spaces_resources.dart';
+import 'package:bac_files_admin/features/auth/domain/entites/user_data.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'dart:ui';
 
 class PagesHolderView extends StatefulWidget {
   const PagesHolderView({super.key, required this.navigationShell});
@@ -56,6 +55,7 @@ class _NavigationBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
+          /// files
           Expanded(
             child: GestureDetector(
               onTap: () {
@@ -88,38 +88,43 @@ class _NavigationBar extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-            child: GestureDetector(
-              onTap: () {
-                changePage(1);
-              },
-              child: Material(
-                color: Colors.transparent,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Image.asset(
-                      color: currentIndex == 1 ? activeColor : unActiveColor,
-                      UIImagesResources.uploadingIcon,
-                      width: 20,
-                    ),
-                    //
-                    const SizedBox(
-                      height: SpacesResources.s6,
-                    ),
-                    //
-                    Text(
-                      "عمليات الرفع",
-                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                            color: currentIndex == 1 ? activeColor : unActiveColor,
-                            fontSize: 10,
-                          ),
-                    )
-                  ],
+
+          /// uploads
+          if (sl<UserData>().canUpload)
+            Expanded(
+              child: GestureDetector(
+                onTap: () {
+                  changePage(1);
+                },
+                child: Material(
+                  color: Colors.transparent,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Image.asset(
+                        color: currentIndex == 1 ? activeColor : unActiveColor,
+                        UIImagesResources.uploadingIcon,
+                        width: 20,
+                      ),
+                      //
+                      const SizedBox(
+                        height: SpacesResources.s6,
+                      ),
+                      //
+                      Text(
+                        "عمليات الرفع",
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                              color: currentIndex == 1 ? activeColor : unActiveColor,
+                              fontSize: 10,
+                            ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
+
+          /// downloads
           Expanded(
             child: GestureDetector(
               onTap: () {
@@ -152,38 +157,41 @@ class _NavigationBar extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-            child: GestureDetector(
-              onTap: () {
-                changePage(3);
-              },
-              child: Material(
-                color: Colors.transparent,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Image.asset(
-                      color: currentIndex == 3 ? activeColor : unActiveColor,
-                      UIImagesResources.listIcon,
-                      width: 20,
-                    ),
-                    //
-                    const SizedBox(
-                      height: SpacesResources.s6,
-                    ),
-                    //
-                    Text(
-                      "التصانيف",
-                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                            color: currentIndex == 3 ? activeColor : unActiveColor,
-                            fontSize: 10,
-                          ),
-                    )
-                  ],
+
+          /// categories
+          if (sl<UserData>().canManageCategories)
+            Expanded(
+              child: GestureDetector(
+                onTap: () {
+                  changePage(3);
+                },
+                child: Material(
+                  color: Colors.transparent,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Image.asset(
+                        color: currentIndex == 3 ? activeColor : unActiveColor,
+                        UIImagesResources.listIcon,
+                        width: 20,
+                      ),
+                      //
+                      const SizedBox(
+                        height: SpacesResources.s6,
+                      ),
+                      //
+                      Text(
+                        "التصانيف",
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                              color: currentIndex == 3 ? activeColor : unActiveColor,
+                              fontSize: 10,
+                            ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
         ],
       ),
     );

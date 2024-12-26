@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'cache_constant.dart';
 
@@ -34,13 +35,10 @@ abstract class CacheClient {
 }
 
 class HiveClient implements CacheClient {
-  Box? _cacheBox;
-
   /// initiate hive box
   @override
   Future<void> init(Directory appDir) async {
     await Hive.initFlutter(appDir.path + CacheConstant.cacheSubDir);
-    _cacheBox = await Hive.openBox(CacheConstant.boxName);
     return;
   }
 
@@ -54,37 +52,36 @@ class HiveClient implements CacheClient {
   /// check if key exist in cache
   @override
   Future<bool> exist(String key) async {
-    return (_cacheBox ?? await Hive.openBox(CacheConstant.boxName)).containsKey(key);
+    return (await Hive.openBox(CacheConstant.boxName)).containsKey(key);
   }
 
   /// write to hive box
   @override
   Future<void> write(String key, dynamic data) async {
-    try {
-      await (_cacheBox ?? await Hive.openBox(CacheConstant.boxName)).put(key, data);
-    } on HiveError catch (_) {
-      return;
-    }
+    final box = await openHiveBox(CacheConstant.boxName);
+    await box.put(key, data);
+    return;
   }
 
   /// read from hive box
   @override
   Future<dynamic> read(String key) async {
-    final data = await (_cacheBox ?? await Hive.openBox(CacheConstant.boxName)).get(key);
+    final box = await openHiveBox(CacheConstant.boxName);
+    final data = await box.get(key);
     return data;
   }
 
   /// read all values from hive box
   @override
   Future<dynamic> values() async {
-    final data = (_cacheBox ?? await Hive.openBox(CacheConstant.boxName)).values.toList();
+    final data = (await Hive.openBox(CacheConstant.boxName)).values.toList();
     return data;
   }
 
   /// clear data of the passed key from hive box
   @override
   Future<void> remove(String key) async {
-    await (_cacheBox ?? await Hive.openBox(CacheConstant.boxName)).delete(key);
+    await (await Hive.openBox(CacheConstant.boxName)).delete(key);
   }
 
   /// clear all data
@@ -95,10 +92,13 @@ class HiveClient implements CacheClient {
 
   @override
   Future<void> close() async {
-    try {
-      await Hive.close();
-    } on Exception catch (e) {
-      _cacheBox = await Hive.openBox(CacheConstant.boxName);
+    await Hive.close();
+  }
+
+  Future<Box> openHiveBox(String boxName) async {
+    if (!Hive.isBoxOpen(boxName)) {
+      Hive.init((await getApplicationDocumentsDirectory()).path);
     }
+    return await Hive.openBox(boxName);
   }
 }

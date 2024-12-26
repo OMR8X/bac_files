@@ -1,3 +1,4 @@
+import 'package:bac_files_admin/features/auth/domain/entites/user_data.dart';
 import 'package:flutter/material.dart';
 
 import '../../../features/files/domain/entities/bac_file.dart';
@@ -38,3 +39,4 @@ class SetUpFileArguments {
     this.onChangeFilePath,
   });
 }
+

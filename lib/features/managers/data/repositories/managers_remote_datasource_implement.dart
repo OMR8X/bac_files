@@ -5,7 +5,6 @@ import 'package:bac_files_admin/features/managers/data/responses/select_entity_r
 import 'package:bac_files_admin/features/managers/domain/requests/select_entity_request.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 
 import '../../../../core/resources/errors/exceptions.dart';
 import '../../../../core/resources/errors/failures.dart';
@@ -52,8 +51,6 @@ class ManagersRepositoryImplement implements ManagersRepository {
       return left(AuthFailure(message: e.message));
       //
     } catch (e) {
-      //
-
       //
       return left(const AnonFailure());
       //

@@ -27,7 +27,7 @@ class InputValidator {
     text.trim();
     //
     if (int.tryParse(text) == null) {
-      return "enter valid number";
+      return "ادخل رقم صحيح";
     }
     //
     return null;
@@ -41,7 +41,7 @@ class InputValidator {
     //
     final validCharacters = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
     if (!validCharacters.hasMatch(text)) {
-      return 'use a valid email';
+      return 'ادخل بريد إلكتروني صالح';
     }
     return null;
   }
@@ -53,7 +53,7 @@ class InputValidator {
     text.trim();
     //
     if (text.length < 8) {
-      return "use 8 letters at least";
+      return "الرمز السري يجب أن يتالف من 8 أحرف او أكثر";
     }
 
     return null;
@@ -68,7 +68,7 @@ class InputValidator {
     final validCharacters = RegExp(r'^[0-9]+$');
 
     if (text.length != 10 || !validCharacters.hasMatch(text)) {
-      return 'use a valid number';
+      return 'ادخل رقم هاتف صالح';
     }
     return null;
   }

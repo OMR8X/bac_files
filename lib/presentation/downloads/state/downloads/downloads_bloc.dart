@@ -1,11 +1,9 @@
 import 'dart:async';
 import 'package:bac_files_admin/core/injector/app_injection.dart';
 import 'package:bac_files_admin/core/resources/errors/failures.dart';
-import 'package:bac_files_admin/core/services/debug/debugging_manager.dart';
 import 'package:bac_files_admin/core/services/paths/app_paths.dart';
 import 'package:bac_files_admin/features/files/domain/entities/bac_file.dart';
 import 'package:bac_files_admin/features/operations/domain/entities/operation_type.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -118,6 +116,7 @@ class DownloadsBloc extends Bloc<DownloadsEvent, DownloadsState> {
       file: event.file,
       state: OperationState.pending,
       type: OperationType.download,
+      date: DateTime.now(),
     );
     //
     emit(state.addOperation(operation));
@@ -149,6 +148,7 @@ class DownloadsBloc extends Bloc<DownloadsEvent, DownloadsState> {
         file: BacFile.fromPath(path: path),
         state: OperationState.pending,
         type: OperationType.download,
+        date: DateTime.now(),
       ));
     }
     //

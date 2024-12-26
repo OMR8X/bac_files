@@ -1,8 +1,8 @@
 import 'package:bac_files_admin/core/injector/app_injection.dart';
 import 'package:bac_files_admin/core/resources/styles/padding_resources.dart';
 import 'package:bac_files_admin/core/services/router/app_arguments.dart';
-import 'package:bac_files_admin/core/widgets/dialogs/conform_dialog.dart';
 import 'package:bac_files_admin/core/widgets/dialogs/delete_item_dialog.dart';
+import 'package:bac_files_admin/core/widgets/ui/loading_widget.dart';
 import 'package:bac_files_admin/features/managers/domain/entities/file_category.dart';
 import 'package:bac_files_admin/features/managers/domain/entities/file_material.dart';
 import 'package:bac_files_admin/features/managers/domain/entities/file_section.dart';
@@ -16,6 +16,7 @@ import 'package:bac_files_admin/features/managers/domain/usecases/schools/delete
 import 'package:bac_files_admin/features/managers/domain/usecases/sections/delete_section_usecase.dart';
 import 'package:bac_files_admin/features/managers/domain/usecases/teachers/delete_teacher_usecase.dart';
 import 'package:bac_files_admin/presentation/managers/state/managers_view/managers_view_bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -43,12 +44,12 @@ class _ManagersViewState extends State<ManagersView> {
         centerTitle: false,
       ),
       body: BlocProvider(
-        create: (context) => sl<ManagersViewBloc>(),
+        create: (context) => sl<ManagersViewBloc>()..add(const ManagersViewInitializeEvent()),
         child: BlocBuilder<ManagersViewBloc, ManagersViewState>(
           builder: (context, state) {
             ///
             if (state.isLoading) {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(child: LoadingWidget());
             }
 
             ///

@@ -3,17 +3,15 @@ import 'package:bac_files_admin/core/services/cache/cache_manager.dart';
 import 'package:bac_files_admin/core/services/paths/app_paths.dart';
 import 'package:flutter/material.dart';
 import 'package:bac_files_admin/presentation/root/views/app_root.dart';
-import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'core/injector/app_injection.dart';
 import 'core/services/notifications/app_notification_service.dart';
 
 void main() async {
   ///
-  ServiceLocator.init();
+  WidgetsFlutterBinding.ensureInitialized();
 
   ///
-  WidgetsFlutterBinding.ensureInitialized();
+  ServiceLocator.init();
 
   ///
   await sl<CacheManager>().init();
@@ -33,9 +31,7 @@ void main() async {
   };
 
   ///
-  runApp(
-    const AppRoot(),
-  );
+  runApp(AppRoot());
 }
 
 class ErrorsCopier {

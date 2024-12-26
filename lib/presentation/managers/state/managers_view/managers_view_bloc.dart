@@ -1,9 +1,6 @@
 import 'package:bac_files_admin/core/resources/errors/failures.dart';
 import 'package:bac_files_admin/features/managers/domain/entities/managers.dart';
-import 'package:bac_files_admin/features/managers/domain/requests/delete_entity_request.dart';
-import 'package:bac_files_admin/features/managers/domain/usecases/teachers/delete_teacher_usecase.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -31,8 +28,10 @@ class ManagersViewBloc extends Bloc<ManagersViewEvent, ManagersViewState> {
           emit(ManagersViewState.failure(failure: failure));
         },
         (success) {
-          _injectManagers(success.entities.first);
-          emit(ManagersViewState.initial(managers: success.entities.first));
+          if (success.entities.isNotEmpty) {
+            _injectManagers(success.entities.first);
+            emit(ManagersViewState.initial(managers: success.entities.first));
+          }
         },
       );
     });

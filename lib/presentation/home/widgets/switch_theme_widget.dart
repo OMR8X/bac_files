@@ -21,6 +21,7 @@ class SwitchThemeWidget extends StatelessWidget {
         },
         icon: const Icon(
           Icons.light_mode,
+          size: 20,
         ),
       );
     } else {
@@ -34,6 +35,7 @@ class SwitchThemeWidget extends StatelessWidget {
         },
         icon: const Icon(
           Icons.dark_mode,
+          size: 20,
         ),
       );
     }

@@ -9,7 +9,8 @@ sealed class HomeEvent extends Equatable {
 
 final class HomeLoadFilesEvent extends HomeEvent {
   final String? keywords;
-  const HomeLoadFilesEvent({this.keywords});
+  final List<String>? categories;
+  const HomeLoadFilesEvent({this.keywords, this.categories});
   @override
   List<Object> get props => [];
 }

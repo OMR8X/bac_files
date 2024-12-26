@@ -1,16 +1,14 @@
 import 'dart:io';
 
-import 'package:bac_files_admin/core/injector/app_injection.dart';
 import 'package:bac_files_admin/core/resources/errors/exceptions.dart';
 import 'package:bac_files_admin/core/resources/errors/failures.dart';
-import 'package:bac_files_admin/core/services/debug/debugging_manager.dart';
 import 'package:bac_files_admin/features/files/data/datasources/files_remote_datasource.dart';
 import 'package:bac_files_admin/features/files/data/responses/upload_file_response.dart';
 import 'package:bac_files_admin/features/files/domain/requests/download_file_request.dart';
 import 'package:bac_files_admin/features/files/domain/requests/upload_file_request.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import '../../../../core/services/debug/debugging_client.dart';
+import 'package:flutter/material.dart';
 import '../../domain/repositories/files_repository.dart';
 import '../responses/download_file_response.dart';
 
@@ -24,7 +22,9 @@ class FilesRepositoryImplement implements FilesRepository {
   @override
   Future<Either<Failure, UploadFileResponse>> uploadFile({required UploadFileRequest request}) async {
     try {
+      debugPrint("error: start");
       final response = await _remoteDataSource.uploadFile(request: request);
+      debugPrint("error: no error");
       return right(response);
     } on Exception catch (e) {
       //
@@ -49,6 +49,7 @@ class FilesRepositoryImplement implements FilesRepository {
       else {
         failure = (AnonFailure(message: e.toString()));
       }
+      debugPrint("error: $e");
 
       return left(failure);
     }

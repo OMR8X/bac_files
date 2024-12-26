@@ -1,5 +1,4 @@
 import 'package:bac_files_admin/features/managers/data/converters/file_school_converter.dart';
-import 'package:bac_files_admin/features/managers/data/mappers/school_mappers.dart';
 import 'package:bac_files_admin/features/managers/domain/entities/school.dart';
 import 'package:dartz/dartz.dart';
 

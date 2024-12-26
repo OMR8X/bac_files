@@ -1,7 +1,4 @@
-import 'package:bac_files_admin/core/resources/styles/decoration_resources.dart';
-import 'package:bac_files_admin/core/resources/styles/sizes_resources.dart';
 import 'package:flutter/material.dart';
-import '../core/resources/styles/padding_resources.dart';
 
 class TestingView extends StatefulWidget {
   const TestingView({super.key});

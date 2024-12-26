@@ -104,13 +104,14 @@ class AppDarkTheme {
 
       ///
       inputDecorationTheme: InputDecorationTheme(
-        
         border: OutlineInputBorder(
           borderRadius: BorderRadiusResource.fieldBorderRadius,
           borderSide: const BorderSide(
             color: Colors.transparent,
           ),
         ),
+        fillColor: ColorsResourcesDark.surfaceContainerHigh,
+        filled: true,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadiusResource.fieldBorderRadius,
           borderSide: const BorderSide(

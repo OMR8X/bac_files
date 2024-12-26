@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-
+import 'package:flutter/material.dart';
 import '../tokens/tokens_manager.dart';
 import 'api_constants.dart';
 import 'dio_factory.dart';
@@ -8,7 +8,6 @@ abstract class ApiClient {
   /// get request
   Future<dynamic> get(
     String uri, {
-    bool requireAuth = false,
     Map<String, dynamic>? headers,
     Map<String, dynamic> queryParameters = const {},
     ResponseType? responseType,
@@ -19,7 +18,6 @@ abstract class ApiClient {
   Future<dynamic> post(
     String uri, {
     Object? body,
-    bool requireAuth = false,
     Map<String, dynamic>? headers,
     Map<String, dynamic> queryParameters = const {},
     ResponseType? responseType,
@@ -31,7 +29,6 @@ abstract class ApiClient {
   Future<dynamic> put(
     String uri, {
     Object? body,
-    bool requireAuth = false,
     Map<String, dynamic>? headers,
     Map<String, dynamic> queryParameters = const {},
     ResponseType? responseType,
@@ -42,7 +39,6 @@ abstract class ApiClient {
   Future<dynamic> delete(
     String uri, {
     Object? body,
-    bool requireAuth = false,
     Map<String, dynamic>? headers,
     Map<String, dynamic> queryParameters = const {},
     ResponseType? responseType,
@@ -71,7 +67,6 @@ class DioClient implements ApiClient {
       receiveTimeout: const Duration(seconds: ApiSettings.receiveTimeout),
       sendTimeout: const Duration(seconds: ApiSettings.sendTimeout),
       connectTimeout: const Duration(seconds: ApiSettings.connectTimeout),
-    
       validateStatus: (status) {
         return true;
       },
@@ -82,19 +77,19 @@ class DioClient implements ApiClient {
   @override
   Future<Response> get(
     String uri, {
-    bool requireAuth = false,
     Map<String, dynamic>? headers,
     Map<String, dynamic> queryParameters = const {},
     ResponseType? responseType,
     CancelToken? cancelToken,
   }) async {
-    final dio = _getDio(
-      sendAuth: requireAuth,
+    debugPrint("error: $uri");
+
+    final dio = await _getDio(
       headers: headers,
       params: queryParameters,
       responseType: responseType,
     );
-    final response = await dio.get(uri);
+    final response = dio.get(uri);
     return response;
   }
 
@@ -102,20 +97,18 @@ class DioClient implements ApiClient {
   Future<Response> post(
     String uri, {
     Object? body,
-    bool requireAuth = false,
     Map<String, dynamic>? headers,
     Map<String, dynamic> queryParameters = const {},
     ResponseType? responseType,
     Function(int, int)? onSendProgress,
     CancelToken? cancelToken,
   }) async {
-    final dio = _getDio(
-      sendAuth: requireAuth,
+    final dio = await _getDio(
       headers: headers,
       params: queryParameters,
       responseType: responseType,
     );
-    final response = await dio.post(
+    final response = dio.post(
       uri,
       data: body,
       onSendProgress: onSendProgress,
@@ -128,19 +121,17 @@ class DioClient implements ApiClient {
   Future<Response> put(
     String uri, {
     Object? body,
-    bool requireAuth = false,
     Map<String, dynamic>? headers,
     Map<String, dynamic> queryParameters = const {},
     ResponseType? responseType,
     CancelToken? cancelToken,
   }) async {
-    final dio = _getDio(
-      sendAuth: requireAuth,
+    final dio = await _getDio(
       headers: headers,
       params: queryParameters,
       responseType: responseType,
     );
-    final response = await dio.put(uri, data: body);
+    final response = dio.put(uri, data: body);
     return response;
   }
 
@@ -148,28 +139,25 @@ class DioClient implements ApiClient {
   Future<Response> delete(
     String uri, {
     Object? body,
-    bool requireAuth = false,
     Map<String, dynamic>? headers,
     Map<String, dynamic> queryParameters = const {},
     ResponseType? responseType,
     CancelToken? cancelToken,
   }) async {
-    final dio = _getDio(
-      sendAuth: requireAuth,
+    final dio = await _getDio(
       headers: headers,
       params: queryParameters,
       responseType: responseType,
     );
-    final response = await dio.delete(uri, data: body);
+    final response = dio.delete(uri, data: body);
     return response;
   }
 
-  Dio _getDio({
-    required bool sendAuth,
+  Future<Dio> _getDio({
     Map<String, dynamic>? headers,
     Map<String, dynamic>? params,
     ResponseType? responseType,
-  }) {
+  }) async {
     //
     final Dio dio = _dioFactory();
     //
@@ -177,10 +165,9 @@ class DioClient implements ApiClient {
     //
     options.headers[ApiHeaders.headerAcceptKey] = ApiHeaders.headerContentTypeJson;
     //
-    if (sendAuth) {
-      final token = TokenManager.instance.token;
-      options.headers[ApiHeaders.headerAuthorizationKey] = "Bearer $token";
-    }
+    final token = await TokenManager().getToken();
+    options.headers[ApiHeaders.headerAuthorizationKey] = "Bearer $token";
+    debugPrint("error: $token");
     // set passed parameters
     options.queryParameters = params ?? {};
     //

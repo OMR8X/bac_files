@@ -53,6 +53,12 @@ class FontStylesResources {
     fontWeight: FontWeightResources.bold,
     fontSize: 12,
   );
+  ///
+  static const TextStyle underButtonStyle = TextStyle(
+    fontFamily: AppFontStyles.fontFamily,
+    fontWeight: FontWeightResources.regular,
+    fontSize: 10,
+  );
 
   ///
   static const TextStyle textFieldStyle = TextStyle(

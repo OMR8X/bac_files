@@ -1,12 +1,7 @@
 import 'package:bac_files_admin/core/resources/styles/border_radius_resources.dart';
 import 'package:bac_files_admin/core/resources/styles/decoration_resources.dart';
 import 'package:bac_files_admin/core/resources/styles/font_styles_manager.dart';
-import 'package:bac_files_admin/core/resources/styles/spaces_resources.dart';
-import 'package:dotted_border/dotted_border.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../features/managers/domain/entities/file_category.dart';
 import '../../../resources/styles/sizes_resources.dart';
 import '../../dialogs/list_selection_dialog.dart';
 

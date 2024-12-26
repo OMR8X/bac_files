@@ -5,8 +5,6 @@ import 'package:bac_files_admin/features/managers/domain/requests/select_entity_
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../../core/injector/app_injection.dart';
-import '../../../../core/services/debug/debugging_manager.dart';
 
 part 'explore_file_event.dart';
 part 'explore_file_state.dart';

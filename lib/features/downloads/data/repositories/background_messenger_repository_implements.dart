@@ -1,15 +1,8 @@
 import 'package:bac_files_admin/core/services/notifications/app_notification_service.dart';
 import 'package:bac_files_admin/core/services/notifications/local/app_local_notifications_settings.dart';
-import 'package:bac_files_admin/features/operations/data/mappers/operation_mapper.dart';
 import 'package:bac_files_admin/features/operations/domain/entities/operation_type.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
-
-import '../../../../core/injector/app_injection.dart';
-import '../../../../core/services/debug/debugging_client.dart';
-import '../../../../core/services/debug/debugging_manager.dart';
 import '../../../operations/domain/entities/operation.dart';
-
 import '../../domain/repositories/background_downloads_messenger_repository.dart';
 
 class BackgroundMessengerRepositoryImplements implements BackgroundMessengerRepository {

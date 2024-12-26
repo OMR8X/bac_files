@@ -1,6 +1,4 @@
-import 'package:bac_files_admin/core/injector/app_injection.dart';
 import 'package:bac_files_admin/core/resources/errors/failures.dart';
-import 'package:bac_files_admin/core/services/debug/debugging_manager.dart';
 import 'package:bac_files_admin/features/files/domain/usecases/delete_file_usecase.dart';
 import 'package:bac_files_admin/features/managers/domain/requests/delete_entity_request.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

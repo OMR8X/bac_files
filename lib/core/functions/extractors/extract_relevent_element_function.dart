@@ -1,5 +1,4 @@
 import 'package:bac_files_admin/core/functions/counters/similarity_score.dart';
-import 'package:flutter/material.dart';
 
 T? extractRelevantElement<T>(String title, List<T> elements, String Function(T) getName) {
   //

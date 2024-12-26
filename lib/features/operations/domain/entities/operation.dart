@@ -1,5 +1,3 @@
-
-
 import 'package:equatable/equatable.dart';
 
 import '../../../files/domain/entities/bac_file.dart';
@@ -25,12 +23,16 @@ class Operation extends Equatable {
   ///
   final String? error;
 
+  ///
+  final DateTime date;
+
   const Operation({
     required this.id,
     required this.path,
     required this.file,
     required this.state,
     required this.type,
+    required this.date,
     this.error,
   });
 
@@ -41,6 +43,7 @@ class Operation extends Equatable {
       file: BacFile.empty(),
       state: OperationState.created,
       type: OperationType.upload,
+      date: DateTime.now(),
     );
   }
 
@@ -51,6 +54,7 @@ class Operation extends Equatable {
     BacFile? file,
     OperationState? state,
     OperationType? type,
+    DateTime? date,
   }) {
     return Operation(
       id: id ?? this.id,
@@ -59,6 +63,7 @@ class Operation extends Equatable {
       file: file ?? this.file,
       state: state ?? this.state,
       type: type ?? this.type,
+      date: date ?? this.date,
     );
   }
 

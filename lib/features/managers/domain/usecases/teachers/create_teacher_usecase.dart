@@ -1,6 +1,5 @@
 import 'package:bac_files_admin/core/services/api/api_constants.dart';
 import 'package:bac_files_admin/features/managers/data/converters/file_teacher_converter.dart';
-import 'package:bac_files_admin/features/managers/data/mappers/teacher_mappers.dart';
 import 'package:bac_files_admin/features/managers/domain/entities/teacher.dart';
 import 'package:dartz/dartz.dart';
 

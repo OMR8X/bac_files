@@ -3,6 +3,7 @@ part of 'app_loader_bloc.dart';
 enum LoadState {
   failure,
   loading,
+  unauthenticated,
   succeed,
 }
 
@@ -20,9 +21,9 @@ final class AppLoaderState extends Equatable {
     );
   }
   //
-  factory AppLoaderState.failure({required Failure failure}) {
+  factory AppLoaderState.failure({required Failure failure, LoadState? state}) {
     return AppLoaderState(
-      state: LoadState.failure,
+      state: state ?? LoadState.failure,
       failure: failure,
     );
   }

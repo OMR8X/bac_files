@@ -70,6 +70,7 @@ class _PdfBacFileViewState extends State<PdfBacFileView> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.file.publicViewUrl());
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

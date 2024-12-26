@@ -1,13 +1,8 @@
 import 'package:bac_files_admin/features/files/domain/requests/upload_file_request.dart';
-import 'package:bac_files_admin/features/files/domain/usecases/upload_file_usecase.dart';
-import 'package:bac_files_admin/features/uploads/domain/repositories/background_uploads_repository.dart';
 import 'package:bac_files_admin/features/uploads/domain/usecases/start_uploads_usecase.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import '../../../../core/injector/app_injection.dart';
-import '../../../../core/services/debug/debugging_manager.dart';
 import '../../../downloads/domain/entities/background_downloads_state.dart';
-import '../../../downloads/domain/repositories/background_downloads_messenger_repository.dart';
 import '../../../operations/domain/entities/operation.dart';
 
 class BackgroundUploadsState {

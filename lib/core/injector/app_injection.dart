@@ -2,8 +2,9 @@ import 'package:bac_files_admin/core/injector/cache_injection.dart';
 import 'package:bac_files_admin/core/injector/managers_injection.dart';
 import 'package:bac_files_admin/core/injector/operations_injection.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
-
 import 'package:get_it/get_it.dart';
+
+import 'auth_injection.dart';
 import 'background_injection.dart';
 import 'background_service_injection.dart';
 import 'client_injection.dart';
@@ -23,6 +24,7 @@ class ServiceLocator {
     injectServices();
     initFeatures();
     initControllers();
+    
   }
 
   /// Services
@@ -35,6 +37,7 @@ class ServiceLocator {
 
   /// Features
   static void initFeatures() {
+    authInjection();
     clientInjection();
     managersInjection();
     filesInjection();

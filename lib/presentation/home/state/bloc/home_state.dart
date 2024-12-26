@@ -10,10 +10,12 @@ final class HomeState extends Equatable {
     required this.status,
     required this.failure,
     required this.files,
+    required this.categories,
   });
   final int? lastPage;
   final int currentPage;
   final String? keywords;
+  final List<String>? categories;
   final HomeStatus status;
   final Failure? failure;
   final List<BacFile> files;
@@ -21,9 +23,10 @@ final class HomeState extends Equatable {
   factory HomeState.loading() {
     return const HomeState(
       keywords: null,
-      status: HomeStatus.loading,
       failure: null,
+      categories: null,
       files: [],
+      status: HomeStatus.loading,
     );
   }
   HomeState copyWith({
@@ -33,6 +36,7 @@ final class HomeState extends Equatable {
     HomeStatus? status,
     Failure? failure,
     List<BacFile>? files,
+    List<String>? categories,
   }) {
     return HomeState(
       lastPage: lastPage ?? this.lastPage,
@@ -41,6 +45,7 @@ final class HomeState extends Equatable {
       status: status ?? this.status,
       failure: failure ?? this.failure,
       files: files ?? this.files,
+      categories: categories ?? this.categories,
     );
   }
 

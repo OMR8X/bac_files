@@ -21,119 +21,87 @@ class DownloadsView extends StatefulWidget {
 
 class _DownloadsViewState extends State<DownloadsView> {
   @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<DownloadsBloc, DownloadsState>(
-      ///
-      listener: (context, state) {
-        if (state.status == DownloadStatus.failure) {
-          Fluttertoast.showToast(msg: state.failure!.message);
-        }
-      },
+  void initState() {
+    sl<DownloadsBloc>().add(const InitializeDownloadsEvent());
+    super.initState();
+  }
 
-      ///
-      builder: (context, state) {
-        return Scaffold(
-          ///
-          appBar: AppBar(
-            title: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider.value(
+      value: sl<DownloadsBloc>(),
+      child: BlocConsumer<DownloadsBloc, DownloadsState>(
+        ///
+        listener: (context, state) {
+          if (state.status == DownloadStatus.failure) {
+            Fluttertoast.showToast(msg: state.failure!.message);
+          }
+        },
+
+        ///
+        builder: (context, state) {
+          //
+          final operations = state.operations..sort((a, b) => b.date.compareTo(a.date));
+          //
+          return Scaffold(
+            ///
+            appBar: AppBar(
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "عمليات التحميل",
+                  ),
+                  const SizedBox(height: SpacesResources.s4),
+                  Text(
+                    "عدد العمليات : ${state.operations.length}",
+                    style: FontStylesResources.tileSubTitleStyle(context),
+                  ),
+                ],
+              ),
+              centerTitle: false,
+            ),
+
+            ///
+            body: Stack(
               children: [
-                const Text(
-                  "عمليات التحميل",
-                ),
-                const SizedBox(height: SpacesResources.s4),
-                Text(
-                  "عدد العمليات : ${state.operations.length}",
-                  style: FontStylesResources.tileSubTitleStyle(context),
+                AnimationLimiter(
+                  child: ListView.builder(
+                    padding: PaddingResources.padding_0_4.copyWith(
+                      bottom: SpacesResources.s40,
+                    ),
+                    itemCount: state.operations.length,
+                    itemBuilder: (context, index) {
+                      return StaggeredListWrapperWidget(
+                        key: ValueKey(operations[index].path),
+                        position: index,
+                        child: OperationTileWidget(
+                          operation: operations[index],
+                          onExplore: () async {
+                            context.push(AppRoutes.localPdfFile.path, extra: operations[index].path);
+                          },
+                          onUpload: (operation) {
+                            sl<DownloadsBloc>().add(StartOperationEvent(operation: operation));
+                          },
+                          onDelete: (operation) {
+                            sl<DownloadsBloc>().add(DeleteOperationEvent(operation: operation));
+                          },
+                          onStop: (operation) {
+                            sl<DownloadsBloc>().add(StopOperationEvent(operation: operation));
+                          },
+                          onEdit: (operation) {
+                            context.push(AppRoutes.updateOperationFile.path, extra: operation.id);
+                          },
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ],
             ),
-            centerTitle: false,
-            actions: const [
-              // ///
-              // if (state.operations.any((e) => [OperationState.initializing].contains(e.state)))
-              //   TextButton(
-              //     onPressed: () {
-              //       sl<DownloadsBloc>().add(const StartAllOperationsEvent());
-              //     },
-              //     child: const Text("رفع الكل", style: FontStylesResources.appBarButtonStyle),
-              //   ),
-
-              // ///
-              // if (state.operations.any((e) => [OperationState.uploading, OperationState.pending].contains(e.state)))
-              //   TextButton(
-              //     onPressed: () {
-              //       sl<DownloadsBloc>().add(const StopAllOperationEvent());
-              //     },
-              //     child: const Text(
-              //       "ايقاف الكل",
-              //       style: FontStylesResources.appBarButtonStyle,
-              //     ),
-              //   ),
-
-              // ///
-              // if (state.operations.every((e) => [OperationState.initializing, OperationState.created, OperationState.failed, OperationState.succeed].contains(e.state)) && state.operations.isNotEmpty)
-              //   TextButton(
-              //     onPressed: () {
-              //       showConformDialog(
-              //         context: context,
-              //         title: "حذف كل العمليات",
-              //         body: "هل تريد حذف كل العمليات؟",
-              //         action: "حذف الكل",
-              //         onConform: () {
-              //           sl<DownloadsBloc>().add(const DeleteAllOperationsEvent());
-              //         },
-              //       );
-              //     },
-              //     child: Text(
-              //       "حذف الكل",
-              //       style: FontStylesResources.appBarButtonStyle.copyWith(
-              //         color: Theme.of(context).colorScheme.error,
-              //       ),
-              //     ),
-              //   ),
-            ],
-          ),
-
-          ///
-          body: Stack(
-            children: [
-              AnimationLimiter(
-                child: ListView.builder(
-                  padding: PaddingResources.padding_0_4.copyWith(
-                    bottom: SpacesResources.s40,
-                  ),
-                  itemCount: state.operations.length,
-                  itemBuilder: (context, index) {
-                    return StaggeredListWrapperWidget(
-                      key: ValueKey(state.operations[index].path),
-                      position: index,
-                      child: OperationTileWidget(
-                        operation: state.operations[index],
-                        onExplore: () async {
-                          context.push(AppRoutes.localPdfFile.path, extra: state.operations[index].path);
-                        },
-                        onUpload: (operation) {
-                          sl<DownloadsBloc>().add(StartOperationEvent(operation: operation));
-                        },
-                        onDelete: (operation) {
-                          sl<DownloadsBloc>().add(DeleteOperationEvent(operation: operation));
-                        },
-                        onStop: (operation) {
-                          sl<DownloadsBloc>().add(StopOperationEvent(operation: operation));
-                        },
-                        onEdit: (operation) {
-                          context.push(AppRoutes.updateOperationFile.path, extra: operation.id);
-                        },
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

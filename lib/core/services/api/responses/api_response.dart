@@ -1,5 +1,6 @@
 import 'package:bac_files_admin/core/resources/errors/exceptions.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
 class ApiResponse {
   //
@@ -9,7 +10,7 @@ class ApiResponse {
   //
   final String message;
   // hold incoming data from response
-  final List<dynamic> data;
+  final dynamic data;
   // hold any errors details
   final Map<String, dynamic>? errors;
   //
@@ -17,25 +18,31 @@ class ApiResponse {
   final int? lastPage;
 
   ApiResponse({
-    required this.status,
-    required this.statusCode,
-    required this.errors,
+    this.status,
+    this.statusCode,
+    this.errors,
     required this.message,
     required this.data,
-    required this.currentPage,
-    required this.lastPage,
+    this.currentPage,
+    this.lastPage,
   });
 
-  void throwErrorIfExists() {
-    if (status == false || (errors?.isNotEmpty ?? false)) {
-      throw ServerException(message: message);
-    }
+  factory ApiResponse.empty() {
+    return ApiResponse(
+      message: "",
+      data: [],
+    );
+  }
 
-    if (statusCode != 200 || statusCode != 201) {
-      if (errors != null && errors != {}) {
-        throw ServerException(message: message);
-      }
+  void throwErrorIfExists() {
+    if (status == true || statusCode == 200) {
       return;
+    }
+    if (statusCode == 401) {
+      throw AuthException(message: message);
+    }
+    if (status == false || status == null || (errors?.isNotEmpty ?? false)) {
+      throw ServerException(message: message);
     }
 
     throw const ServerException();
@@ -68,7 +75,7 @@ class ApiResponse {
   factory ApiResponse.fromDioResponse(Response response) {
     return ApiResponse(
       data: response.data["data"] ?? [],
-      status: response.data["status"] as bool?,
+      status: (response.data["status"] as bool?) ?? false,
       statusCode: response.statusCode,
       errors: response.data["errors"],
       message: response.data["message"] ?? "",

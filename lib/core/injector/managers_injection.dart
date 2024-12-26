@@ -1,4 +1,5 @@
 import 'package:bac_files_admin/core/injector/app_injection.dart';
+import 'package:bac_files_admin/features/managers/data/datasources/managers_local_data_source.dart';
 import 'package:bac_files_admin/features/managers/data/datasources/managers_remote_datasource.dart';
 import 'package:bac_files_admin/features/managers/data/repositories/managers_remote_datasource_implement.dart';
 import 'package:bac_files_admin/features/managers/domain/repositories/managers_repository.dart';
@@ -31,6 +32,11 @@ managersInjection() {
   sl.registerFactory<ManagersRemoteDataSource>(
     () => ManagersRemoteDataSourceImplement(
       apiManager: sl(),
+    ),
+  );
+  sl.registerFactory<ManagersLocalDataSource>(
+    () => ManagersLocalDataSourceImplements(
+      cacheManager: sl(),
     ),
   );
 

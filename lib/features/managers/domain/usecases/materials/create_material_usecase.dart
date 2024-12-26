@@ -1,5 +1,4 @@
 import 'package:bac_files_admin/features/managers/data/converters/file_material_converter.dart';
-import 'package:bac_files_admin/features/managers/data/mappers/material_mappers.dart';
 import 'package:bac_files_admin/features/managers/domain/entities/file_material.dart';
 import 'package:dartz/dartz.dart';
 

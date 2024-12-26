@@ -1,8 +1,13 @@
 import 'package:bac_files_admin/core/injector/app_injection.dart';
+import 'package:bac_files_admin/core/resources/styles/sizes_resources.dart';
+import 'package:bac_files_admin/core/resources/styles/spaces_resources.dart';
 import 'package:bac_files_admin/core/services/router/index.dart';
 import 'package:bac_files_admin/core/services/share_files_service.dart';
 import 'package:bac_files_admin/core/widgets/dialogs/delete_item_dialog.dart';
-import 'package:bac_files_admin/main.dart';
+import 'package:bac_files_admin/core/widgets/ui/fields/text_button_widget.dart';
+import 'package:bac_files_admin/features/auth/domain/entites/user_data.dart';
+import 'package:bac_files_admin/features/managers/domain/entities/managers.dart';
+import 'package:bac_files_admin/presentation/auth/state/bloc/auth_bloc.dart';
 import 'package:bac_files_admin/presentation/home/state/bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,6 +26,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
+    sl<HomeBloc>().add(const HomeLoadFilesEvent());
     ShareFilesService.initialize();
     super.initState();
   }
@@ -36,36 +42,37 @@ class _HomeViewState extends State<HomeView> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text("الرئيسية"),
+          centerTitle: false,
           leading: IconButton(
             onPressed: () {
-              context.push(AppRoutes.debugs.path);
+              context.push(AppRoutes.settings.path);
             },
             icon: const Icon(
-              Icons.bug_report_outlined,
-              size: 30,
+              Icons.settings_outlined,
+              size: 20,
             ),
           ),
-          centerTitle: false,
-          actions: const [
-            SwitchThemeWidget(),
-          ],
         ),
-        body: Column(
-          children: [
-            SearchBarWidget(
-              key: const ValueKey("search_bar"),
-              onChanged: (keywords) {
-                sl<HomeBloc>().add(HomeLoadFilesEvent(keywords: keywords));
-              },
-              onFieldSubmitted: (p0) {},
-            ),
-            Expanded(
-              child: BlocProvider(
-                create: (context) => sl<HomeBloc>(),
-                child: BlocConsumer<HomeBloc, HomeState>(
-                  listener: (context, state) {},
-                  builder: (context, state) {
-                    return BacFilesListBuilderWidget(
+        body: BlocProvider.value(
+          value: sl<HomeBloc>(),
+          child: BlocConsumer<HomeBloc, HomeState>(
+            listener: (context, state) {},
+            builder: (context, state) {
+              return Column(
+                children: [
+                  SearchBarWidget(
+                    key: const ValueKey("search_bar"),
+                    onChanged: (keywords) {
+                      sl<HomeBloc>().add(HomeLoadFilesEvent(keywords: keywords));
+                    },
+                    onFieldSubmitted: (p0) {},
+                    selectedItems: state.categories,
+                    onFiltersSubmitted: (List<String> categories) {
+                      sl<HomeBloc>().add(HomeLoadFilesEvent(categories: categories));
+                    },
+                  ),
+                  Expanded(
+                    child: BacFilesListBuilderWidget(
                       isFetching: state.status == HomeStatus.fetchingMoreData,
                       isLoading: state.status == HomeStatus.loading,
                       files: state.files,
@@ -99,12 +106,12 @@ class _HomeViewState extends State<HomeView> {
                           item: file.title,
                         );
                       },
-                    );
-                  },
-                ),
-              ),
-            ),
-          ],
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );

@@ -1,38 +1,25 @@
 import 'package:bac_files_admin/core/injector/app_injection.dart';
 import 'package:bac_files_admin/core/services/router/index.dart';
+import 'package:bac_files_admin/presentation/root/state/loader/app_loader_bloc.dart';
 import 'package:bac_files_admin/presentation/root/state/theme/app_theme_bloc.dart';
 import 'package:bac_files_admin/presentation/uploads/state/uploads/uploads_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import '../../auth/state/bloc/auth_bloc.dart';
 import '../../downloads/state/downloads/downloads_bloc.dart';
 
-class AppRoot extends StatefulWidget {
-  const AppRoot({super.key});
+class AppRoot extends StatelessWidget {
+  const AppRoot._internal();
 
-  @override
-  State<AppRoot> createState() => _AppRootState();
-}
+  static const AppRoot _instance = AppRoot._internal();
 
-class _AppRootState extends State<AppRoot> {
+  factory AppRoot() => _instance;
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => sl<AppThemeBloc>()..add(const InitializeAppThemeEvent()),
-          child: Container(),
-        ),
-        BlocProvider(
-          create: (context) =>  sl<UploadsBloc>()..add(const InitializeUploadsEvent()),
-          child: Container(),
-        ),
-        BlocProvider(
-          create: (context) =>  sl<DownloadsBloc>()..add(const InitializeDownloadsEvent()),
-          child: Container(),
-        ),
-      ],
+    return BlocProvider.value(
+      value: sl<AppThemeBloc>()..add(const InitializeAppThemeEvent()),
       child: BlocBuilder<AppThemeBloc, AppThemeState>(
         builder: (context, state) {
           return MaterialApp.router(

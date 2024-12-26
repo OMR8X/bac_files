@@ -19,3 +19,7 @@ class ItemNotExistsException implements Exception {
   final String message;
   const ItemNotExistsException({this.message = ""});
 }
+class CacheEmptyException implements Exception {
+  final String message;
+  const CacheEmptyException({this.message = ""});
+}

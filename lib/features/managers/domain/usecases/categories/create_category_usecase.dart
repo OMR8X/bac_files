@@ -7,7 +7,6 @@ import '../../../data/responses/create_entity_response.dart';
 import '../../entities/file_category.dart';
 import '../../repositories/managers_repository.dart';
 import '../../requests/create_entity_request.dart';
-import '../../../data/mappers/category_mappers.dart';
 
 class CreateCategoryUseCase {
   ///

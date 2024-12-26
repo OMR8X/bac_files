@@ -1,5 +1,4 @@
 import 'package:bac_files_admin/core/services/router/index.dart';
-import 'package:bac_files_admin/features/managers/domain/usecases/select_managers_usecase.dart';
 import 'package:bac_files_admin/presentation/root/state/loader/app_loader_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,17 +16,29 @@ class AppLoaderView extends StatefulWidget {
 
 class _AppLoaderViewState extends State<AppLoaderView> {
   @override
+  void initState() {
+    sl<AppLoaderBloc>().add(const AppLoaderLoadData());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocProvider(
-        create: (context) => sl<AppLoaderBloc>()..add(const AppLoaderLoadData()),
-        child: BlocConsumer<AppLoaderBloc, AppLoaderState>(
-          listener: (context, state) {
-            if (state.state == LoadState.succeed) {
-              context.pushReplacement(AppRoutes.home.path);
-            }
-          },
+      body: BlocProvider.value(
+        value: sl<AppLoaderBloc>(),
+        child: BlocBuilder<AppLoaderBloc, AppLoaderState>(
           builder: (context, state) {
+            if (state.state == LoadState.succeed) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                context.pushReplacement(AppRoutes.home.path);
+              });
+            }
+
+            if (state.state == LoadState.unauthenticated) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                context.pushReplacement(AppRoutes.authViewsManager.path);
+              });
+            }
             if (state.state == LoadState.failure) {
               return Center(
                 child: Text(state.failure!.message),

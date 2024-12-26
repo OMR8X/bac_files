@@ -1,8 +1,5 @@
-import 'package:bac_files_admin/core/injector/app_injection.dart';
 import 'package:bac_files_admin/features/files/domain/entities/bac_file.dart';
 import 'package:bac_files_admin/features/managers/data/models/category_model.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/managers.dart';
-import 'package:flutter/material.dart';
 
 class BacFileModel extends BacFile {
   const BacFileModel({

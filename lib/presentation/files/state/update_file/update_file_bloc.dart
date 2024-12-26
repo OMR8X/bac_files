@@ -1,7 +1,4 @@
-import 'dart:async';
-import 'dart:math';
 
-import 'package:bac_files_admin/features/files/data/mappers/bac_file_mapper.dart';
 import 'package:bac_files_admin/features/files/domain/usecases/get_file_usecase.dart';
 import 'package:bac_files_admin/features/files/domain/usecases/update_file_usecase.dart';
 import 'package:bac_files_admin/features/managers/domain/requests/select_entity_request.dart';
@@ -11,7 +8,6 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../core/injector/app_injection.dart';
 import '../../../../core/resources/errors/failures.dart';
-import '../../../../core/services/debug/debugging_manager.dart';
 import '../../../../features/files/domain/entities/bac_file.dart';
 import '../../../home/state/bloc/home_bloc.dart';
 

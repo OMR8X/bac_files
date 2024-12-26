@@ -25,7 +25,8 @@ class CheckTitleWidget extends StatelessWidget {
                 onChange(value ?? false);
               },
             ),
-            const Text("keep me logged in"),
+            // keep me logged in text arabic
+            const Text("حفظ معلومات الدخول"),
           ],
         ),
       ),

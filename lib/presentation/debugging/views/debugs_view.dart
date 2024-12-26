@@ -12,46 +12,44 @@ class DebugsView extends StatefulWidget {
 class _DebugsViewState extends State<DebugsView> {
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("Debugs [${DebugsHolder().debugs.length}]"),
-          actions: [
-            TextButton(
-              onPressed: () {
-                DebugsHolder().clearLogs();
-                setState(() {});
-              },
-              child: const Text(
-                "clear",
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("تقارير الاخطاء [${DebugsHolder().debugs.length}]"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              DebugsHolder().clearLogs();
+              setState(() {});
+            },
+            icon: const Icon(
+              Icons.clear_all,
+              size: 20,
+            ),
+          )
+        ],
+      ),
+      body: ListView.builder(
+        itemCount: DebugsHolder().debugs.length,
+        itemBuilder: (context, index) {
+          return Container(
+            decoration: BoxDecoration(
+                border: Border(
+              top: BorderSide(
+                color: Theme.of(context).colorScheme.outline,
               ),
-            )
-          ],
-        ),
-        body: ListView.builder(
-          itemCount: DebugsHolder().debugs.length,
-          itemBuilder: (context, index) {
-            return Container(
-              decoration: BoxDecoration(
-                  border: Border(
-                top: BorderSide(
-                  color: Theme.of(context).colorScheme.outline,
-                ),
-              )),
-              child: Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Text(
-                  DebugsHolder().debugs[index].message,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: levelToColorMap[DebugsHolder().debugs[index].level],
-                  ),
+            )),
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Text(
+                DebugsHolder().debugs[index].message,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: levelToColorMap[DebugsHolder().debugs[index].level],
                 ),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

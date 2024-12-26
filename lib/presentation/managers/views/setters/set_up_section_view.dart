@@ -1,5 +1,4 @@
 import 'package:bac_files_admin/core/widgets/ui/fields/elevated_button_widget.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/file_material.dart';
 import 'package:bac_files_admin/features/managers/domain/entities/file_section.dart';
 import 'package:bac_files_admin/features/managers/domain/requests/create_entity_request.dart';
 import 'package:bac_files_admin/features/managers/domain/requests/update_entity_request.dart';

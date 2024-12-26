@@ -199,8 +199,20 @@ class PaddingResources {
   );
 
   ///
+  static const EdgeInsets padding_6_6 = EdgeInsets.symmetric(
+    horizontal: SpacesResources.s6,
+    vertical: SpacesResources.s6,
+  );
+
+  ///
+  static const EdgeInsets padding_7_7 = EdgeInsets.symmetric(
+    horizontal: SpacesResources.s7,
+    vertical: SpacesResources.s7,
+  );
+
+  ///
   static EdgeInsets customPadding(int h, int v) => EdgeInsets.symmetric(
         horizontal: SpacesResources.s1 * h,
-        vertical: SpacesResources.s2 * v,
+        vertical: SpacesResources.s1 * v,
       );
 }

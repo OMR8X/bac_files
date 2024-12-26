@@ -12,6 +12,7 @@ class OperationModel extends Operation {
     required super.file,
     required super.state,
     required super.type,
+    required super.date,
     super.error,
   });
   factory OperationModel.fromJson(Map json) {
@@ -19,6 +20,7 @@ class OperationModel extends Operation {
       id: json['id'],
       path: json['path'],
       error: json['error'],
+      date: DateTime.parse(json['date']),
       file: BacFileModel.fromJson(json['file']),
       state: (json['state'] as String).toOperationState,
       type: (json['type'] as String).toOperationType,
@@ -33,6 +35,7 @@ class OperationModel extends Operation {
       'file': file.toModel.toJson(),
       'state': state.name,
       'type': type.name,
+      'date': date.toString(),
     };
   }
 }

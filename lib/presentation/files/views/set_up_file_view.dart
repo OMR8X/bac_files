@@ -15,8 +15,6 @@ import 'package:bac_files_admin/features/managers/domain/entities/teacher.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
-import 'package:open_file/open_file.dart' as openFile;
-import 'package:open_file_platform_interface/src/types/open_result.dart';
 import '../../../core/services/router/app_routes.dart';
 import '../../../core/widgets/ui/fields/list_selection_widget.dart';
 import '../../../features/managers/domain/entities/file_section.dart';

@@ -3,15 +3,11 @@ import 'dart:typed_data';
 
 import 'package:bac_files_admin/core/services/api/api_constants.dart';
 import 'package:bac_files_admin/core/services/api/api_manager.dart';
-import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../../../core/injector/app_injection.dart';
 import '../../../../core/resources/errors/exceptions.dart';
 import '../../../../core/services/api/responses/api_response.dart';
-import '../../../../core/services/debug/debugging_client.dart';
-import '../../../../core/services/debug/debugging_manager.dart';
 import '../../domain/requests/download_file_request.dart';
 import '../../domain/requests/upload_file_request.dart';
 

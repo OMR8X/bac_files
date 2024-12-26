@@ -321,96 +321,98 @@ class _FileActionsWidgetState extends State<_FileActionsWidget> {
           children: [
             Row(
               children: [
-                BlocBuilder<DownloadsBloc, DownloadsState>(
-                  builder: (context, state) {
-                    //
+                BlocProvider.value(
+                  value: sl<DownloadsBloc>(),
+                  child: BlocBuilder<DownloadsBloc, DownloadsState>(
+                    builder: (context, state) {
+                      //
+                      Operation? operation;
+                      //
+                      final operations = state.operations.where((e) => (e.file.id == widget.file.id)).toList();
+                      //
+                      if (operations.isNotEmpty) {
+                        operation = operations.first;
+                      }
+                      //
 
-                    Operation? operation;
-                    //
-                    final operations = state.operations.where((e) => (e.file.id == widget.file.id)).toList();
-                    //
-                    if (operations.isNotEmpty) {
-                      operation = operations.first;
-                    }
-                    //
-
-                    return Expanded(
-                        child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).extension<SurfaceContainerColors>()?.surfaceContainer,
-                      ),
-                      onPressed: () {
-                        switch (operation?.state) {
-                          case null:
-                            widget.onDownloadFile();
-                            return;
-                          case OperationState.succeed:
-                            context.push(AppRoutes.localPdfFile.path, extra: operation!.path);
-                            return;
-                          case OperationState.created:
-                            widget.onStopFile(operation!);
-                          case OperationState.initializing:
-                            widget.onStopFile(operation!);
-                          case OperationState.pending:
-                            widget.onStopFile(operation!);
-                          case OperationState.uploading:
-                            widget.onStopFile(operation!);
-                          case OperationState.failed:
-                            return;
-                          case OperationState.canceled:
-                            return;
-                        }
-                      },
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          if ([null].contains(operation?.state))
-                            Text(
-                              "تحميل الملف",
-                              style: FontStylesResources.buttonStyle.copyWith(
-                                color: Theme.of(context).colorScheme.onSurface,
+                      return Expanded(
+                          child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Theme.of(context).extension<SurfaceContainerColors>()?.surfaceContainer,
+                        ),
+                        onPressed: () {
+                          switch (operation?.state) {
+                            case null:
+                              widget.onDownloadFile();
+                              return;
+                            case OperationState.succeed:
+                              context.push(AppRoutes.localPdfFile.path, extra: operation!.path);
+                              return;
+                            case OperationState.created:
+                              widget.onStopFile(operation!);
+                            case OperationState.initializing:
+                              widget.onStopFile(operation!);
+                            case OperationState.pending:
+                              widget.onStopFile(operation!);
+                            case OperationState.uploading:
+                              widget.onStopFile(operation!);
+                            case OperationState.failed:
+                              return;
+                            case OperationState.canceled:
+                              return;
+                          }
+                        },
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            if ([null].contains(operation?.state))
+                              Text(
+                                "تحميل الملف",
+                                style: FontStylesResources.buttonStyle.copyWith(
+                                  color: Theme.of(context).colorScheme.onSurface,
+                                ),
+                              )
+                            else if ([OperationState.succeed].contains(operation?.state))
+                              Text(
+                                "فتح",
+                                style: FontStylesResources.buttonStyle.copyWith(
+                                  color: Theme.of(context).colorScheme.onSurface,
+                                ),
+                              )
+                            else if ([OperationState.pending].contains(operation?.state) && !(_progress > 0.0 && _progress < 100))
+                              Text(
+                                "قائمة الأنتظار",
+                                style: FontStylesResources.buttonStyle.copyWith(
+                                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                ),
+                              )
+                            else
+                              SizedBox(
+                                width: 22,
+                                height: 22,
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    CircularProgressIndicator(
+                                      backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
+                                      color: Theme.of(context).colorScheme.primary,
+                                      strokeWidth: 3,
+                                      strokeCap: StrokeCap.round,
+                                      value: _progress,
+                                    ),
+                                    Icon(
+                                      Icons.stop_rounded,
+                                      size: 12,
+                                      color: Theme.of(context).colorScheme.primary,
+                                    )
+                                  ],
+                                ),
                               ),
-                            )
-                          else if ([OperationState.succeed].contains(operation?.state))
-                            Text(
-                              "فتح",
-                              style: FontStylesResources.buttonStyle.copyWith(
-                                color: Theme.of(context).colorScheme.onSurface,
-                              ),
-                            )
-                          else if ([OperationState.pending].contains(operation?.state) && !(_progress > 0.0 && _progress < 100))
-                            Text(
-                              "قائمة الأنتظار",
-                              style: FontStylesResources.buttonStyle.copyWith(
-                                color: Theme.of(context).colorScheme.onSurfaceVariant,
-                              ),
-                            )
-                          else
-                            SizedBox(
-                              width: 22,
-                              height: 22,
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  CircularProgressIndicator(
-                                    backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
-                                    color: Theme.of(context).colorScheme.primary,
-                                    strokeWidth: 3,
-                                    strokeCap: StrokeCap.round,
-                                    value: _progress,
-                                  ),
-                                  Icon(
-                                    Icons.stop_rounded,
-                                    size: 12,
-                                    color: Theme.of(context).colorScheme.primary,
-                                  )
-                                ],
-                              ),
-                            ),
-                        ],
-                      ),
-                    ));
-                  },
+                          ],
+                        ),
+                      ));
+                    },
+                  ),
                 ),
                 //
                 const SizedBox(width: SpacesResources.s4),

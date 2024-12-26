@@ -1,5 +1,10 @@
 import 'package:bac_files_admin/core/services/router/app_transations.dart';
 import 'package:bac_files_admin/features/files/domain/entities/bac_file.dart';
+import 'package:bac_files_admin/presentation/auth/view/auth_start_view.dart';
+import 'package:bac_files_admin/presentation/auth/view/auth_views_manager.dart';
+import 'package:bac_files_admin/presentation/auth/view/update_user_data_view.dart';
+import 'package:bac_files_admin/presentation/auth/view/sign_in_view.dart';
+import 'package:bac_files_admin/presentation/auth/view/sign_up_view.dart';
 import 'package:bac_files_admin/presentation/debugging/views/debugs_view.dart';
 import 'package:bac_files_admin/presentation/files/views/create_file_view.dart';
 import 'package:bac_files_admin/presentation/files/views/explore_file_view.dart';
@@ -15,8 +20,9 @@ import 'package:bac_files_admin/presentation/managers/views/setters/set_up_mater
 import 'package:bac_files_admin/presentation/managers/views/setters/set_up_school_view.dart';
 import 'package:bac_files_admin/presentation/managers/views/setters/set_up_section_view.dart';
 import 'package:bac_files_admin/presentation/managers/views/setters/set_up_teacher_view.dart';
-import 'package:bac_files_admin/presentation/root/views/app_loader.dart';
+import 'package:bac_files_admin/presentation/root/views/app_loader_view.dart';
 import 'package:bac_files_admin/presentation/root/views/pages_holder.dart';
+import 'package:bac_files_admin/presentation/settings/views/settings_view.dart';
 import 'package:bac_files_admin/presentation/uploads/views/uploads_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
@@ -42,7 +48,7 @@ class AppRouter {
   ///
   static final router = GoRouter(
     debugLogDiagnostics: false,
-    initialLocation: AppRoutes.loader.path,
+    initialLocation: AppRoutes.authViewsManager.path,
     navigatorKey: _rootNavigatorKey,
     routes: [
       // loader route
@@ -75,6 +81,64 @@ class AppRouter {
           child: ExploreManagerView(
             arguments: state.extra as ExploreManagerViewArguments,
           ),
+        ),
+      ),
+      // auth views manager route
+      GoRoute(
+        name: AppRoutes.authViewsManager.name,
+        path: AppRoutes.authViewsManager.path,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          transitionDuration: AppTransitions.transitionDuration,
+          reverseTransitionDuration: AppTransitions.reverseTransitionDuration,
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return AppTransitions.commonTransition(context, animation, secondaryAnimation, child);
+          },
+          child: const AuthViewsManager(),
+        ),
+      ),
+      // auth start route
+      GoRoute(
+        name: AppRoutes.authStart.name,
+        path: AppRoutes.authStart.path,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          transitionDuration: AppTransitions.transitionDuration,
+          reverseTransitionDuration: AppTransitions.reverseTransitionDuration,
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return AppTransitions.commonTransition(context, animation, secondaryAnimation, child);
+          },
+          child: const AuthStartView(),
+        ),
+      ),
+
+      // settings route
+      GoRoute(
+        name: AppRoutes.settings.name,
+        path: AppRoutes.settings.path,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          transitionDuration: AppTransitions.transitionDuration,
+          reverseTransitionDuration: AppTransitions.reverseTransitionDuration,
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return AppTransitions.commonTransition(context, animation, secondaryAnimation, child);
+          },
+          child: const SettingsView(),
+        ),
+      ),
+
+      // set up user data route
+      GoRoute(
+        name: AppRoutes.updateUserData.name,
+        path: AppRoutes.updateUserData.path,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          transitionDuration: AppTransitions.transitionDuration,
+          reverseTransitionDuration: AppTransitions.reverseTransitionDuration,
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return AppTransitions.commonTransition(context, animation, secondaryAnimation, child);
+          },
+          child: const UpdateUserDataView(),
         ),
       ),
       // setUpTeacher route

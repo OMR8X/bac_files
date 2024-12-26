@@ -10,6 +10,7 @@ extension OperationMapper on Operation {
       state: state,
       type: type,
       error: error,
+      date: date,
     );
   }
 }
@@ -22,7 +23,7 @@ extension OperationModelMapper on OperationModel {
       file: file,
       state: state,
       type: type,
-      error: error,
+      date: date,
     );
   }
 }

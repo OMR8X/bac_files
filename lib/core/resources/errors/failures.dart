@@ -32,6 +32,11 @@ class AnonFailure extends Failure {
 
   const AnonFailure({String? message}) : super(message ?? _defaultMessage);
 }
+class CacheFailure extends Failure {
+  static const String _defaultMessage = "";
+
+  const CacheFailure({String? message}) : super(message ?? _defaultMessage);
+}
 
 class ServerFailure extends Failure {
   const ServerFailure({String? message}) : super(message ?? "حصل خطأ اثناء الاتصال بالخادم");
@@ -44,7 +49,8 @@ class TimeOutFailure extends Failure {
 }
 
 class AuthFailure extends Failure {
-  const AuthFailure({required String message}) : super(message);
+  static const String _defaultMessage = "حصل خطأ في المصادقة";
+  const AuthFailure({String? message}) : super(message ?? _defaultMessage);
 }
 
 class NoInternetFailure extends Failure {

@@ -1,4 +1,3 @@
-import 'package:bac_files_admin/presentation/root/state/theme/app_theme_bloc.dart';
 
 class CacheConstant {
   static const String cacheSubDir = '/app_cache';
@@ -7,4 +6,8 @@ class CacheConstant {
 
   ///
   static const String appThemeKey = 'app_theme_key';
+
+  ///
+  static const String userDataDataKey = 'user_data_data_key';
+  static const String userDataCreatedKey = 'user_data_created_key';
 }

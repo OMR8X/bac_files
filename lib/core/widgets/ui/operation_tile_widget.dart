@@ -200,7 +200,6 @@ class _OperationTileWidgetState extends State<OperationTileWidget> {
 
 class _DetailsWidget extends StatelessWidget {
   const _DetailsWidget({
-    super.key,
     required this.progress,
     required this.operation,
   });

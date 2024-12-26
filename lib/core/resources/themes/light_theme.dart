@@ -133,6 +133,8 @@ class AppLightTheme {
             color: Colors.transparent,
           ),
         ),
+        fillColor: ColorsResourcesLight.surfaceContainerHigh,
+        filled: true,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadiusResource.fieldBorderRadius,
           borderSide: const BorderSide(

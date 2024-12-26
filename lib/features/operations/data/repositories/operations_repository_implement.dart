@@ -38,7 +38,7 @@ class OperationsRepositoryImplement implements OperationsRepository {
       }
       //
       return right(response);
-    } on Exception catch (e) {
+    } on Exception {
       return left(const AnonFailure());
     }
   }
@@ -48,7 +48,7 @@ class OperationsRepositoryImplement implements OperationsRepository {
     try {
       var response = await _localDataSource.addOperations(operations);
       return right(response);
-    } on Exception catch (e) {
+    } on Exception {
       return left(const AnonFailure());
     }
   }
@@ -71,7 +71,7 @@ class OperationsRepositoryImplement implements OperationsRepository {
       );
       //
       return right(response);
-    } on Exception catch (e) {
+    } on Exception {
       return left(const AnonFailure());
     }
   }
@@ -93,7 +93,7 @@ class OperationsRepositoryImplement implements OperationsRepository {
 
       //
       return right(response);
-    } on Exception catch (e) {
+    } on Exception {
       return left(const AnonFailure());
     }
   }
@@ -103,7 +103,7 @@ class OperationsRepositoryImplement implements OperationsRepository {
     try {
       final response = await _localDataSource.getOperation(operationId: operationId);
       return right(response);
-    } on Exception catch (e) {
+    } on Exception {
       return left(const AnonFailure());
     }
   }
@@ -113,7 +113,7 @@ class OperationsRepositoryImplement implements OperationsRepository {
     try {
       final response = await _localDataSource.getOperations();
       return right(response.where((e) => e.type == type).toList());
-    } on Exception catch (e) {
+    } on Exception {
       return left(const AnonFailure());
     }
   }
@@ -151,7 +151,7 @@ class OperationsRepositoryImplement implements OperationsRepository {
 
       //
       return right(response);
-    } on Exception catch (e) {
+    } on Exception {
       return left(const AnonFailure());
     }
   }
@@ -187,7 +187,7 @@ class OperationsRepositoryImplement implements OperationsRepository {
 
       //
       return right(response);
-    } on Exception catch (e) {
+    } on Exception {
       return left(const AnonFailure());
     }
   }
