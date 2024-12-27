@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:bac_files_admin/core/resources/styles/padding_resources.dart';
-import 'package:bac_files_admin/core/resources/styles/spaces_resources.dart';
+import 'package:bac_files/core/resources/styles/padding_resources.dart';
+import 'package:bac_files/core/resources/styles/spaces_resources.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../resources/styles/sizes_resources.dart';

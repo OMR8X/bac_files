@@ -1,15 +1,15 @@
 import 'dart:async';
 
-import 'package:bac_files_admin/core/injector/app_injection.dart';
-import 'package:bac_files_admin/core/resources/styles/assets_resources.dart';
-import 'package:bac_files_admin/core/resources/styles/font_styles_manager.dart';
-import 'package:bac_files_admin/core/resources/styles/padding_resources.dart';
-import 'package:bac_files_admin/core/resources/styles/spaces_resources.dart';
-import 'package:bac_files_admin/core/resources/themes/extensions/surface_container_colors.dart';
-import 'package:bac_files_admin/core/services/router/index.dart';
-import 'package:bac_files_admin/features/files/domain/entities/bac_file.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/managers.dart';
-import 'package:bac_files_admin/presentation/downloads/state/downloads/downloads_bloc.dart';
+import 'package:bac_files/core/injector/app_injection.dart';
+import 'package:bac_files/core/resources/styles/assets_resources.dart';
+import 'package:bac_files/core/resources/styles/font_styles_manager.dart';
+import 'package:bac_files/core/resources/styles/padding_resources.dart';
+import 'package:bac_files/core/resources/styles/spaces_resources.dart';
+import 'package:bac_files/core/resources/themes/extensions/surface_container_colors.dart';
+import 'package:bac_files/core/services/router/index.dart';
+import 'package:bac_files/features/files/domain/entities/bac_file.dart';
+import 'package:bac_files/features/managers/domain/entities/managers.dart';
+import 'package:bac_files/presentation/downloads/state/downloads/downloads_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

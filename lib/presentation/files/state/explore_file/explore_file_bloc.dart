@@ -1,10 +1,9 @@
-import 'package:bac_files_admin/core/resources/errors/failures.dart';
-import 'package:bac_files_admin/features/files/domain/entities/bac_file.dart';
-import 'package:bac_files_admin/features/files/domain/usecases/get_file_usecase.dart';
-import 'package:bac_files_admin/features/managers/domain/requests/select_entity_request.dart';
+import 'package:bac_files/core/resources/errors/failures.dart';
+import 'package:bac_files/features/files/domain/entities/bac_file.dart';
+import 'package:bac_files/features/files/domain/usecases/get_file_usecase.dart';
+import 'package:bac_files/features/managers/domain/requests/select_entity_request.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-
 
 part 'explore_file_event.dart';
 part 'explore_file_state.dart';

@@ -1,4 +1,4 @@
-import 'package:bac_files_admin/core/services/api/api_constants.dart';
+import 'package:bac_files/core/services/api/api_constants.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../../../../core/resources/errors/failures.dart';
@@ -18,7 +18,7 @@ class DeleteSectionUseCase {
   }) {
     return repository.deleteEntity(
       request: request,
-  apiEndpoint: ApiEndpoints.sections,
+      apiEndpoint: ApiEndpoints.sections,
     );
   }
 }

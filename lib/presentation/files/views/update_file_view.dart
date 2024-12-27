@@ -1,6 +1,6 @@
-import 'package:bac_files_admin/core/widgets/ui/loading_widget.dart';
-import 'package:bac_files_admin/presentation/files/state/update_file/update_file_bloc.dart';
-import 'package:bac_files_admin/presentation/files/views/set_up_file_view.dart';
+import 'package:bac_files/core/widgets/ui/loading_widget.dart';
+import 'package:bac_files/presentation/files/state/update_file/update_file_bloc.dart';
+import 'package:bac_files/presentation/files/views/set_up_file_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';

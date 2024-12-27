@@ -1,4 +1,4 @@
-import 'package:bac_files_admin/core/resources/errors/exceptions.dart';
+import 'package:bac_files/core/resources/errors/exceptions.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 

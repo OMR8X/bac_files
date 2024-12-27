@@ -1,6 +1,6 @@
-import 'package:bac_files_admin/core/services/api/api_manager.dart';
-import 'package:bac_files_admin/features/managers/data/responses/select_entity_response.dart';
-import 'package:bac_files_admin/features/managers/domain/requests/select_entity_request.dart';
+import 'package:bac_files/core/services/api/api_manager.dart';
+import 'package:bac_files/features/managers/data/responses/select_entity_response.dart';
+import 'package:bac_files/features/managers/domain/requests/select_entity_request.dart';
 import '../../../../core/services/api/responses/api_response.dart';
 import '../../domain/requests/create_entity_request.dart';
 import '../../domain/requests/delete_entity_request.dart';
@@ -58,7 +58,6 @@ class ManagersRemoteDataSourceImplement implements ManagersRemoteDataSource {
     final dioResponse = await apiManager().post(
       apiEndpoint,
       body: request.toBody(converter: converter),
-
     );
 
     ///
@@ -82,7 +81,6 @@ class ManagersRemoteDataSourceImplement implements ManagersRemoteDataSource {
     ///
     final dioResponse = await apiManager().delete(
       '$apiEndpoint/${request.id}',
-
     );
 
     ///
@@ -108,7 +106,6 @@ class ManagersRemoteDataSourceImplement implements ManagersRemoteDataSource {
     final dioResponse = await apiManager().get(
       apiEndpoint,
       queryParameters: request.queryParameters,
-
     );
 
     ///
@@ -163,7 +160,6 @@ class ManagersRemoteDataSourceImplement implements ManagersRemoteDataSource {
     final dioResponse = await apiManager().put(
       '$apiEndpoint/${request.id}',
       body: request.toBody(converter: converter),
-
     );
     //
     ApiResponse apiResponse = ApiResponse.fromDioResponse(dioResponse);

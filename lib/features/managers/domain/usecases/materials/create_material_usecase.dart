@@ -1,5 +1,5 @@
-import 'package:bac_files_admin/features/managers/data/converters/file_material_converter.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/file_material.dart';
+import 'package:bac_files/features/managers/data/converters/file_material_converter.dart';
+import 'package:bac_files/features/managers/domain/entities/file_material.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../../../../core/resources/errors/failures.dart';

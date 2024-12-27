@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:bac_files_admin/features/managers/domain/entities/file_category.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/file_material.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/file_section.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/school.dart';
+import 'package:bac_files/features/managers/domain/entities/file_category.dart';
+import 'package:bac_files/features/managers/domain/entities/file_material.dart';
+import 'package:bac_files/features/managers/domain/entities/file_section.dart';
+import 'package:bac_files/features/managers/domain/entities/school.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 

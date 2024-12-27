@@ -1,8 +1,8 @@
-import 'package:bac_files_admin/core/injector/app_injection.dart';
-import 'package:bac_files_admin/core/resources/styles/font_styles_manager.dart';
-import 'package:bac_files_admin/core/widgets/dialogs/category_selection_dialog.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/file_category.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/managers.dart';
+import 'package:bac_files/core/injector/app_injection.dart';
+import 'package:bac_files/core/resources/styles/font_styles_manager.dart';
+import 'package:bac_files/core/widgets/dialogs/category_selection_dialog.dart';
+import 'package:bac_files/features/managers/domain/entities/file_category.dart';
+import 'package:bac_files/features/managers/domain/entities/managers.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/resources/styles/padding_resources.dart';

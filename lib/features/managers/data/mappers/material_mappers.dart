@@ -1,6 +1,5 @@
-import 'package:bac_files_admin/features/managers/data/models/file_material_model.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/file_material.dart';
-
+import 'package:bac_files/features/managers/data/models/file_material_model.dart';
+import 'package:bac_files/features/managers/domain/entities/file_material.dart';
 
 extension MaterialMapper on FileMaterial {
   FileMaterialModel get toModel {
@@ -19,4 +18,3 @@ extension FileMaterialModelMapper on FileMaterialModel {
     );
   }
 }
-

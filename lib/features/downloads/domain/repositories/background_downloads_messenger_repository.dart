@@ -1,4 +1,4 @@
-import 'package:bac_files_admin/features/operations/domain/entities/operation_type.dart';
+import 'package:bac_files/features/operations/domain/entities/operation_type.dart';
 
 import '../../../operations/domain/entities/operation.dart';
 

@@ -1,7 +1,7 @@
-import 'package:bac_files_admin/core/services/cache/cache_constant.dart';
-import 'package:bac_files_admin/core/services/cache/cache_manager.dart';
-import 'package:bac_files_admin/features/auth/data/responses/get_user_data_response.dart';
-import 'package:bac_files_admin/features/auth/domain/requests/get_user_data_request.dart';
+import 'package:bac_files/core/services/cache/cache_constant.dart';
+import 'package:bac_files/core/services/cache/cache_manager.dart';
+import 'package:bac_files/features/auth/data/responses/get_user_data_response.dart';
+import 'package:bac_files/features/auth/domain/requests/get_user_data_request.dart';
 
 import '../../../../core/resources/errors/exceptions.dart';
 

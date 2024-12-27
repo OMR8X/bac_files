@@ -1,5 +1,5 @@
-import 'package:bac_files_admin/core/injector/app_injection.dart';
-import 'package:bac_files_admin/core/widgets/animations/staggered_list_wrapper_widget.dart';
+import 'package:bac_files/core/injector/app_injection.dart';
+import 'package:bac_files/core/widgets/animations/staggered_list_wrapper_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';

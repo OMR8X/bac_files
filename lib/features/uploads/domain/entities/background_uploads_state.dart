@@ -1,5 +1,5 @@
-import 'package:bac_files_admin/features/files/domain/requests/upload_file_request.dart';
-import 'package:bac_files_admin/features/uploads/domain/usecases/start_uploads_usecase.dart';
+import 'package:bac_files/features/files/domain/requests/upload_file_request.dart';
+import 'package:bac_files/features/uploads/domain/usecases/start_uploads_usecase.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import '../../../../core/injector/app_injection.dart';
 import '../../../downloads/domain/entities/background_downloads_state.dart';

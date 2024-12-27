@@ -1,6 +1,6 @@
-import 'package:bac_files_admin/features/auth/data/responses/sign_up_response.dart';
-import 'package:bac_files_admin/features/auth/domain/entites/user_data.dart';
-import 'package:bac_files_admin/features/auth/domain/requests/sign_up_request.dart';
+import 'package:bac_files/features/auth/data/responses/sign_up_response.dart';
+import 'package:bac_files/features/auth/domain/entites/user_data.dart';
+import 'package:bac_files/features/auth/domain/requests/sign_up_request.dart';
 import '../../../../core/resources/errors/failures.dart';
 import '../repositories/auth_repository.dart';
 

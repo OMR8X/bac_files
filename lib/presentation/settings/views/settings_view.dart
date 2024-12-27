@@ -1,7 +1,7 @@
-import 'package:bac_files_admin/core/resources/styles/font_styles_manager.dart';
-import 'package:bac_files_admin/core/resources/styles/padding_resources.dart';
-import 'package:bac_files_admin/core/services/router/index.dart';
-import 'package:bac_files_admin/core/widgets/dialogs/conform_dialog.dart';
+import 'package:bac_files/core/resources/styles/font_styles_manager.dart';
+import 'package:bac_files/core/resources/styles/padding_resources.dart';
+import 'package:bac_files/core/services/router/index.dart';
+import 'package:bac_files/core/widgets/dialogs/conform_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -53,7 +53,6 @@ class _SettingsViewState extends State<SettingsView> {
                 action: "تسجيل الخروج",
                 onConform: () {
                   sl<AuthBloc>().add(const AuthSignOutEvent());
-                 
                 },
               );
             },

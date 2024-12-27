@@ -1,11 +1,11 @@
-import 'package:bac_files_admin/core/functions/extractors/extract_relevent_element_function.dart';
-import 'package:bac_files_admin/core/functions/formatters/normalize_file_name.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/file_category.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/file_material.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/file_section.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/managers.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/school.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/teacher.dart';
+import 'package:bac_files/core/functions/extractors/extract_relevent_element_function.dart';
+import 'package:bac_files/core/functions/formatters/normalize_file_name.dart';
+import 'package:bac_files/features/managers/domain/entities/file_category.dart';
+import 'package:bac_files/features/managers/domain/entities/file_material.dart';
+import 'package:bac_files/features/managers/domain/entities/file_section.dart';
+import 'package:bac_files/features/managers/domain/entities/managers.dart';
+import 'package:bac_files/features/managers/domain/entities/school.dart';
+import 'package:bac_files/features/managers/domain/entities/teacher.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() async {

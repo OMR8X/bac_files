@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:bac_files_admin/core/injector/app_injection.dart';
+import 'package:bac_files/core/injector/app_injection.dart';
 import 'package:dartz/dartz.dart';
 import '../../../../core/resources/errors/failures.dart';
 import '../../../../core/services/cache/cache_manager.dart';

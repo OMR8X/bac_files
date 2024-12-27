@@ -1,5 +1,5 @@
-import 'package:bac_files_admin/core/resources/errors/failures.dart';
-import 'package:bac_files_admin/features/operations/domain/entities/operation_type.dart';
+import 'package:bac_files/core/resources/errors/failures.dart';
+import 'package:bac_files/features/operations/domain/entities/operation_type.dart';
 import 'package:dartz/dartz.dart';
 import '../entities/operation.dart';
 import '../entities/operation_state.dart';

@@ -1,5 +1,5 @@
-import 'package:bac_files_admin/core/resources/styles/border_radius_resources.dart';
-import 'package:bac_files_admin/core/resources/styles/spaces_resources.dart';
+import 'package:bac_files/core/resources/styles/border_radius_resources.dart';
+import 'package:bac_files/core/resources/styles/spaces_resources.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/resources/styles/decoration_resources.dart';
@@ -21,7 +21,6 @@ class CategoryTileWidget extends StatelessWidget {
       margin: PaddingResources.padding_2_2,
       decoration: DecorationResources.tileDecoration(
         theme: Theme.of(context),
-        
       ),
       child: Material(
         color: Colors.transparent,

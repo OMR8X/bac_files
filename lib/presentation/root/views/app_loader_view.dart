@@ -1,5 +1,5 @@
-import 'package:bac_files_admin/core/services/router/index.dart';
-import 'package:bac_files_admin/presentation/root/state/loader/app_loader_bloc.dart';
+import 'package:bac_files/core/services/router/index.dart';
+import 'package:bac_files/presentation/root/state/loader/app_loader_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

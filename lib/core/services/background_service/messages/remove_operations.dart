@@ -1,4 +1,4 @@
-import 'package:bac_files_admin/core/services/background_service/background_service.dart';
+import 'package:bac_files/core/services/background_service/background_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 

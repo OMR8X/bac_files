@@ -1,8 +1,8 @@
-import 'package:bac_files_admin/core/services/background_service/background_service.dart';
-import 'package:bac_files_admin/core/services/cache/cache_manager.dart';
-import 'package:bac_files_admin/core/services/paths/app_paths.dart';
+import 'package:bac_files/core/services/background_service/background_service.dart';
+import 'package:bac_files/core/services/cache/cache_manager.dart';
+import 'package:bac_files/core/services/paths/app_paths.dart';
 import 'package:flutter/material.dart';
-import 'package:bac_files_admin/presentation/root/views/app_root.dart';
+import 'package:bac_files/presentation/root/views/app_root.dart';
 import 'core/injector/app_injection.dart';
 import 'core/services/notifications/app_notification_service.dart';
 

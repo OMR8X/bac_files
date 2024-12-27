@@ -1,5 +1,5 @@
-import 'package:bac_files_admin/features/auth/data/responses/get_user_data_response.dart';
-import 'package:bac_files_admin/features/auth/domain/requests/get_user_data_request.dart';
+import 'package:bac_files/features/auth/data/responses/get_user_data_response.dart';
+import 'package:bac_files/features/auth/domain/requests/get_user_data_request.dart';
 import '../../../../core/resources/errors/failures.dart';
 import '../repositories/auth_repository.dart';
 

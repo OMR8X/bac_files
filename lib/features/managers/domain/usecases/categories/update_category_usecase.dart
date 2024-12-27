@@ -1,5 +1,5 @@
-import 'package:bac_files_admin/core/services/api/api_constants.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/file_category.dart';
+import 'package:bac_files/core/services/api/api_constants.dart';
+import 'package:bac_files/features/managers/domain/entities/file_category.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../../../../core/resources/errors/failures.dart';

@@ -1,10 +1,10 @@
-import 'package:bac_files_admin/core/injector/app_injection.dart';
-import 'package:bac_files_admin/core/resources/errors/failures.dart';
-import 'package:bac_files_admin/core/services/background_service/background_service.dart';
-import 'package:bac_files_admin/core/services/background_service/messages/add_operations.dart';
-import 'package:bac_files_admin/core/services/background_service/messages/remove_all_operations.dart';
-import 'package:bac_files_admin/core/services/background_service/messages/remove_operations.dart';
-import 'package:bac_files_admin/features/operations/domain/entities/operation_type.dart';
+import 'package:bac_files/core/injector/app_injection.dart';
+import 'package:bac_files/core/resources/errors/failures.dart';
+import 'package:bac_files/core/services/background_service/background_service.dart';
+import 'package:bac_files/core/services/background_service/messages/add_operations.dart';
+import 'package:bac_files/core/services/background_service/messages/remove_all_operations.dart';
+import 'package:bac_files/core/services/background_service/messages/remove_operations.dart';
+import 'package:bac_files/features/operations/domain/entities/operation_type.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 

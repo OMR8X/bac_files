@@ -1,4 +1,4 @@
-import 'package:bac_files_admin/features/files/data/responses/download_file_response.dart';
+import 'package:bac_files/features/files/data/responses/download_file_response.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/resources/errors/failures.dart';

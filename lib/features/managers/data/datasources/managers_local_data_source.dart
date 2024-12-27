@@ -1,4 +1,4 @@
-import 'package:bac_files_admin/core/services/cache/cache_manager.dart';
+import 'package:bac_files/core/services/cache/cache_manager.dart';
 
 import '../../../../core/resources/errors/exceptions.dart';
 import '../../domain/requests/select_entities_request.dart';

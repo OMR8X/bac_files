@@ -1,6 +1,6 @@
-import 'package:bac_files_admin/core/resources/themes/dark_theme.dart';
-import 'package:bac_files_admin/core/resources/themes/light_theme.dart';
-import 'package:bac_files_admin/core/services/cache/cache_manager.dart';
+import 'package:bac_files/core/resources/themes/dark_theme.dart';
+import 'package:bac_files/core/resources/themes/light_theme.dart';
+import 'package:bac_files/core/services/cache/cache_manager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +27,7 @@ class AppThemeBloc extends Bloc<AppThemeEvent, AppThemeState> {
 
   onInitializeAppThemeEvent(InitializeAppThemeEvent event, Emitter<AppThemeState> emit) async {
     //
-    final String? value = (await cacheManager().read(appThemeKey)) as String?;  
+    final String? value = (await cacheManager().read(appThemeKey)) as String?;
     //
     if (value == AppThemes.lightTheme.name) {
       emit(AppThemeState(themeData: AppLightTheme.theme()));

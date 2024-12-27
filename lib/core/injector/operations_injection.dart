@@ -1,4 +1,4 @@
-import 'package:bac_files_admin/core/injector/app_injection.dart';
+import 'package:bac_files/core/injector/app_injection.dart';
 
 import '../../features/operations/data/datasources/operations_local_datasource.dart';
 import '../../features/operations/data/repositories/operations_repository_implement.dart';

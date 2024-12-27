@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:bac_files_admin/core/services/api/responses/api_response.dart';
+import 'package:bac_files/core/services/api/responses/api_response.dart';
 
 import '../converters/managers_base_converter.dart';
 

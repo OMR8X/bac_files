@@ -1,7 +1,7 @@
-import 'package:bac_files_admin/core/injector/app_injection.dart';
-import 'package:bac_files_admin/core/resources/styles/assets_resources.dart';
-import 'package:bac_files_admin/core/resources/styles/spaces_resources.dart';
-import 'package:bac_files_admin/features/auth/domain/entites/user_data.dart';
+import 'package:bac_files/core/injector/app_injection.dart';
+import 'package:bac_files/core/resources/styles/assets_resources.dart';
+import 'package:bac_files/core/resources/styles/spaces_resources.dart';
+import 'package:bac_files/features/auth/domain/entites/user_data.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

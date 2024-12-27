@@ -1,15 +1,15 @@
-import 'package:bac_files_admin/core/injector/app_injection.dart';
-import 'package:bac_files_admin/features/managers/data/datasources/managers_local_data_source.dart';
-import 'package:bac_files_admin/features/managers/data/datasources/managers_remote_datasource.dart';
-import 'package:bac_files_admin/features/managers/data/repositories/managers_remote_datasource_implement.dart';
-import 'package:bac_files_admin/features/managers/domain/repositories/managers_repository.dart';
-import 'package:bac_files_admin/features/managers/domain/usecases/categories/create_category_usecase.dart';
-import 'package:bac_files_admin/features/managers/domain/usecases/categories/delete_category_usecase.dart';
-import 'package:bac_files_admin/features/managers/domain/usecases/categories/select_categories_usecase.dart';
-import 'package:bac_files_admin/features/managers/domain/usecases/categories/update_category_usecase.dart';
-import 'package:bac_files_admin/features/managers/domain/usecases/materials/delete_material_usecase.dart';
-import 'package:bac_files_admin/features/managers/domain/usecases/materials/select_materials_usecase.dart';
-import 'package:bac_files_admin/features/managers/domain/usecases/materials/update_material_usecase.dart';
+import 'package:bac_files/core/injector/app_injection.dart';
+import 'package:bac_files/features/managers/data/datasources/managers_local_data_source.dart';
+import 'package:bac_files/features/managers/data/datasources/managers_remote_datasource.dart';
+import 'package:bac_files/features/managers/data/repositories/managers_remote_datasource_implement.dart';
+import 'package:bac_files/features/managers/domain/repositories/managers_repository.dart';
+import 'package:bac_files/features/managers/domain/usecases/categories/create_category_usecase.dart';
+import 'package:bac_files/features/managers/domain/usecases/categories/delete_category_usecase.dart';
+import 'package:bac_files/features/managers/domain/usecases/categories/select_categories_usecase.dart';
+import 'package:bac_files/features/managers/domain/usecases/categories/update_category_usecase.dart';
+import 'package:bac_files/features/managers/domain/usecases/materials/delete_material_usecase.dart';
+import 'package:bac_files/features/managers/domain/usecases/materials/select_materials_usecase.dart';
+import 'package:bac_files/features/managers/domain/usecases/materials/update_material_usecase.dart';
 
 import '../../features/managers/domain/usecases/select_managers_usecase.dart';
 import '../../features/managers/domain/usecases/materials/create_material_usecase.dart';
@@ -173,4 +173,3 @@ managersInjection() {
     ),
   );
 }
-

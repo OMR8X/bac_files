@@ -1,6 +1,6 @@
-import 'package:bac_files_admin/core/resources/errors/failures.dart';
-import 'package:bac_files_admin/features/files/domain/requests/download_file_request.dart';
-import 'package:bac_files_admin/features/files/domain/requests/upload_file_request.dart';
+import 'package:bac_files/core/resources/errors/failures.dart';
+import 'package:bac_files/features/files/domain/requests/download_file_request.dart';
+import 'package:bac_files/features/files/domain/requests/upload_file_request.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../data/responses/download_file_response.dart';

@@ -1,6 +1,5 @@
-import 'package:bac_files_admin/core/injector/app_injection.dart';
-import 'package:bac_files_admin/core/services/paths/app_paths.dart';
-
+import 'package:bac_files/core/injector/app_injection.dart';
+import 'package:bac_files/core/services/paths/app_paths.dart';
 
 pathsInjection() async {
   sl.registerSingleton<AppPaths>(AppPaths());

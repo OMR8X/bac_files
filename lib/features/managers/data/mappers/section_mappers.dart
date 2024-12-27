@@ -1,6 +1,5 @@
-import 'package:bac_files_admin/features/managers/data/models/file_section_model.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/file_section.dart';
-
+import 'package:bac_files/features/managers/data/models/file_section_model.dart';
+import 'package:bac_files/features/managers/domain/entities/file_section.dart';
 
 extension SectionMapper on FileSection {
   FileSectionModel get toModel {

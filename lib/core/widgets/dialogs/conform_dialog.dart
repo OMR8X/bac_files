@@ -1,6 +1,6 @@
-import 'package:bac_files_admin/core/resources/styles/padding_resources.dart';
-import 'package:bac_files_admin/core/resources/styles/sizes_resources.dart';
-import 'package:bac_files_admin/core/resources/styles/spaces_resources.dart';
+import 'package:bac_files/core/resources/styles/padding_resources.dart';
+import 'package:bac_files/core/resources/styles/sizes_resources.dart';
+import 'package:bac_files/core/resources/styles/spaces_resources.dart';
 import 'package:flutter/material.dart';
 
 showConformDialog({
@@ -10,7 +10,6 @@ showConformDialog({
   required String body,
   required String action,
 }) {
-
   showDialog(
     context: context,
     builder: (context) {

@@ -1,6 +1,6 @@
-import 'package:bac_files_admin/features/managers/data/mappers/material_mappers.dart';
-import 'package:bac_files_admin/features/managers/data/models/file_material_model.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/file_material.dart';
+import 'package:bac_files/features/managers/data/mappers/material_mappers.dart';
+import 'package:bac_files/features/managers/data/models/file_material_model.dart';
+import 'package:bac_files/features/managers/domain/entities/file_material.dart';
 
 import 'managers_base_converter.dart';
 

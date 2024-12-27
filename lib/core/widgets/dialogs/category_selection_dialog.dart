@@ -1,8 +1,8 @@
-import 'package:bac_files_admin/core/injector/app_injection.dart';
-import 'package:bac_files_admin/core/resources/styles/padding_resources.dart';
-import 'package:bac_files_admin/core/resources/styles/sizes_resources.dart';
-import 'package:bac_files_admin/core/resources/styles/spaces_resources.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/managers.dart';
+import 'package:bac_files/core/injector/app_injection.dart';
+import 'package:bac_files/core/resources/styles/padding_resources.dart';
+import 'package:bac_files/core/resources/styles/sizes_resources.dart';
+import 'package:bac_files/core/resources/styles/spaces_resources.dart';
+import 'package:bac_files/features/managers/domain/entities/managers.dart';
 import 'package:flutter/material.dart';
 
 import '../../resources/styles/border_radius_resources.dart';

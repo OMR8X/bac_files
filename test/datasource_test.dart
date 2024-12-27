@@ -1,12 +1,12 @@
 // import 'dart:io';
 
-// import 'package:bac_files_admin/core/services/api/api_manager.dart';
-// import 'package:bac_files_admin/core/services/cache/cache_client.dart';
-// import 'package:bac_files_admin/core/services/cache/cache_manager.dart';
-// import 'package:bac_files_admin/features/files/data/datasources/files_remote_datasource.dart';
-// import 'package:bac_files_admin/features/uploads/data/datasources/upload_operations_local_datasource.dart';
-// import 'package:bac_files_admin/features/uploads/domain/entities/operation_state.dart';
-// import 'package:bac_files_admin/features/uploads/domain/entities/upload_operation.dart';
+// import 'package:bac_files/core/services/api/api_manager.dart';
+// import 'package:bac_files/core/services/cache/cache_client.dart';
+// import 'package:bac_files/core/services/cache/cache_manager.dart';
+// import 'package:bac_files/features/files/data/datasources/files_remote_datasource.dart';
+// import 'package:bac_files/features/uploads/data/datasources/upload_operations_local_datasource.dart';
+// import 'package:bac_files/features/uploads/domain/entities/operation_state.dart';
+// import 'package:bac_files/features/uploads/domain/entities/upload_operation.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter_test/flutter_test.dart';
 // import 'package:mocktail/mocktail.dart';

@@ -1,5 +1,5 @@
-import 'package:bac_files_admin/core/services/debug/debugging_factory.dart';
-import 'package:bac_files_admin/core/services/debug/debugs_holder.dart';
+import 'package:bac_files/core/services/debug/debugging_factory.dart';
+import 'package:bac_files/core/services/debug/debugs_holder.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 import 'dart:developer' as developer;

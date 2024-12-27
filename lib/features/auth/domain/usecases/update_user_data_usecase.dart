@@ -1,4 +1,4 @@
-import 'package:bac_files_admin/features/auth/data/responses/update_user_data_response.dart';
+import 'package:bac_files/features/auth/data/responses/update_user_data_response.dart';
 
 import '../../../../core/resources/errors/failures.dart';
 import '../repositories/auth_repository.dart';

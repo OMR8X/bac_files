@@ -1,9 +1,9 @@
-import 'package:bac_files_admin/core/injector/app_injection.dart';
-import 'package:bac_files_admin/core/resources/styles/spaces_resources.dart';
-import 'package:bac_files_admin/core/resources/themes/extensions/surface_container_colors.dart';
-import 'package:bac_files_admin/core/widgets/animations/staggered_item_wrapper_widget.dart';
-import 'package:bac_files_admin/core/widgets/ui/fields/elevated_button_widget.dart';
-import 'package:bac_files_admin/presentation/auth/state/bloc/auth_bloc.dart';
+import 'package:bac_files/core/injector/app_injection.dart';
+import 'package:bac_files/core/resources/styles/spaces_resources.dart';
+import 'package:bac_files/core/resources/themes/extensions/surface_container_colors.dart';
+import 'package:bac_files/core/widgets/animations/staggered_item_wrapper_widget.dart';
+import 'package:bac_files/core/widgets/ui/fields/elevated_button_widget.dart';
+import 'package:bac_files/presentation/auth/state/bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 
 class AuthStartView extends StatefulWidget {

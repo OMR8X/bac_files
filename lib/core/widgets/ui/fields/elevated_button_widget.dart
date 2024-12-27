@@ -1,6 +1,6 @@
-import 'package:bac_files_admin/core/resources/styles/colors_resources.dart';
-import 'package:bac_files_admin/core/resources/styles/font_styles_manager.dart';
-import 'package:bac_files_admin/core/widgets/animations/staggered_item_wrapper_widget.dart';
+import 'package:bac_files/core/resources/styles/colors_resources.dart';
+import 'package:bac_files/core/resources/styles/font_styles_manager.dart';
+import 'package:bac_files/core/widgets/animations/staggered_item_wrapper_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';

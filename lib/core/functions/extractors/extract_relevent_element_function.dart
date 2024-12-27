@@ -1,4 +1,4 @@
-import 'package:bac_files_admin/core/functions/counters/similarity_score.dart';
+import 'package:bac_files/core/functions/counters/similarity_score.dart';
 
 T? extractRelevantElement<T>(String title, List<T> elements, String Function(T) getName) {
   //

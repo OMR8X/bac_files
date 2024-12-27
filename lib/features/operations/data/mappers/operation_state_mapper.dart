@@ -1,6 +1,4 @@
-
-
-import 'package:bac_files_admin/features/operations/domain/entities/operation_state.dart';
+import 'package:bac_files/features/operations/domain/entities/operation_state.dart';
 
 extension OperationStateMapper on String {
   OperationState get toOperationState {

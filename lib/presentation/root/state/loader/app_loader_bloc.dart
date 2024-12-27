@@ -1,7 +1,7 @@
-import 'package:bac_files_admin/core/injector/app_injection.dart';
-import 'package:bac_files_admin/core/resources/errors/failures.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/managers.dart';
-import 'package:bac_files_admin/features/managers/domain/usecases/select_managers_usecase.dart';
+import 'package:bac_files/core/injector/app_injection.dart';
+import 'package:bac_files/core/resources/errors/failures.dart';
+import 'package:bac_files/features/managers/domain/entities/managers.dart';
+import 'package:bac_files/features/managers/domain/usecases/select_managers_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';

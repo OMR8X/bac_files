@@ -1,8 +1,8 @@
-import 'package:bac_files_admin/core/injector/app_injection.dart';
-import 'package:bac_files_admin/features/operations/data/mappers/operation_mapper.dart';
-import 'package:bac_files_admin/features/operations/data/models/operation_model.dart';
-import 'package:bac_files_admin/features/operations/domain/entities/operation_type.dart';
-import 'package:bac_files_admin/features/uploads/domain/entities/background_uploads_state.dart';
+import 'package:bac_files/core/injector/app_injection.dart';
+import 'package:bac_files/features/operations/data/mappers/operation_mapper.dart';
+import 'package:bac_files/features/operations/data/models/operation_model.dart';
+import 'package:bac_files/features/operations/domain/entities/operation_type.dart';
+import 'package:bac_files/features/uploads/domain/entities/background_uploads_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 

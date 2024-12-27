@@ -1,8 +1,7 @@
-
-import 'package:bac_files_admin/features/files/domain/usecases/get_file_usecase.dart';
-import 'package:bac_files_admin/features/files/domain/usecases/update_file_usecase.dart';
-import 'package:bac_files_admin/features/managers/domain/requests/select_entity_request.dart';
-import 'package:bac_files_admin/features/managers/domain/requests/update_entity_request.dart';
+import 'package:bac_files/features/files/domain/usecases/get_file_usecase.dart';
+import 'package:bac_files/features/files/domain/usecases/update_file_usecase.dart';
+import 'package:bac_files/features/managers/domain/requests/select_entity_request.dart';
+import 'package:bac_files/features/managers/domain/requests/update_entity_request.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 

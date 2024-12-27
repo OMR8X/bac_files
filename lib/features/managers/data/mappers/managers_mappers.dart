@@ -1,5 +1,5 @@
-import 'package:bac_files_admin/features/managers/data/models/managers_model.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/managers.dart';
+import 'package:bac_files/features/managers/data/models/managers_model.dart';
+import 'package:bac_files/features/managers/domain/entities/managers.dart';
 
 extension ManagerMapper on FileManagers {
   FileManagersModel get toModel {

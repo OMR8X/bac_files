@@ -1,14 +1,14 @@
 import 'dart:math';
 
-import 'package:bac_files_admin/core/resources/errors/failures.dart';
-import 'package:bac_files_admin/core/services/router/index.dart';
-import 'package:bac_files_admin/features/auth/domain/requests/sign_out_request.dart';
-import 'package:bac_files_admin/features/auth/domain/requests/update_user_data_request.dart';
-import 'package:bac_files_admin/features/auth/domain/usecases/get_user_data_usecase.dart';
-import 'package:bac_files_admin/features/auth/domain/usecases/sign_in_usecase.dart';
-import 'package:bac_files_admin/features/auth/domain/usecases/sign_out_usecase.dart';
-import 'package:bac_files_admin/features/auth/domain/usecases/sign_up_usecase.dart';
-import 'package:bac_files_admin/features/auth/domain/usecases/update_user_data_usecase.dart';
+import 'package:bac_files/core/resources/errors/failures.dart';
+import 'package:bac_files/core/services/router/index.dart';
+import 'package:bac_files/features/auth/domain/requests/sign_out_request.dart';
+import 'package:bac_files/features/auth/domain/requests/update_user_data_request.dart';
+import 'package:bac_files/features/auth/domain/usecases/get_user_data_usecase.dart';
+import 'package:bac_files/features/auth/domain/usecases/sign_in_usecase.dart';
+import 'package:bac_files/features/auth/domain/usecases/sign_out_usecase.dart';
+import 'package:bac_files/features/auth/domain/usecases/sign_up_usecase.dart';
+import 'package:bac_files/features/auth/domain/usecases/update_user_data_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';

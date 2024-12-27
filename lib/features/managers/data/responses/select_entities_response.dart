@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:bac_files_admin/core/services/api/responses/api_response.dart';
-import 'package:bac_files_admin/features/managers/data/converters/managers_base_converter.dart';
+import 'package:bac_files/core/services/api/responses/api_response.dart';
+import 'package:bac_files/features/managers/data/converters/managers_base_converter.dart';
 
 class SelectEntitiesResponse<Entity> {
   final int? lastPage;

@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:bac_files_admin/core/services/api/api_constants.dart';
-import 'package:bac_files_admin/core/services/api/api_manager.dart';
+import 'package:bac_files/core/services/api/api_constants.dart';
+import 'package:bac_files/core/services/api/api_manager.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 

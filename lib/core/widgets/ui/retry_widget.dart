@@ -1,5 +1,5 @@
-import 'package:bac_files_admin/core/resources/errors/failures.dart';
-import 'package:bac_files_admin/core/widgets/ui/fields/elevated_button_widget.dart';
+import 'package:bac_files/core/resources/errors/failures.dart';
+import 'package:bac_files/core/widgets/ui/fields/elevated_button_widget.dart';
 import 'package:flutter/cupertino.dart';
 
 class FailureWidget extends StatelessWidget {

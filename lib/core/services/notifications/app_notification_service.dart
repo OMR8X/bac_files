@@ -1,5 +1,5 @@
-import 'package:bac_files_admin/core/services/notifications/local/app_local_notifications.dart';
-import 'package:bac_files_admin/core/services/notifications/local/app_local_notifications_settings.dart';
+import 'package:bac_files/core/services/notifications/local/app_local_notifications.dart';
+import 'package:bac_files/core/services/notifications/local/app_local_notifications_settings.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 abstract class AppNotificationsService {

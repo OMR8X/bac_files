@@ -1,8 +1,8 @@
-import 'package:bac_files_admin/core/injector/app_injection.dart';
-import 'package:bac_files_admin/core/services/router/index.dart';
-import 'package:bac_files_admin/presentation/root/state/loader/app_loader_bloc.dart';
-import 'package:bac_files_admin/presentation/root/state/theme/app_theme_bloc.dart';
-import 'package:bac_files_admin/presentation/uploads/state/uploads/uploads_bloc.dart';
+import 'package:bac_files/core/injector/app_injection.dart';
+import 'package:bac_files/core/services/router/index.dart';
+import 'package:bac_files/presentation/root/state/loader/app_loader_bloc.dart';
+import 'package:bac_files/presentation/root/state/theme/app_theme_bloc.dart';
+import 'package:bac_files/presentation/uploads/state/uploads/uploads_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

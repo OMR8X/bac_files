@@ -1,5 +1,4 @@
-import 'package:bac_files_admin/core/services/debug/debugging_client.dart';
-
+import 'package:bac_files/core/services/debug/debugging_client.dart';
 
 class DebuggingManager {
   late final DebuggingClient _debuggingClient;

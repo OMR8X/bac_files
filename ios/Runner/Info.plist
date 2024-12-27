@@ -29,7 +29,7 @@
         <true/>
     </dict>
 	<key>CFBundleName</key>
-	<string>bac_files_admin</string>
+	<string>bac_files</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

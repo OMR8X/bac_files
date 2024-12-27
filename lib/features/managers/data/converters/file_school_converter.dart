@@ -1,4 +1,4 @@
-import 'package:bac_files_admin/features/managers/data/mappers/school_mappers.dart';
+import 'package:bac_files/features/managers/data/mappers/school_mappers.dart';
 import '../../domain/entities/school.dart';
 import '../models/file_school_model.dart';
 import 'managers_base_converter.dart';

@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:bac_files_admin/core/resources/styles/font_styles_manager.dart';
+import 'package:bac_files/core/resources/styles/font_styles_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

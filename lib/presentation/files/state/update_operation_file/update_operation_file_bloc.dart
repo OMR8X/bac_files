@@ -1,7 +1,6 @@
-
-import 'package:bac_files_admin/features/files/domain/entities/bac_file.dart';
-import 'package:bac_files_admin/features/operations/domain/entities/operation_type.dart';
-import 'package:bac_files_admin/presentation/uploads/state/uploads/uploads_bloc.dart';
+import 'package:bac_files/features/files/domain/entities/bac_file.dart';
+import 'package:bac_files/features/operations/domain/entities/operation_type.dart';
+import 'package:bac_files/presentation/uploads/state/uploads/uploads_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 

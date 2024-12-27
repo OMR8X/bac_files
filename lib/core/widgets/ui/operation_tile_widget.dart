@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:bac_files_admin/core/resources/themes/extensions/success_colors.dart';
-import 'package:bac_files_admin/core/resources/themes/extensions/surface_container_colors.dart';
-import 'package:bac_files_admin/core/widgets/dialogs/conform_dialog.dart';
-import 'package:bac_files_admin/features/operations/domain/entities/operation_type.dart';
+import 'package:bac_files/core/resources/themes/extensions/success_colors.dart';
+import 'package:bac_files/core/resources/themes/extensions/surface_container_colors.dart';
+import 'package:bac_files/core/widgets/dialogs/conform_dialog.dart';
+import 'package:bac_files/features/operations/domain/entities/operation_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 

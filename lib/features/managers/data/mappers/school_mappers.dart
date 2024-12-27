@@ -1,5 +1,5 @@
-import 'package:bac_files_admin/features/managers/data/models/file_school_model.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/school.dart';
+import 'package:bac_files/features/managers/data/models/file_school_model.dart';
+import 'package:bac_files/features/managers/domain/entities/school.dart';
 
 extension SchoolMapper on FileSchool {
   FileSchoolModel get toModel {

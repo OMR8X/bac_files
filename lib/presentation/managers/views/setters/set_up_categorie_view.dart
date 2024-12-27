@@ -1,10 +1,10 @@
-import 'package:bac_files_admin/core/widgets/ui/fields/elevated_button_widget.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/file_category.dart';
-import 'package:bac_files_admin/features/managers/domain/requests/create_entity_request.dart';
-import 'package:bac_files_admin/features/managers/domain/requests/update_entity_request.dart';
-import 'package:bac_files_admin/features/managers/domain/usecases/categories/create_category_usecase.dart';
-import 'package:bac_files_admin/features/managers/domain/usecases/categories/update_category_usecase.dart';
-import 'package:bac_files_admin/presentation/managers/state/managers_view/managers_view_bloc.dart';
+import 'package:bac_files/core/widgets/ui/fields/elevated_button_widget.dart';
+import 'package:bac_files/features/managers/domain/entities/file_category.dart';
+import 'package:bac_files/features/managers/domain/requests/create_entity_request.dart';
+import 'package:bac_files/features/managers/domain/requests/update_entity_request.dart';
+import 'package:bac_files/features/managers/domain/usecases/categories/create_category_usecase.dart';
+import 'package:bac_files/features/managers/domain/usecases/categories/update_category_usecase.dart';
+import 'package:bac_files/presentation/managers/state/managers_view/managers_view_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';

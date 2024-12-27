@@ -1,4 +1,4 @@
-import 'package:bac_files_admin/core/services/notifications/local/app_local_notifications_settings.dart';
+import 'package:bac_files/core/services/notifications/local/app_local_notifications_settings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';

@@ -1,4 +1,4 @@
-import 'package:bac_files_admin/core/resources/styles/colors_resources.dart';
+import 'package:bac_files/core/resources/styles/colors_resources.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -43,8 +43,8 @@ class TextButtonWidget extends StatelessWidget {
                 surfaceTintColor: Colors.transparent,
                 shape: RoundedRectangleBorder(
                   side: BorderSide(
-                    // color: borderColor ?? ColorsResources.border,
-                  ),
+                      // color: borderColor ?? ColorsResources.border,
+                      ),
                   borderRadius: BorderRadius.circular(
                     8,
                   ),

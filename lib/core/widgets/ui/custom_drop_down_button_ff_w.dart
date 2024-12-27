@@ -1,4 +1,4 @@
-import 'package:bac_files_admin/core/resources/styles/sizes_resources.dart';
+import 'package:bac_files/core/resources/styles/sizes_resources.dart';
 import 'package:flutter/material.dart';
 
 class DropdownButtonWidget extends StatefulWidget {

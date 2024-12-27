@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:ui';
 
-import 'package:bac_files_admin/core/injector/app_injection.dart';
-import 'package:bac_files_admin/core/services/notifications/local/app_local_notifications.dart';
-import 'package:bac_files_admin/core/services/notifications/local/app_local_notifications_settings.dart';
+import 'package:bac_files/core/injector/app_injection.dart';
+import 'package:bac_files/core/services/notifications/local/app_local_notifications.dart';
+import 'package:bac_files/core/services/notifications/local/app_local_notifications_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 
@@ -91,10 +91,9 @@ class AppBackgroundServiceImplements implements AppBackgroundService {
       //
       await Future.delayed(Durations.medium4);
       //
-       
+
       return;
     } on Exception catch (e) {
-       
       return;
     }
   }
@@ -141,7 +140,6 @@ onStart(ServiceInstance service) async {
     //     content: "Updated at ${DateTime.now()}",
     //   );
     // }
-
 
     service.invoke(
       'update',

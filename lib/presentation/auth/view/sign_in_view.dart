@@ -1,5 +1,5 @@
-import 'package:bac_files_admin/core/injector/app_injection.dart';
-import 'package:bac_files_admin/core/widgets/ui/fields/text_form_field_widget.dart';
+import 'package:bac_files/core/injector/app_injection.dart';
+import 'package:bac_files/core/widgets/ui/fields/text_form_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/helpers/input_validator.dart';

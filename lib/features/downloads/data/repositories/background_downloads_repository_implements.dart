@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:bac_files_admin/core/resources/errors/failures.dart';
-import 'package:bac_files_admin/features/files/data/responses/download_file_response.dart';
+import 'package:bac_files/core/resources/errors/failures.dart';
+import 'package:bac_files/features/files/data/responses/download_file_response.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import '../../../../core/services/cache/cache_manager.dart';

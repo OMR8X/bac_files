@@ -1,4 +1,4 @@
-import 'package:bac_files_admin/features/managers/data/converters/managers_base_converter.dart';
+import 'package:bac_files/features/managers/data/converters/managers_base_converter.dart';
 
 class CreateEntityRequest<Entity> {
   final Entity entity;

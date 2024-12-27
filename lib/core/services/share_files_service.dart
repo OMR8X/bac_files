@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bac_files_admin/presentation/uploads/state/uploads/uploads_bloc.dart';
+import 'package:bac_files/presentation/uploads/state/uploads/uploads_bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';

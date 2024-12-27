@@ -1,4 +1,4 @@
-import 'package:bac_files_admin/features/auth/domain/entites/user_data.dart';
+import 'package:bac_files/features/auth/domain/entites/user_data.dart';
 
 class UserDataModel extends UserData {
   UserDataModel({

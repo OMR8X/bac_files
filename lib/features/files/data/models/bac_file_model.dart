@@ -1,5 +1,5 @@
-import 'package:bac_files_admin/features/files/domain/entities/bac_file.dart';
-import 'package:bac_files_admin/features/managers/data/models/category_model.dart';
+import 'package:bac_files/features/files/domain/entities/bac_file.dart';
+import 'package:bac_files/features/managers/data/models/category_model.dart';
 
 class BacFileModel extends BacFile {
   const BacFileModel({

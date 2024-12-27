@@ -1,5 +1,5 @@
-import 'package:bac_files_admin/presentation/files/state/explore_file/explore_file_bloc.dart';
-import 'package:bac_files_admin/presentation/files/views/file_information_view.dart';
+import 'package:bac_files/presentation/files/state/explore_file/explore_file_bloc.dart';
+import 'package:bac_files/presentation/files/views/file_information_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';

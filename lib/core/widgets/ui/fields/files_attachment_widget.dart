@@ -1,4 +1,4 @@
-import 'package:bac_files_admin/core/resources/styles/spaces_resources.dart';
+import 'package:bac_files/core/resources/styles/spaces_resources.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,4 @@
-import 'package:bac_files_admin/features/managers/data/mappers/section_mappers.dart';
+import 'package:bac_files/features/managers/data/mappers/section_mappers.dart';
 import '../../domain/entities/file_section.dart';
 import '../models/file_section_model.dart';
 import 'managers_base_converter.dart';

@@ -1,9 +1,9 @@
-import 'package:bac_files_admin/core/resources/styles/border_radius_resources.dart';
-import 'package:bac_files_admin/core/resources/styles/padding_resources.dart';
-import 'package:bac_files_admin/core/resources/styles/spaces_resources.dart';
-import 'package:bac_files_admin/core/resources/themes/extensions/surface_container_colors.dart';
-import 'package:bac_files_admin/core/widgets/ui/fields/elevated_button_widget.dart';
-import 'package:bac_files_admin/core/widgets/ui/fields/text_button_widget.dart';
+import 'package:bac_files/core/resources/styles/border_radius_resources.dart';
+import 'package:bac_files/core/resources/styles/padding_resources.dart';
+import 'package:bac_files/core/resources/styles/spaces_resources.dart';
+import 'package:bac_files/core/resources/themes/extensions/surface_container_colors.dart';
+import 'package:bac_files/core/widgets/ui/fields/elevated_button_widget.dart';
+import 'package:bac_files/core/widgets/ui/fields/text_button_widget.dart';
 import 'package:flutter/material.dart';
 
 void listSelectionDialog<T>({

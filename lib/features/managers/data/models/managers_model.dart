@@ -1,11 +1,11 @@
-import 'package:bac_files_admin/features/managers/data/models/category_model.dart';
-import 'package:bac_files_admin/features/managers/data/models/file_material_model.dart';
-import 'package:bac_files_admin/features/managers/data/models/file_school_model.dart';
-import 'package:bac_files_admin/features/managers/data/models/file_section_model.dart';
-import 'package:bac_files_admin/features/managers/data/models/file_teacher_model.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/file_category.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/managers.dart';
-import 'package:bac_files_admin/features/managers/domain/entities/file_material.dart';
+import 'package:bac_files/features/managers/data/models/category_model.dart';
+import 'package:bac_files/features/managers/data/models/file_material_model.dart';
+import 'package:bac_files/features/managers/data/models/file_school_model.dart';
+import 'package:bac_files/features/managers/data/models/file_section_model.dart';
+import 'package:bac_files/features/managers/data/models/file_teacher_model.dart';
+import 'package:bac_files/features/managers/domain/entities/file_category.dart';
+import 'package:bac_files/features/managers/domain/entities/managers.dart';
+import 'package:bac_files/features/managers/domain/entities/file_material.dart';
 
 import '../../domain/entities/school.dart';
 import '../../domain/entities/file_section.dart';

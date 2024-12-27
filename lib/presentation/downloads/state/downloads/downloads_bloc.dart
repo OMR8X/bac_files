@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'package:bac_files_admin/core/injector/app_injection.dart';
-import 'package:bac_files_admin/core/resources/errors/failures.dart';
-import 'package:bac_files_admin/core/services/paths/app_paths.dart';
-import 'package:bac_files_admin/features/files/domain/entities/bac_file.dart';
-import 'package:bac_files_admin/features/operations/domain/entities/operation_type.dart';
+import 'package:bac_files/core/injector/app_injection.dart';
+import 'package:bac_files/core/resources/errors/failures.dart';
+import 'package:bac_files/core/services/paths/app_paths.dart';
+import 'package:bac_files/features/files/domain/entities/bac_file.dart';
+import 'package:bac_files/features/operations/domain/entities/operation_type.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';

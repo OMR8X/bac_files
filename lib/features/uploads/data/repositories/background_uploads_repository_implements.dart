@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:bac_files_admin/core/resources/errors/failures.dart';
-import 'package:bac_files_admin/features/files/data/responses/upload_file_response.dart';
-import 'package:bac_files_admin/features/uploads/data/datasources/background_uploads_data_source.dart';
-import 'package:bac_files_admin/features/uploads/domain/repositories/background_uploads_repository.dart';
+import 'package:bac_files/core/resources/errors/failures.dart';
+import 'package:bac_files/features/files/data/responses/upload_file_response.dart';
+import 'package:bac_files/features/uploads/data/datasources/background_uploads_data_source.dart';
+import 'package:bac_files/features/uploads/domain/repositories/background_uploads_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 
